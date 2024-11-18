@@ -176,9 +176,11 @@ export function SidebarHeader({
   );
 }
 
-interface SidebarContentProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function SidebarContent({ className, children, ...props }: SidebarContentProps) {
+export function SidebarContent({ 
+  className, 
+  children, 
+  ...props 
+}: React.HTMLAttributes<HTMLDivElement>) {
   const { expanded } = useSidebar();
   return (
     <div
@@ -194,9 +196,11 @@ export function SidebarContent({ className, children, ...props }: SidebarContent
   );
 }
 
-interface SidebarFooterProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function SidebarFooter({ className, children, ...props }: SidebarFooterProps) {
+export function SidebarFooter({ 
+  className, 
+  children, 
+  ...props 
+}: React.HTMLAttributes<HTMLDivElement>) {
   const { expanded } = useSidebar();
   return (
     <div
@@ -299,7 +303,6 @@ interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   defaultOpen?: boolean;
   href?: string;
-  onAction?: () => void;
   isRoot?: boolean;
   icon?: React.ReactNode;
   section?: string;
@@ -310,7 +313,6 @@ export function SidebarGroup({
   title,
   defaultOpen = false,
   href,
-  onAction,
   isRoot = false,
   icon,
   section,
@@ -462,9 +464,10 @@ export function SidebarGroup({
   );
 }
 
-interface SidebarSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {}
-
-export function SidebarSeparator({ className, ...props }: SidebarSeparatorProps) {
+export function SidebarSeparator({ 
+  className, 
+  ...props 
+}: React.HTMLAttributes<HTMLDivElement>) {
   const { expanded } = useSidebar();
   return (
     <div

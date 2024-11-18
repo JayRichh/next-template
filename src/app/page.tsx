@@ -3,6 +3,7 @@ import { Text } from '@/components/ui/Text';
 import { Card, CardContent } from '@/components/ui/Card';
 import { GradientBackground } from '@/components/ui/GradientBackground';
 import { Button } from '@/components/ui/Button';
+import { Badge } from '@/components/ui/Badge';
 import Link from 'next/link';
 
 export default function HomePage() {
@@ -28,6 +29,16 @@ export default function HomePage() {
                 <Button variant="secondary" size="lg">View Examples</Button>
               </Link>
             </div>
+          </div>
+
+          {/* Tech versions */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Badge variant="secondary" size="md">Next.js 15.0.3</Badge>
+            <Badge variant="secondary" size="md">React 18.2.0</Badge>
+            <Badge variant="secondary" size="md">TypeScript 5</Badge>
+            <Badge variant="secondary" size="md">Three.js 0.170.0</Badge>
+            <Badge variant="secondary" size="md">Tailwind CSS 3.4.1</Badge>
+            <Badge variant="secondary" size="md">Framer Motion 11.11.17</Badge>
           </div>
 
           {/* Features grid */}
@@ -85,17 +96,6 @@ export default function HomePage() {
                 </Text>
               </CardContent>
             </Card>
-          </div>
-
-          {/* Tech versions */}
-          <div className="pt-8 border-t border-border">
-            <div className="flex flex-wrap justify-center gap-x-8 gap-y-2 text-sm text-foreground-secondary">
-              <span>Next.js 15.0.3</span>
-              <span>React 18.2.0</span>
-              <span>TypeScript 5</span>
-              <span>Three.js 0.170.0</span>
-              <span>Tailwind CSS 3.4.1</span>
-            </div>
           </div>
         </div>
       </Container>

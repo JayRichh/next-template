@@ -1,7 +1,10 @@
+'use client';
+
+import * as React from 'react';
 import { motion } from 'framer-motion';
 import { cn } from '@/utils/cn';
 
-type BadgeVariant = 'default' | 'outline' | 'solid';
+type BadgeVariant = 'default' | 'outline' | 'solid' | 'secondary';
 type BadgeColor = 'primary' | 'success' | 'warning' | 'error' | 'info';
 type BadgeSize = 'sm' | 'md' | 'lg';
 
@@ -17,13 +20,7 @@ interface BadgeProps {
   className?: string;
 }
 
-const variants: Record<BadgeVariant, string> = {
-  default: 'bg-opacity-15 border-transparent',
-  outline: 'bg-transparent border-2',
-  solid: 'text-white border-transparent',
-};
-
-const colors: Record<BadgeColor, { base: string, solid: string }> = {
+const colors: Record<BadgeColor, { base: string; solid: string }> = {
   primary: {
     base: 'text-primary border-primary',
     solid: 'bg-primary',
@@ -69,11 +66,13 @@ export function Badge({
     'font-medium rounded-full',
     'transition-colors duration-200',
     sizes[size],
-    variant === 'solid' 
+    variant === 'solid'
       ? colorStyle.solid
       : cn(
           colorStyle.base,
-          variant === 'default' && `bg-${color}-100 dark:bg-${color}-900/20`
+          variant === 'default' && `bg-${color}-100 dark:bg-${color}-900/20`,
+          variant === 'outline' && 'bg-transparent',
+          variant === 'secondary' && 'bg-muted/50 text-muted-foreground hover:bg-muted/80 border border-muted'
         ),
     className
   );
@@ -86,32 +85,36 @@ export function Badge({
     >
       {pulse && (
         <span className="relative flex h-2 w-2">
-          <span className={cn(
-            "animate-ping absolute inline-flex h-full w-full rounded-full opacity-75",
-            variant === 'solid' ? 'bg-white' : colorStyle.base
-          )} />
-          <span className={cn(
-            "relative inline-flex rounded-full h-2 w-2",
-            variant === 'solid' ? 'bg-white' : colorStyle.base
-          )} />
+          <span
+            className={cn(
+              'animate-ping absolute inline-flex h-full w-full rounded-full opacity-75',
+              variant === 'solid' ? 'bg-white' : colorStyle.base
+            )}
+          />
+          <span
+            className={cn(
+              'relative inline-flex rounded-full h-2 w-2',
+              variant === 'solid' ? 'bg-white' : colorStyle.base
+            )}
+          />
         </span>
       )}
-      
+
       {icon && <span className="flex-shrink-0">{icon}</span>}
       <span className="truncate">{children}</span>
-      
+
       {removable && (
         <button
           onClick={onRemove}
           className={cn(
-            "flex-shrink-0 ml-1 -mr-1 p-0.5",
-            "hover:bg-black/10 dark:hover:bg-white/10",
-            "rounded-full transition-colors",
-            "focus:outline-none focus:ring-2 focus:ring-current/25"
+            'flex-shrink-0 ml-1 -mr-1 p-0.5',
+            'hover:bg-black/10 dark:hover:bg-white/10',
+            'rounded-full transition-colors',
+            'focus:outline-none focus:ring-2 focus:ring-current/25'
           )}
         >
-          <svg 
-            className="w-3 h-3" 
+          <svg
+            className="w-3 h-3"
             viewBox="0 0 12 12"
             fill="none"
             stroke="currentColor"
@@ -125,97 +128,3 @@ export function Badge({
     </motion.span>
   );
 }
-
-// Example usage:
-export function BadgeDemo() {
-  return (
-    <div className="space-y-8">
-      {/* Variants */}
-      <div className="space-y-4">
-        <div className="text-sm font-medium text-foreground/70">Badge Variants</div>
-        <div className="flex flex-wrap gap-4">
-          <Badge>Default</Badge>
-          <Badge variant="outline">Outline</Badge>
-          <Badge variant="solid">Solid</Badge>
-        </div>
-      </div>
-
-      {/* Colors */}
-      <div className="space-y-4">
-        <div className="text-sm font-medium text-foreground/70">Badge Colors</div>
-        <div className="flex flex-wrap gap-4">
-          <Badge color="primary" variant="solid">Primary</Badge>
-          <Badge color="success" variant="solid">Success</Badge>
-          <Badge color="warning" variant="solid">Warning</Badge>
-          <Badge color="error" variant="solid">Error</Badge>
-          <Badge color="info" variant="solid">Info</Badge>
-        </div>
-        <div className="flex flex-wrap gap-4">
-          <Badge color="primary">Primary</Badge>
-          <Badge color="success">Success</Badge>
-          <Badge color="warning">Warning</Badge>
-          <Badge color="error">Error</Badge>
-          <Badge color="info">Info</Badge>
-        </div>
-      </div>
-
-      {/* Sizes */}
-      <div className="space-y-4">
-        <div className="text-sm font-medium text-foreground/70">Badge Sizes</div>
-        <div className="flex flex-wrap gap-4 items-center">
-          <Badge size="sm" variant="solid">Small</Badge>
-          <Badge size="md" variant="solid">Medium</Badge>
-          <Badge size="lg" variant="solid">Large</Badge>
-        </div>
-      </div>
-
-      {/* With Icons */}
-      <div className="space-y-4">
-        <div className="text-sm font-medium text-foreground/70">With Icons & Pulse</div>
-        <div className="flex flex-wrap gap-4">
-          <Badge icon="🚀" variant="solid">Launching</Badge>
-          <Badge icon="✨" variant="outline">New</Badge>
-          <Badge pulse variant="solid">Live</Badge>
-          <Badge 
-            removable 
-            onRemove={() => console.log('removed')}
-            variant="solid"
-          >
-            Removable
-          </Badge>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Code preview
-export const badgeCode = `// Badge Component Usage
-// Basic usage
-<Badge>Default Badge</Badge>
-
-// Variants
-<Badge variant="outline">Outline</Badge>
-<Badge variant="solid">Solid</Badge>
-
-// Colors
-<Badge color="success" variant="solid">
-  Success
-</Badge>
-<Badge color="error">Error</Badge>
-
-// Sizes
-<Badge size="sm">Small</Badge>
-<Badge size="lg">Large</Badge>
-
-// With icons and pulse
-<Badge icon="🚀">Launching</Badge>
-<Badge pulse>Live</Badge>
-
-// Removable badge
-<Badge 
-  removable 
-  onRemove={() => console.log('removed')}
->
-  Click × to remove
-</Badge>`;

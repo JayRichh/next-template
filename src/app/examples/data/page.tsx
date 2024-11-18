@@ -34,7 +34,7 @@ export default function FormExample() {
 import { useState } from 'react';
 
 export default function DataSelectExample() {
-  const [selected, setSelected] = useState(null);
+  const [selected, setSelected] = useState('');
   
   const options = [
     { value: '1', label: 'Option 1' },
@@ -52,7 +52,7 @@ export default function DataSelectExample() {
       />
       {selected && (
         <div className="p-4 bg-gray-100 rounded-lg">
-          Selected: {selected.label}
+          Selected: {options.find(opt => opt.value === selected)?.label}
         </div>
       )}
     </div>
@@ -101,7 +101,7 @@ export default function LocalStorageExample() {
 ];
 
 function DataSelectExample() {
-  const [selected, setSelected] = useState<any>(null);
+  const [selected, setSelected] = useState('');
   
   const options = [
     { value: '1', label: 'Option 1' },
@@ -119,7 +119,7 @@ function DataSelectExample() {
       />
       {selected && (
         <div className="p-4 bg-gray-100 rounded-lg">
-          Selected: {selected.label}
+          Selected: {options.find(opt => opt.value === selected)?.label}
         </div>
       )}
     </div>

@@ -119,29 +119,6 @@ export default function ExamplesLayout({
 }) {
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const section = searchParams.get('section');
-
-  // Find current category based on pathname
-  const currentCategory = categories.find(cat => pathname.startsWith(cat.href));
-
-  // Handle navigation with proper focus
-  const handleNavigation = (href: string, itemId?: string) => {
-    const url = itemId ? `${href}?section=${itemId}` : href;
-    router.push(url);
-
-    // Allow time for navigation and DOM update
-    setTimeout(() => {
-      if (itemId) {
-        const element = document.getElementById(itemId);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }, 100);
-  };
 
   return (
     <SidebarProvider defaultExpanded={false}>
@@ -171,7 +148,6 @@ export default function ExamplesLayout({
                   title={category.label}
                   defaultOpen={isCategoryActive}
                   href={category.href}
-                  onAction={() => handleNavigation(category.href)}
                   icon={<Icon className="h-4 w-4" />}
                   isRoot={category.id === 'overview'}
                   section={isExactPath ? category.id : undefined}

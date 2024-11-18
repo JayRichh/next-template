@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { CodePreview } from '@/components/ui/CodePreview';
 import { componentCategories, allExamples } from './components';

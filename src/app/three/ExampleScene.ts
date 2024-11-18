@@ -2,6 +2,9 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
+type MaterialProperty = 'color' | 'metalness' | 'roughness' | 'envMapIntensity';
+type MaterialValue = string | number;
+
 export class DemoScene {
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
@@ -125,10 +128,17 @@ export class DemoScene {
     this.renderer.render(this.scene, this.camera);
   };
 
-  public updateMaterialProperty(property: string, value: any): void {
+  public updateMaterialProperty(property: MaterialProperty, value: MaterialValue): void {
     if (this.mesh.material instanceof THREE.MeshStandardMaterial) {
-      (this.mesh.material as any)[property] = value;
-      this.mesh.material.needsUpdate = true;
+      const material = this.mesh.material;
+      
+      if (property === 'color' && typeof value === 'string') {
+        material.color.set(value);
+      } else if (property !== 'color' && typeof value === 'number') {
+        material[property] = value;
+      }
+      
+      material.needsUpdate = true;
     }
   }
 

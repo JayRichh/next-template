@@ -11,6 +11,8 @@ interface PhysicsObject {
   update: (deltaTime: number) => void;
 }
 
+type MaterialProperty = 'metalness' | 'roughness' | 'clearcoat' | 'transmission' | 'ior' | 'thickness' | 'color';
+
 export class ThreeScene {
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
@@ -129,7 +131,7 @@ export class ThreeScene {
       acceleration,
       boundingBox,
       isStatic,
-      update: function (deltaTime: number) {
+      update: function(deltaTime: number) {
         if (!isStatic) {
           velocity.add(acceleration.clone().multiplyScalar(deltaTime));
           mesh.position.add(velocity.clone().multiplyScalar(deltaTime));
@@ -313,7 +315,7 @@ export class ThreeScene {
     }
   }
 
-  private updateParticles(deltaTime: number): void {
+  private updateParticles(): void {
     const particles = this.scene.children.find((child) => child instanceof THREE.Points) as THREE.Points;
     if (!particles) return;
 
@@ -344,7 +346,7 @@ export class ThreeScene {
     const deltaTime = Math.min(this.clock.getDelta(), 0.1);
 
     this.updatePhysics(deltaTime);
-    this.updateParticles(deltaTime);
+    this.updateParticles();
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
 
@@ -360,24 +362,14 @@ export class ThreeScene {
     this.renderer.setSize(width, height);
   };
 
-  public setMainMeshMaterial(property: string, value: number | string): void {
+  public setMainMeshMaterial(property: MaterialProperty, value: number | string): void {
     if (this.mainMesh.material instanceof THREE.MeshPhysicalMaterial) {
-      switch (property) {
-        case 'metalness':
-        case 'roughness':
-        case 'clearcoat':
-        case 'transmission':
-        case 'ior':
-        case 'thickness':
-          if (typeof value === 'number') {
-            (this.mainMesh.material as any)[property] = value;
-          }
-          break;
-        case 'color':
-          if (typeof value === 'string') {
-            this.mainMesh.material.color.set(value);
-          }
-          break;
+      const material = this.mainMesh.material;
+      
+      if (property === 'color' && typeof value === 'string') {
+        material.color.set(value);
+      } else if (property !== 'color' && typeof value === 'number') {
+        material[property] = value;
       }
     }
   }
