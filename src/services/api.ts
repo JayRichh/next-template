@@ -2,6 +2,11 @@ import { BaseResponse, ApiError } from '@/types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
+// Generic type for request data
+interface RequestData {
+  [key: string]: unknown;
+}
+
 class ApiService {
   private static instance: ApiService;
 
@@ -43,7 +48,7 @@ class ApiService {
     }
   }
 
-  async post<T extends BaseResponse>(endpoint: string, data: any): Promise<T> {
+  async post<T extends BaseResponse>(endpoint: string, data: RequestData): Promise<T> {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'POST',
@@ -56,7 +61,7 @@ class ApiService {
     }
   }
 
-  async put<T extends BaseResponse>(endpoint: string, data: any): Promise<T> {
+  async put<T extends BaseResponse>(endpoint: string, data: RequestData): Promise<T> {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
         method: 'PUT',
@@ -81,11 +86,18 @@ class ApiService {
     }
   }
 
-  private handleError(error: any): ApiError {
+  private handleError(error: unknown): ApiError {
+    if (error instanceof Error) {
+      return {
+        success: false,
+        error: error.message,
+        code: (error as { status?: number }).status || 500,
+      };
+    }
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'An unexpected error occurred',
-      code: error.status || 500,
+      error: 'An unexpected error occurred',
+      code: 500,
     };
   }
 }

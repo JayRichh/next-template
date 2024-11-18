@@ -11,12 +11,10 @@ import {
   Layers,
   Paintbrush,
   RotateCcw,
-  Grid3X3,
   Eye,
   Plus,
   Trash,
   Camera,
-  Palette
 } from 'lucide-react';
 
 function ControlSection({ title, icon: Icon, children }: { 

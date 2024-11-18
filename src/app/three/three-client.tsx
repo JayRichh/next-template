@@ -37,17 +37,17 @@ export default function ThreeClient({
   // Handle prop updates
   useEffect(() => {
     if (!sceneRef.current) return;
-    sceneRef.current.setColor(color);
+    sceneRef.current.setMainMeshMaterial('color', color);
   }, [color]);
 
   useEffect(() => {
     if (!sceneRef.current) return;
-    sceneRef.current.setRotation(rotation);
+    sceneRef.current.setRotationSpeed(rotation);
   }, [rotation]);
 
   useEffect(() => {
     if (!sceneRef.current) return;
-    sceneRef.current.setWireframe(wireframe);
+    sceneRef.current.setMainMeshMaterial('metalness', wireframe ? 1 : 0.2);
   }, [wireframe]);
 
   return (

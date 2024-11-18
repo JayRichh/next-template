@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { AnimationControls, useAnimationControls as useFramerControls } from 'framer-motion';
+import { AnimationControls, useAnimationControls as useFramerControls, Target } from 'framer-motion';
 
 interface AnimationState {
   isAnimating: boolean;
@@ -15,7 +15,7 @@ export const useAnimationControls = () => {
     controls,
   });
 
-  const startAnimation = useCallback(async (animation: Record<string, any>) => {
+  const startAnimation = useCallback(async (animation: Target) => {
     setState(prev => ({ ...prev, isAnimating: true }));
     await controls.start(animation);
     setState(prev => ({ ...prev, isAnimating: false }));

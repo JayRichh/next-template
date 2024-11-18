@@ -6,7 +6,6 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Form } from '@/components/ui/Form';
 import { Select } from '@/components/ui/Select';
-import { Toast } from '@/components/ui/Toast';
 import { CodePreview } from '@/components/ui/CodePreview';
 
 const examples = [

@@ -6,6 +6,19 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { CodePreview } from '@/components/ui/CodePreview';
 
+interface ApiGetResponse {
+  success: boolean;
+  message: string;
+  timestamp: string;
+}
+
+interface ApiPostResponse {
+  success: boolean;
+  message: string;
+  data: Record<string, unknown>;
+  timestamp: string;
+}
+
 const examples = [
   {
     id: 'api-get',
@@ -139,7 +152,7 @@ export default function DynamicRouteExample() {
 
 // Example Components
 function ApiExample() {
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<ApiGetResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
   const fetchData = async () => {
@@ -169,7 +182,7 @@ function ApiExample() {
 }
 
 function ApiPostExample() {
-  const [response, setResponse] = useState<any>(null);
+  const [response, setResponse] = useState<ApiPostResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
   const sendData = async () => {

@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { Suspense } from 'react';
 import { cn } from '@/utils/cn';
 import { cva } from 'class-variance-authority';
 import { motion, HTMLMotionProps, AnimatePresence } from 'framer-motion';
@@ -107,7 +108,9 @@ export function Sidebar({ className, children, ...props }: SidebarProps) {
         {...props}
       >
         <div className="relative h-full pt-12">
-          {children}
+          <Suspense fallback={<div className="p-4">Loading...</div>}>
+            {children}
+          </Suspense>
           <button
             onClick={() => setExpanded(!expanded)}
             className={cn(
@@ -220,7 +223,7 @@ interface SidebarItemProps extends React.HTMLAttributes<HTMLDivElement> {
   section?: string;
 }
 
-export function SidebarItem({
+function SidebarItemContent({
   className,
   children,
   icon,
@@ -299,6 +302,14 @@ export function SidebarItem({
   );
 }
 
+export function SidebarItem(props: SidebarItemProps) {
+  return (
+    <Suspense fallback={<div className="h-12 w-full animate-pulse bg-muted rounded-md" />}>
+      <SidebarItemContent {...props} />
+    </Suspense>
+  );
+}
+
 interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   title?: string;
   defaultOpen?: boolean;
@@ -308,7 +319,7 @@ interface SidebarGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   section?: string;
 }
 
-export function SidebarGroup({
+function SidebarGroupContent({
   className,
   title,
   defaultOpen = false,
@@ -461,6 +472,14 @@ export function SidebarGroup({
         </AnimatePresence>
       </SidebarLevelContext.Provider>
     </div>
+  );
+}
+
+export function SidebarGroup(props: SidebarGroupProps) {
+  return (
+    <Suspense fallback={<div className="h-12 w-full animate-pulse bg-muted rounded-md" />}>
+      <SidebarGroupContent {...props} />
+    </Suspense>
   );
 }
 

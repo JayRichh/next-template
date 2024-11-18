@@ -12,8 +12,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Breadcrumb } from '@/components/ui/breadcrumb';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { 
   Home,
   Component,
@@ -117,7 +116,7 @@ export default function ExamplesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
+  // const router = useRouter();
   const pathname = usePathname();
 
   return (

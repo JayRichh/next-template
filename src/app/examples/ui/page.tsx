@@ -1,12 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { CodePreview } from '@/components/ui/CodePreview';
 import { componentCategories, allExamples } from './components';
 import { useSearchParams, useRouter } from 'next/navigation';
 
-export default function UIExamplesPage() {
+function UIExamplesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const section = searchParams.get('section');
@@ -119,5 +119,13 @@ export default function UIExamplesPage() {
         ))}
       </div>
     </div>
+  );
+}
+
+export default function UIExamplesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <UIExamplesContent />
+    </Suspense>
   );
 }
