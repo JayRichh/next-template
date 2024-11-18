@@ -2,20 +2,200 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Override Prism.js theme styles */
+pre[class*="language-"],
+code[class*="language-"] {
+  text-shadow: none !important;
+  background: none !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  tab-size: 2 !important;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Base colors with grayscale theme */
+    --background: 0 0% 100%;
+    --background-secondary: 0 0% 96%;
+    --foreground: 0 0% 10%;
+    --foreground-secondary: 0 0% 40%;
+    --border: 0 0% 90%;
+    --border-secondary: 0 0% 85%;
+    
+    /* Brand colors - now grayscale */
+    --brand: 0 0% 20%;
+    
+    
+    /* Warning colors - grayscale */
+    --warning: 0 0% 35%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Error colors - grayscale */
+    --error: 0 0% 40%;
+    --error-foreground: 0 0% 100%;
+    
+    /* Surface colors */
+    --surface: 0 0% 100%;
+    --surface-foreground: 0 0% 10%;
+
+    /* Border radius */
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 0% 10%;
+    --background-secondary: 0 0% 15%;
+    --foreground: 0 0% 95%;
+    --foreground-secondary: 0 0% 70%;
+    --border: 0 0% 20%;
+    --border-secondary: 0 0% 25%;
+    
+    --brand: 0 0% 80%;
+    
+    --primary: 0 0% 90%;
+    --primary-foreground: 0 0% 10%;
+    
+    --accent: 0 0% 85%;
+    --accent-foreground: 0 0% 10%;
+    
+    --success: 0 0% 80%;
+    --success-foreground: 0 0% 10%;
+    
+    --warning: 0 0% 75%;
+    --warning-foreground: 0 0% 10%;
+    
+    --error: 0 0% 70%;
+    --error-foreground: 0 0% 10%;
+    
+    --surface: 0 0% 10%;
+    --surface-foreground: 0 0% 95%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-background-secondary;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-foreground/20 rounded-full hover:bg-foreground/30 transition-colors;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-background/95 backdrop-blur-md backdrop-saturate-150 border border-border/50 shadow-lg;
+  }
+
+  .glass-hover {
+    @apply hover:bg-background/100 hover:border-border/70 hover:shadow-xl transition-all duration-200;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r;
+  }
+
+  .transition-smooth {
+    @apply transition-all duration-300 ease-in-out;
+  }
+
+  .animate-shimmer {
+    @apply relative overflow-hidden;
+  }
+
+  .animate-shimmer::after {
+    @apply absolute inset-0 -translate-x-full;
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(0, 0, 0, 0.05) 20%,
+      rgba(0, 0, 0, 0.1) 60%,
+      transparent 100%
+    );
+    animation: shimmer 2s infinite;
+    content: '';
+  }
+
+  @keyframes shimmer {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}
+
+@layer components {
+  .input-range {
+    @apply w-full h-2 bg-background-secondary rounded-lg appearance-none cursor-pointer;
+  }
+
+  .input-range::-webkit-slider-thumb {
+    @apply w-4 h-4 bg-primary rounded-full appearance-none;
+    @apply hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .input-range::-moz-range-thumb {
+    @apply w-4 h-4 bg-primary rounded-full appearance-none border-0;
+    @apply hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply text-primary-foreground bg-primary hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply text-foreground bg-background-secondary hover:bg-background-secondary/90;
+  }
+
+  .btn-ghost {
+    @apply text-foreground hover:bg-background-secondary;
+  }
+}
+
+@keyframes progress-stripe {
+  0% {
+    background-position: 1rem 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.progress-striped {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
 }
