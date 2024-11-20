@@ -4,7 +4,7 @@ import { Box, Component, FileCode, FormInput, Home, Palette } from "lucide-react
 import { Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { Breadcrumb } from "./components/Breadcrumb";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/utils/cn";
 
