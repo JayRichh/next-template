@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+
+import { useEffect, useState } from 'react';
+
 import { cn } from '@/utils/cn';
 
 interface ProgressProps {
@@ -50,26 +52,26 @@ export function Progress({
   const percentage = Math.min(Math.max((currentValue / max) * 100, 0), 100);
 
   return (
-    <div className={cn("w-full", className)}>
-      <div className={cn(
-        "relative w-full overflow-hidden rounded-full",
-        "bg-slate-200 dark:bg-slate-800",
-        "ring-1 ring-inset ring-slate-900/5 dark:ring-slate-100/10",
-        sizeStyles[size]
-      )}>
+    <div className={cn('w-full', className)}>
+      <div
+        className={cn(
+          'relative w-full overflow-hidden rounded-full',
+          'bg-slate-200 dark:bg-slate-800',
+          'ring-1 ring-inset ring-slate-900/5 dark:ring-slate-100/10',
+          sizeStyles[size]
+        )}
+      >
         <motion.div
           initial={animate ? { width: 0 } : { width: `${percentage}%` }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className={cn(
-            "absolute inset-y-0 left-0 flex items-center",
-            variants[variant],
-            {
-              'animate-[progress-stripe_1s_linear_infinite]': variant === 'striped',
-              'shadow-[0_0_12px_rgba(59,130,246,0.5)] dark:shadow-[0_0_12px_rgba(59,130,246,0.3)]': variant === 'default',
-              'shadow-[0_0_12px_rgba(99,102,241,0.5)] dark:shadow-[0_0_12px_rgba(99,102,241,0.3)]': variant === 'gradient'
-            }
-          )}
+          className={cn('absolute inset-y-0 left-0 flex items-center', variants[variant], {
+            'animate-[progress-stripe_1s_linear_infinite]': variant === 'striped',
+            'shadow-[0_0_12px_rgba(59,130,246,0.5)] dark:shadow-[0_0_12px_rgba(59,130,246,0.3)]':
+              variant === 'default',
+            'shadow-[0_0_12px_rgba(99,102,241,0.5)] dark:shadow-[0_0_12px_rgba(99,102,241,0.3)]':
+              variant === 'gradient',
+          })}
         >
           {variant === 'striped' && (
             <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,.15)_50%,rgba(255,255,255,.15)_75%,transparent_75%,transparent)] bg-[length:1rem_1rem] animate-[progress-stripe_1s_linear_infinite]" />
@@ -91,7 +93,7 @@ export function ProgressDemo() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setProgress(p => (p + 1) % 101);
+      setProgress((p) => (p + 1) % 101);
     }, 100);
 
     return () => clearInterval(timer);
@@ -101,38 +103,33 @@ export function ProgressDemo() {
     <div className="space-y-8">
       {/* Default Progress */}
       <div className="space-y-2">
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">Default Progress</div>
-        <Progress 
-          value={progress} 
-          showValue 
-        />
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          Default Progress
+        </div>
+        <Progress value={progress} showValue />
       </div>
 
       {/* Gradient Progress */}
       <div className="space-y-2">
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">Gradient Progress</div>
-        <Progress 
-          value={progress} 
-          variant="gradient"
-          size="lg"
-          showValue 
-        />
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          Gradient Progress
+        </div>
+        <Progress value={progress} variant="gradient" size="lg" showValue />
       </div>
 
       {/* Striped Progress */}
       <div className="space-y-2">
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">Striped Progress</div>
-        <Progress 
-          value={progress} 
-          variant="striped"
-          size="lg"
-          showValue 
-        />
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          Striped Progress
+        </div>
+        <Progress value={progress} variant="striped" size="lg" showValue />
       </div>
 
       {/* Different Sizes */}
       <div className="space-y-4">
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">Different Sizes</div>
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          Different Sizes
+        </div>
         <Progress value={75} size="sm" />
         <Progress value={75} size="md" />
         <Progress value={75} size="lg" />

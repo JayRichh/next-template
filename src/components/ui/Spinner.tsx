@@ -19,15 +19,11 @@ const variantStyles = {
   primary: 'border-primary/20 border-t-primary',
 };
 
-export function Spinner({ 
-  size = 'md', 
-  variant = 'default',
-  className 
-}: SpinnerProps) {
+export function Spinner({ size = 'md', variant = 'default', className }: SpinnerProps) {
   return (
     <div
       className={cn(
-        "animate-spin rounded-full",
+        'animate-spin rounded-full',
         sizeStyles[size],
         variantStyles[variant],
         className
@@ -42,7 +38,9 @@ export function SpinnerDemo() {
     <div className="space-y-8">
       {/* Different sizes */}
       <div className="space-y-4">
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">Different Sizes</div>
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          Different Sizes
+        </div>
         <div className="flex items-center gap-4">
           <Spinner size="sm" />
           <Spinner size="md" />
@@ -52,7 +50,9 @@ export function SpinnerDemo() {
 
       {/* Different variants */}
       <div className="space-y-4">
-        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">Different Variants</div>
+        <div className="text-sm font-medium text-slate-600 dark:text-slate-400">
+          Different Variants
+        </div>
         <div className="flex items-center gap-4">
           <Spinner variant="default" />
           <Spinner variant="primary" />

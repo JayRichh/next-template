@@ -1,7 +1,9 @@
 'use client';
 
-import * as React from 'react';
 import { motion } from 'framer-motion';
+
+import * as React from 'react';
+
 import { cn } from '@/utils/cn';
 
 type BadgeVariant = 'default' | 'outline' | 'solid' | 'secondary';
@@ -72,17 +74,14 @@ export function Badge({
           colorStyle.base,
           variant === 'default' && `bg-${color}-100 dark:bg-${color}-900/20`,
           variant === 'outline' && 'bg-transparent',
-          variant === 'secondary' && 'bg-muted/50 text-muted-foreground hover:bg-muted/80 border border-muted'
+          variant === 'secondary' &&
+            'bg-muted/50 text-muted-foreground hover:bg-muted/80 border border-muted'
         ),
     className
   );
 
   return (
-    <motion.span
-      initial={{ scale: 0.95 }}
-      animate={{ scale: 1 }}
-      className={baseStyles}
-    >
+    <motion.span initial={{ scale: 0.95 }} animate={{ scale: 1 }} className={baseStyles}>
       {pulse && (
         <span className="relative flex h-2 w-2">
           <span

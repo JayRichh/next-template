@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { Progress } from '@/components/ui/Progress';
+
 import { ComponentExample } from '../types';
 
 export const progressCode = `import { Progress } from '@/components/ui/Progress';
@@ -45,7 +47,7 @@ export function ProgressExample() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setProgress(p => (p + 1) % 101);
+      setProgress((p) => (p + 1) % 101);
     }, 100);
 
     return () => clearInterval(timer);

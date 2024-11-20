@@ -1,7 +1,8 @@
 'use client';
 
-import { Tooltip } from '@/components/ui/Tooltip';
 import { Button } from '@/components/ui/Button';
+import { Tooltip } from '@/components/ui/Tooltip';
+
 import { ComponentExample } from '../types';
 
 export const tooltipCode = `import { Tooltip } from '@/components/ui/Tooltip';

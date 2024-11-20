@@ -1,131 +1,112 @@
 'use client';
 
-import { useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+
+import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
 import { Card, CardContent } from '@/components/ui/Card';
 import { CodePreview } from '@/components/ui/CodePreview';
-import { componentCategories, allExamples } from './components';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { TabGroup } from '@/components/ui/TabGroup';
 
-function UIExamplesContent() {
+import { useActiveSection } from '@/hooks/useActiveSection';
+
+import { cn } from '@/utils/cn';
+
+import { allExamples, componentCategories } from './components';
+
+export default function UIExamplesPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const section = searchParams.get('section');
-  
-  // Use URL parameter directly instead of local state
-  const examples = section 
-    ? componentCategories.find(c => c.id === section)?.components || []
+  const { section: activeSection, category: activeCategory } = useActiveSection();
+
+  // Filter examples based on active category
+  const examples = activeCategory
+    ? componentCategories.find((c) => c.id === activeCategory)?.components || []
     : allExamples;
 
-  // Scroll to section on mount or section change
-  useEffect(() => {
-    if (section) {
-      const element = document.getElementById(section);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-  }, [section]);
+  // Create tabs configuration
+  const tabs = [
+    {
+      id: 'all',
+      label: 'All',
+      content: null,
+    },
+    ...componentCategories.map((category) => ({
+      id: category.id,
+      label: category.title,
+      content: null,
+    })),
+  ];
 
-  const handleCategoryClick = (categoryId: string | null) => {
-    if (categoryId) {
-      router.push(`/examples/ui?section=${categoryId}`);
+  const handleCategoryChange = (categoryId: string) => {
+    const targetCategory = categoryId === 'all' ? null : categoryId;
+
+    if (targetCategory) {
+      // Get first item in category for default selection
+      const category = componentCategories.find((c) => c.id === targetCategory);
+      const firstItem = category?.components?.[0];
+      if (firstItem) {
+        router.push(`/examples/ui?section=${targetCategory}#${firstItem.id}`);
+      } else {
+        router.push(`/examples/ui?section=${targetCategory}`);
+      }
     } else {
-      router.push('/examples/ui');
+      router.push(activeSection ? `/examples/ui#${activeSection}` : '/examples/ui');
     }
   };
 
   return (
-    <div className="space-y-8">
-      <div className="space-y-1">
-        <h2 className="text-2xl font-semibold tracking-tight">UI Components</h2>
-        <p className="text-sm text-muted-foreground">
-          Core UI components and interactive elements used throughout the application.
-        </p>
-      </div>
+    <ExampleContainer
+      category="ui"
+      title="UI Components"
+      description="Core UI components and interactive elements used throughout the application."
+    >
+      {/* Category Filter using TabGroup */}
+      <div className="mb-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <TabGroup
+            tabs={tabs}
+            value={activeCategory || 'all'}
+            onChange={handleCategoryChange}
+            variant="pills"
+            className="sticky top-24 bg-background/80 backdrop-blur-sm z-10 py-6 border-b border-border/10"
+          />
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap gap-2">
-        <button
-          onClick={() => handleCategoryClick(null)}
-          className={`px-4 py-2 rounded-lg transition-colors ${
-            !section ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
-          }`}
-        >
-          All
-        </button>
-        {componentCategories.map((category) => (
-          <button
-            key={category.id}
-            onClick={() => handleCategoryClick(category.id)}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              section === category.id ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
-            }`}
-          >
-            {category.title}
-          </button>
-        ))}
-      </div>
-
-      {/* Selected Category Description */}
-      {section && (
-        <div className="text-sm text-muted-foreground">
-          {componentCategories.find(c => c.id === section)?.description}
+          {/* Selected Category Description */}
+          {activeCategory && (
+            <div className="mt-6 text-sm text-foreground-secondary">
+              {componentCategories.find((c) => c.id === activeCategory)?.description}
+            </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Component Examples */}
-      <div className="space-y-16">
+      <div className="space-y-24">
         {examples.map((example) => (
-          <div 
-            key={example.id} 
-            id={example.id} 
-            className="space-y-6 scroll-mt-20"
+          <ExampleSection
+            key={example.id}
+            id={example.id}
+            category={activeCategory || 'all'}
+            title={example.title}
+            description={example.description}
           >
-            <div className="space-y-1">
-              <h3 className="text-xl font-semibold tracking-tight">
-                {example.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {example.description}
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
               {/* Code Preview Card */}
-              <Card 
-                fullHeight 
-                interactive={false}
-                className="overflow-hidden"
-              >
-                <CardContent>
+              <Card className="overflow-hidden xl:sticky xl:top-48 xl:self-start">
+                <CardContent className="p-0">
                   <CodePreview code={example.code} />
                 </CardContent>
               </Card>
 
               {/* Component Demo Card */}
-              <Card 
-                fullHeight 
-                interactive={false}
-                className="overflow-hidden"
-              >
-                <CardContent className="flex items-center justify-center h-full min-h-[300px]">
-                  <div className="w-full">
-                    {example.component}
-                  </div>
+              <Card className="min-h-[400px]">
+                <CardContent className="p-12 flex items-center justify-center">
+                  <div className="w-full">{example.component}</div>
                 </CardContent>
               </Card>
             </div>
-          </div>
+          </ExampleSection>
         ))}
       </div>
-    </div>
-  );
-}
-
-export default function UIExamplesPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <UIExamplesContent />
-    </Suspense>
+    </ExampleContainer>
   );
 }

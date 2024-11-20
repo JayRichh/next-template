@@ -1,70 +1,73 @@
 'use client';
 
-import { useEffect, useRef, memo, useState } from 'react';
-import { cn } from '@/utils/cn';
-import dynamic from 'next/dynamic';
 import type * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
+import { memo, useEffect, useRef, useState } from 'react';
+
+import dynamic from 'next/dynamic';
+
+import { cn } from '@/utils/cn';
+
 // Dynamically import Monaco editor with no SSR
-const Editor = dynamic(
-  () => import('@monaco-editor/react').then(mod => mod.default),
-  { ssr: false }
-);
+const Editor = dynamic(() => import('@monaco-editor/react').then((mod) => mod.default), {
+  ssr: false,
+});
 
-// Separate the Monaco configuration into a client-side only component
-const MonacoConfig = () => {
-  useEffect(() => {
-    import('@monaco-editor/react').then(({ loader }) => {
-      loader.init().then((monaco) => {
-        // Configure TypeScript/JavaScript defaults
-        monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-          jsx: monaco.languages.typescript.JsxEmit.React,
-          jsxFactory: 'React.createElement',
-          reactNamespace: 'React',
-          allowNonTsExtensions: true,
-          target: monaco.languages.typescript.ScriptTarget.Latest,
-          allowJs: true,
-          typeRoots: ['node_modules/@types']
-        });
+// Initialize Monaco only once at the module level
+let monacoInitialized = false;
 
-        // Add custom component completions
-        monaco.languages.registerCompletionItemProvider('typescript', {
-          provideCompletionItems: (model, position) => {
-            const wordInfo = model.getWordUntilPosition(position);
-            const range = {
-              startLineNumber: position.lineNumber,
-              endLineNumber: position.lineNumber,
-              startColumn: wordInfo.startColumn,
-              endColumn: wordInfo.endColumn
-            };
+const initializeMonaco = async () => {
+  if (monacoInitialized) return;
 
-            const suggestions = [
-              {
-                label: 'Slider',
-                kind: monaco.languages.CompletionItemKind.Class,
-                insertText: 'Slider',
-                detail: 'UI Component',
-                documentation: 'A slider input component',
-                range
-              },
-              {
-                label: 'Button',
-                kind: monaco.languages.CompletionItemKind.Class,
-                insertText: 'Button',
-                detail: 'UI Component',
-                documentation: 'A button component',
-                range
-              }
-            ];
+  const { loader } = await import('@monaco-editor/react');
+  const monaco = await loader.init();
 
-            return { suggestions };
-          }
-        });
-      });
-    });
-  }, []);
+  // Configure TypeScript/JavaScript defaults
+  monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+    jsx: monaco.languages.typescript.JsxEmit.React,
+    jsxFactory: 'React.createElement',
+    reactNamespace: 'React',
+    allowNonTsExtensions: true,
+    target: monaco.languages.typescript.ScriptTarget.Latest,
+    allowJs: true,
+    typeRoots: ['node_modules/@types'],
+  });
 
-  return null;
+  // Add custom component completions
+  monaco.languages.registerCompletionItemProvider('typescript', {
+    provideCompletionItems: (model, position) => {
+      const wordInfo = model.getWordUntilPosition(position);
+      const range = {
+        startLineNumber: position.lineNumber,
+        endLineNumber: position.lineNumber,
+        startColumn: wordInfo.startColumn,
+        endColumn: wordInfo.endColumn,
+      };
+
+      const suggestions = [
+        {
+          label: 'Slider',
+          kind: monaco.languages.CompletionItemKind.Class,
+          insertText: 'Slider',
+          detail: 'UI Component',
+          documentation: 'A slider input component',
+          range,
+        },
+        {
+          label: 'Button',
+          kind: monaco.languages.CompletionItemKind.Class,
+          insertText: 'Button',
+          detail: 'UI Component',
+          documentation: 'A button component',
+          range,
+        },
+      ];
+
+      return { suggestions };
+    },
+  });
+
+  monacoInitialized = true;
 };
 
 const CodeHighlight = memo(({ code, language }: { code: string; language: string }) => {
@@ -73,11 +76,12 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
 
   useEffect(() => {
     setMounted(true);
+    initializeMonaco();
   }, []);
 
   const handleEditorDidMount = (editor: Monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
-    
+
     // Adjust editor height to content
     const updateHeight = () => {
       const contentHeight = Math.min(editor.getContentHeight(), 400);
@@ -111,7 +115,7 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
           scrollBeyondLastLine: false,
           scrollbar: {
             vertical: 'hidden',
-            horizontal: 'hidden'
+            horizontal: 'hidden',
           },
           overviewRulerLanes: 0,
           fontSize: 13,
@@ -125,7 +129,7 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
           glyphMargin: false,
           guides: { indentation: false },
           domReadOnly: true,
-          wordWrap: 'on'
+          wordWrap: 'on',
         }}
         onMount={handleEditorDidMount}
         loading={
@@ -148,12 +152,12 @@ interface CodePreviewProps {
   className?: string;
 }
 
-export function CodePreview({ 
-  code, 
-  language = 'typescript', 
+export function CodePreview({
+  code,
+  language = 'typescript',
   title,
   preview,
-  className 
+  className,
 }: CodePreviewProps) {
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -174,51 +178,46 @@ export function CodePreview({
   };
 
   return (
-    <>
-      <MonacoConfig />
-      <div className={cn(
-        "overflow-hidden rounded-xl border-2 border-border/50",
-        "bg-background/40 backdrop-blur-md",
-        "shadow-lg shadow-black/5",
+    <div
+      className={cn(
+        'overflow-hidden rounded-xl border-2 border-border/50',
+        'bg-background/40 backdrop-blur-md',
+        'shadow-lg shadow-black/5',
         className
-      )}>
-        {preview && (
-          <div className="p-6 border-b-2 border-border/50">
-            {preview}
+      )}
+    >
+      {preview && <div className="p-6 border-b-2 border-border/50">{preview}</div>}
+
+      <div className="relative">
+        {title && (
+          <div className="absolute top-0 right-0 px-4 py-2 text-sm font-medium text-foreground/60">
+            {title}
           </div>
         )}
-
         <div className="relative">
-          {title && (
-            <div className="absolute top-0 right-0 px-4 py-2 text-sm font-medium text-foreground/60">
-              {title}
-            </div>
-          )}
-          <div className="relative">
-            <CodeHighlight code={code} language={language} />
+          <CodeHighlight code={code} language={language} />
 
-            {mounted && (
-              <button
-                onClick={handleCopy}
-                className={cn(
-                  "absolute top-2 right-2 z-10",
-                  "px-3 py-1.5 rounded-lg",
-                  "text-xs font-medium",
-                  "bg-white/10 hover:bg-white/20",
-                  "text-white/60 hover:text-white",
-                  "transition-colors duration-200",
-                  "focus:outline-none focus:ring-2 focus:ring-white/20",
-                  "border border-white/10",
-                  "shadow-sm shadow-black/10"
-                )}
-              >
-                {copied ? 'Copied!' : 'Copy'}
-              </button>
-            )}
-          </div>
+          {mounted && (
+            <button
+              onClick={handleCopy}
+              className={cn(
+                'absolute top-2 right-2 z-10',
+                'px-3 py-1.5 rounded-lg',
+                'text-xs font-medium',
+                'bg-white/10 hover:bg-white/20',
+                'text-white/60 hover:text-white',
+                'transition-colors duration-200',
+                'focus:outline-none focus:ring-2 focus:ring-white/20',
+                'border border-white/10',
+                'shadow-sm shadow-black/10'
+              )}
+            >
+              {copied ? 'Copied!' : 'Copy'}
+            </button>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -244,19 +243,21 @@ export function CodePopover({ code, language = 'typescript', children }: CodePop
       {children}
       <div
         className={cn(
-          "absolute z-50 w-max max-w-2xl",
-          "opacity-0 pointer-events-none",
-          "group-hover:opacity-100 group-hover:pointer-events-auto",
-          "transition-opacity duration-200",
-          "top-full left-0 mt-2"
+          'absolute z-50 w-max max-w-2xl',
+          'opacity-0 pointer-events-none',
+          'group-hover:opacity-100 group-hover:pointer-events-auto',
+          'transition-opacity duration-200',
+          'top-full left-0 mt-2'
         )}
       >
-        <div className={cn(
-          "overflow-hidden rounded-xl",
-          "bg-[#1E1E1E]",
-          "border-2 border-white/10",
-          "shadow-xl shadow-black/20"
-        )}>
+        <div
+          className={cn(
+            'overflow-hidden rounded-xl',
+            'bg-[#1E1E1E]',
+            'border-2 border-white/10',
+            'shadow-xl shadow-black/20'
+          )}
+        >
           <CodeHighlight code={code} language={language} />
         </div>
       </div>

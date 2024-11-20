@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
+
 import { cn } from '@/utils/cn';
 
 interface SliderProps {
@@ -28,7 +29,7 @@ export function Slider({
   const isControlled = controlledValue !== undefined;
   const [localValue, setLocalValue] = useState(defaultValue ?? min);
   const value = isControlled ? controlledValue : localValue;
-  
+
   const trackRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
@@ -103,14 +104,10 @@ export function Slider({
   const percentage = ((value - min) / (max - min)) * 100;
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn('space-y-2', className)}>
       {(label || showValue) && (
         <div className="flex items-center justify-between">
-          {label && (
-            <span className="text-sm font-medium text-foreground">
-              {label}
-            </span>
-          )}
+          {label && <span className="text-sm font-medium text-foreground">{label}</span>}
           {showValue && (
             <span className="text-sm font-medium text-foreground/70">
               {value.toFixed(step < 1 ? 1 : 0)}
@@ -123,8 +120,8 @@ export function Slider({
         ref={trackRef}
         onMouseDown={handleMouseDown}
         className={cn(
-          "relative h-6 flex items-center cursor-pointer",
-          "group touch-none select-none"
+          'relative h-6 flex items-center cursor-pointer',
+          'group touch-none select-none'
         )}
       >
         {/* Track background */}
@@ -145,19 +142,19 @@ export function Slider({
           aria-valuenow={value}
           onKeyDown={handleKeyDown}
           className={cn(
-            "absolute h-4 w-4 rounded-full bg-blue-600",
-            "border-2 border-white",
-            "shadow-[0_0_0_3px_rgba(37,99,235,0.1)]",
-            "transition-shadow",
-            "focus-visible:outline-none focus-visible:ring-2",
-            "focus-visible:ring-blue-600 focus-visible:ring-offset-2",
-            "hover:shadow-[0_0_0_5px_rgba(37,99,235,0.1)]",
-            "cursor-grab active:cursor-grabbing"
+            'absolute h-4 w-4 rounded-full bg-blue-600',
+            'border-2 border-white',
+            'shadow-[0_0_0_3px_rgba(37,99,235,0.1)]',
+            'transition-shadow',
+            'focus-visible:outline-none focus-visible:ring-2',
+            'focus-visible:ring-blue-600 focus-visible:ring-offset-2',
+            'hover:shadow-[0_0_0_5px_rgba(37,99,235,0.1)]',
+            'cursor-grab active:cursor-grabbing'
           )}
-          style={{ 
+          style={{
             left: `${percentage}%`,
             transform: `translateX(-50%)`,
-            touchAction: "none"
+            touchAction: 'none',
           }}
         />
       </div>

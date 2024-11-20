@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Toast } from '@/components/ui/Toast';
+
 import { Button } from '@/components/ui/Button';
+import { Toast } from '@/components/ui/Toast';
+
 import { ComponentExample } from '../types';
 
 export const toastCode = `import { Toast } from '@/components/ui/Toast';
@@ -51,7 +53,7 @@ export function ToastExample() {
       <Button onClick={() => showToast('error')}>Error</Button>
       <Button onClick={() => showToast('info')}>Info</Button>
       <Button onClick={() => showToast('warning')}>Warning</Button>
-      
+
       <Toast
         message={`This is a ${toastType} message!`}
         type={toastType}

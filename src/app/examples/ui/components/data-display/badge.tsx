@@ -1,6 +1,7 @@
 'use client';
 
 import { Badge } from '@/components/ui/Badge';
+
 import { ComponentExample } from '../types';
 
 export const badgeCode = `import { Badge } from '@/components/ui/Badge';
@@ -22,9 +23,15 @@ export function BadgeExample() {
     <div className="flex gap-4">
       <Badge>Default</Badge>
       <Badge variant="outline">Outline</Badge>
-      <Badge variant="solid" color="primary">Primary</Badge>
-      <Badge variant="solid" color="success">Success</Badge>
-      <Badge variant="solid" color="error">Error</Badge>
+      <Badge variant="solid" color="primary">
+        Primary
+      </Badge>
+      <Badge variant="solid" color="success">
+        Success
+      </Badge>
+      <Badge variant="solid" color="error">
+        Error
+      </Badge>
     </div>
   );
 }

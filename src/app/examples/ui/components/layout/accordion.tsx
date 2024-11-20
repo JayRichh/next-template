@@ -1,6 +1,7 @@
 'use client';
 
 import { Accordion } from '@/components/ui/Accordion';
+
 import { ComponentExample } from '../types';
 
 export const accordionCode = `import { Accordion } from '@/components/ui/Accordion';
@@ -27,13 +28,13 @@ export function AccordionExample() {
     {
       id: '1',
       title: 'Section 1',
-      content: 'Content for section 1'
+      content: 'Content for section 1',
     },
     {
       id: '2',
       title: 'Section 2',
-      content: 'Content for section 2'
-    }
+      content: 'Content for section 2',
+    },
   ];
 
   return <Accordion items={items} />;

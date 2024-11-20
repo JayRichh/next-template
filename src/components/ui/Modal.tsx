@@ -1,6 +1,9 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { useEffect, useState } from 'react';
+
 import { cn } from '@/utils/cn';
+
 import { Button } from './Button';
 
 interface ModalProps {
@@ -51,9 +54,9 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
           >
             <div
               className={cn(
-                "bg-background/95 backdrop-blur-md",
-                "rounded-xl shadow-xl border-2 border-border/50",
-                "w-full max-w-lg p-6",
+                'bg-background/95 backdrop-blur-md',
+                'rounded-xl shadow-xl border-2 border-border/50',
+                'w-full max-w-lg p-6',
                 className
               )}
             >
@@ -84,24 +87,18 @@ export function ModalDemo() {
   return (
     <div>
       <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
-      
-      <Modal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Example Modal"
-      >
+
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Example Modal">
         <div className="space-y-4">
           <p className="text-foreground/80">
-            This is an example modal with a backdrop blur effect and smooth animations.
-            Press ESC or click outside to close.
+            This is an example modal with a backdrop blur effect and smooth animations. Press ESC or
+            click outside to close.
           </p>
           <div className="flex justify-end gap-3">
             <Button variant="outline" onClick={() => setIsOpen(false)}>
               Cancel
             </Button>
-            <Button onClick={() => setIsOpen(false)}>
-              Confirm
-            </Button>
+            <Button onClick={() => setIsOpen(false)}>Confirm</Button>
           </div>
         </div>
       </Modal>

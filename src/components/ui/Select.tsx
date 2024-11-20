@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { useEffect, useRef, useState } from 'react';
+
 import { cn } from '@/utils/cn';
 
 interface SelectOption {
@@ -41,9 +43,9 @@ export function Select({
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
 
-  const selectedOption = options.find(opt => opt.value === value);
-  
-  const filteredOptions = options.filter(option =>
+  const selectedOption = options.find((opt) => opt.value === value);
+
+  const filteredOptions = options.filter((option) =>
     option.label.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -81,9 +83,7 @@ export function Select({
       case 'ArrowDown':
         e.preventDefault();
         if (isOpen) {
-          setHighlightedIndex(i => 
-            i < filteredOptions.length - 1 ? i + 1 : i
-          );
+          setHighlightedIndex((i) => (i < filteredOptions.length - 1 ? i + 1 : i));
         } else {
           setIsOpen(true);
         }
@@ -91,7 +91,7 @@ export function Select({
       case 'ArrowUp':
         e.preventDefault();
         if (isOpen) {
-          setHighlightedIndex(i => i > 0 ? i - 1 : i);
+          setHighlightedIndex((i) => (i > 0 ? i - 1 : i));
         }
         break;
       case 'Escape':
@@ -106,30 +106,26 @@ export function Select({
       if (highlightedElement) {
         highlightedElement.scrollIntoView({
           block: 'nearest',
-          behavior: 'smooth'
+          behavior: 'smooth',
         });
       }
     }
   }, [highlightedIndex, isOpen]);
 
   return (
-    <div className={cn("relative", className)} ref={containerRef}>
-      {label && (
-        <label className="block text-sm font-medium text-foreground mb-2">
-          {label}
-        </label>
-      )}
+    <div className={cn('relative', className)} ref={containerRef}>
+      {label && <label className="block text-sm font-medium text-foreground mb-2">{label}</label>}
 
       <div
         onClick={() => !disabled && setIsOpen(!isOpen)}
         className={cn(
-          "relative w-full px-4 py-2 rounded-lg",
-          "bg-background/50 backdrop-blur-sm",
-          "border-2 border-border/50",
-          "cursor-pointer select-none",
-          "focus:outline-none focus:ring-2 focus:ring-primary/50",
-          disabled && "opacity-50 cursor-not-allowed",
-          error && "border-red-500/50 focus:ring-red-500/50"
+          'relative w-full px-4 py-2 rounded-lg',
+          'bg-background/50 backdrop-blur-sm',
+          'border-2 border-border/50',
+          'cursor-pointer select-none',
+          'focus:outline-none focus:ring-2 focus:ring-primary/50',
+          disabled && 'opacity-50 cursor-not-allowed',
+          error && 'border-red-500/50 focus:ring-red-500/50'
         )}
         tabIndex={disabled ? -1 : 0}
         onKeyDown={handleKeyDown}
@@ -147,15 +143,15 @@ export function Select({
               autoFocus
             />
           ) : (
-            <span className={cn(
-              selectedOption ? "text-foreground" : "text-foreground/50"
-            )}>
+            <span className={cn(selectedOption ? 'text-foreground' : 'text-foreground/50')}>
               {selectedOption ? (
                 <div className="flex items-center gap-2">
                   {selectedOption.icon}
                   {selectedOption.label}
                 </div>
-              ) : placeholder}
+              ) : (
+                placeholder
+              )}
             </span>
           )}
 
@@ -171,19 +167,14 @@ export function Select({
                 ✕
               </button>
             )}
-            <motion.div
-              animate={{ rotate: isOpen ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
+            <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.2 }}>
               ▼
             </motion.div>
           </div>
         </div>
       </div>
 
-      {error && (
-        <p className="mt-1 text-sm text-red-500">{error}</p>
-      )}
+      {error && <p className="mt-1 text-sm text-red-500">{error}</p>}
 
       <AnimatePresence>
         {isOpen && (
@@ -193,17 +184,15 @@ export function Select({
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
             className={cn(
-              "absolute z-50 w-full mt-2",
-              "bg-background/95 backdrop-blur-sm",
-              "border-2 border-border/50 rounded-lg shadow-lg",
-              "max-h-60 overflow-auto"
+              'absolute z-50 w-full mt-2',
+              'bg-background/95 backdrop-blur-sm',
+              'border-2 border-border/50 rounded-lg shadow-lg',
+              'max-h-60 overflow-auto'
             )}
             ref={listRef}
           >
             {filteredOptions.length === 0 ? (
-              <div className="px-4 py-2 text-foreground/50">
-                No options found
-              </div>
+              <div className="px-4 py-2 text-foreground/50">No options found</div>
             ) : (
               filteredOptions.map((option, index) => (
                 <motion.div
@@ -213,10 +202,10 @@ export function Select({
                     setIsOpen(false);
                   }}
                   className={cn(
-                    "px-4 py-2 cursor-pointer",
-                    "transition-colors duration-200",
-                    index === highlightedIndex && "bg-primary/10",
-                    option.value === value && "text-primary"
+                    'px-4 py-2 cursor-pointer',
+                    'transition-colors duration-200',
+                    index === highlightedIndex && 'bg-primary/10',
+                    option.value === value && 'text-primary'
                   )}
                   onMouseEnter={() => setHighlightedIndex(index)}
                 >
@@ -225,9 +214,7 @@ export function Select({
                     <div>
                       <div className="font-medium">{option.label}</div>
                       {option.description && (
-                        <div className="text-sm text-foreground/60">
-                          {option.description}
-                        </div>
+                        <div className="text-sm text-foreground/60">{option.description}</div>
                       )}
                     </div>
                   </div>

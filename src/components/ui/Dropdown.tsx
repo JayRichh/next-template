@@ -1,5 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { useEffect, useRef, useState } from 'react';
+
 import { cn } from '@/utils/cn';
 
 interface DropdownProps {
@@ -35,11 +37,9 @@ export function Dropdown({ trigger, items, value, onChange, className }: Dropdow
   };
 
   return (
-    <div className={cn("relative", className)} ref={dropdownRef}>
-      <div onClick={() => setIsOpen(!isOpen)}>
-        {trigger}
-      </div>
-      
+    <div className={cn('relative', className)} ref={dropdownRef}>
+      <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -56,10 +56,10 @@ export function Dropdown({ trigger, items, value, onChange, className }: Dropdow
                   whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }}
                   onClick={() => handleSelect(item.value)}
                   className={cn(
-                    "w-full px-4 py-2 text-left flex items-center gap-2",
-                    "transition-colors duration-200",
-                    "hover:text-primary",
-                    value === item.value && "text-primary font-medium"
+                    'w-full px-4 py-2 text-left flex items-center gap-2',
+                    'transition-colors duration-200',
+                    'hover:text-primary',
+                    value === item.value && 'text-primary font-medium'
                   )}
                 >
                   {item.icon}

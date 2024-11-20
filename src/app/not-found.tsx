@@ -1,11 +1,12 @@
 'use client';
 
-import { Container } from '@/components/ui/Container';
-import { Text } from '@/components/ui/Text';
-import { Button } from '@/components/ui/Button';
-import { GradientBackground } from '@/components/ui/GradientBackground';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+import { Button } from '@/components/ui/Button';
+import { Container } from '@/components/ui/Container';
+import { GradientBackground } from '@/components/ui/GradientBackground';
+import { Text } from '@/components/ui/Text';
 
 export default function NotFound() {
   const router = useRouter();
@@ -29,14 +30,9 @@ export default function NotFound() {
 
           <div className="flex justify-center gap-4">
             <Link href="/" passHref>
-              <Button>
-                Go home
-              </Button>
+              <Button>Go home</Button>
             </Link>
-            <Button 
-              variant="outline" 
-              onClick={() => router.back()}
-            >
+            <Button variant="outline" onClick={() => router.back()}>
               Go back
             </Button>
           </div>

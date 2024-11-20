@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
+
 import { ApiError, BaseResponse } from '@/types';
 
 interface AsyncState<T> {
@@ -17,7 +18,7 @@ export function useAsync<T extends BaseResponse>() {
   });
 
   const execute = useCallback(async (asyncFunction: () => Promise<T>) => {
-    setState(prev => ({ ...prev, loading: true, error: null }));
+    setState((prev) => ({ ...prev, loading: true, error: null }));
     try {
       const response = await asyncFunction();
       setState({
@@ -31,7 +32,7 @@ export function useAsync<T extends BaseResponse>() {
         success: false,
         error: error instanceof Error ? error.message : 'An unexpected error occurred',
       };
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         loading: false,
         error: apiError,

@@ -3,73 +3,114 @@
 @tailwind utilities;
 
 /* Override Prism.js theme styles */
-pre[class*="language-"],
-code[class*="language-"] {
+pre[class*='language-'],
+code[class*='language-'] {
   text-shadow: none !important;
   background: none !important;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono',
+    'Courier New', monospace !important;
   font-size: 0.875rem !important;
   line-height: 1.5 !important;
   tab-size: 2 !important;
 }
 
+/* Water text effect */
+.water-char {
+  --water-intensity: 0;
+  --water-angle: 0;
+  transform: translate(0, 0);
+  transition: all 0.2s ease-out;
+  display: inline-block;
+}
+
+.group:hover .water-char {
+  color: hsl(var(--primary));
+}
+
+.group:hover .water-char:hover {
+  transform: translate(
+    calc(var(--water-intensity) * 10px * cos(var(--water-angle))),
+    calc(var(--water-intensity) * 10px * sin(var(--water-angle)))
+  );
+}
+
 @layer base {
   :root {
-    /* Base colors with grayscale theme */
-    --background: 0 0% 100%;
-    --background-secondary: 0 0% 96%;
-    --foreground: 0 0% 10%;
-    --foreground-secondary: 0 0% 40%;
-    --border: 0 0% 90%;
-    --border-secondary: 0 0% 85%;
-    
-    /* Brand colors - now grayscale */
-    --brand: 0 0% 20%;
-    
-    
-    /* Warning colors - grayscale */
-    --warning: 0 0% 35%;
-    --warning-foreground: 0 0% 100%;
-    
-    /* Error colors - grayscale */
-    --error: 0 0% 40%;
-    --error-foreground: 0 0% 100%;
-    
+    /* Base colors with refined neutrals */
+    --background: 35 30% 98%; /* Warm white */
+    --background-secondary: 35 25% 95%; /* Soft warm gray */
+    --foreground: 35 25% 15%; /* Deep warm gray */
+    --foreground-secondary: 35 15% 35%; /* Medium warm gray */
+    --border: 35 20% 90%; /* Light warm gray */
+    --border-secondary: 35 20% 85%; /* Medium warm gray */
+
+    /* Brand colors - warm terra */
+    --brand: 28 47% 64%;
+
+    /* Primary colors - warm brown */
+    --primary: 28 55% 55%;
+    --primary-foreground: 35 30% 98%;
+
+    /* Accent colors - soft purple */
+    --accent: 250 45% 65%;
+    --accent-foreground: 35 30% 98%;
+
+    /* Secondary colors - muted terra */
+    --secondary: 28 35% 60%;
+    --secondary-foreground: 35 30% 98%;
+
+    /* Success colors - muted sage */
+    --success: 145 35% 45%;
+    --success-foreground: 35 30% 98%;
+
+    /* Warning colors - warm amber */
+    --warning: 35 85% 65%;
+    --warning-foreground: 35 25% 15%;
+
+    /* Error colors - muted coral */
+    --error: 0 55% 55%;
+    --error-foreground: 35 30% 98%;
+
     /* Surface colors */
-    --surface: 0 0% 100%;
-    --surface-foreground: 0 0% 10%;
+    --surface: 35 30% 98%;
+    --surface-foreground: 35 25% 15%;
 
     /* Border radius */
     --radius: 0.75rem;
   }
 
   .dark {
-    --background: 0 0% 10%;
-    --background-secondary: 0 0% 15%;
-    --foreground: 0 0% 95%;
-    --foreground-secondary: 0 0% 70%;
-    --border: 0 0% 20%;
-    --border-secondary: 0 0% 25%;
-    
-    --brand: 0 0% 80%;
-    
-    --primary: 0 0% 90%;
-    --primary-foreground: 0 0% 10%;
-    
-    --accent: 0 0% 85%;
-    --accent-foreground: 0 0% 10%;
-    
-    --success: 0 0% 80%;
-    --success-foreground: 0 0% 10%;
-    
-    --warning: 0 0% 75%;
-    --warning-foreground: 0 0% 10%;
-    
-    --error: 0 0% 70%;
-    --error-foreground: 0 0% 10%;
-    
-    --surface: 0 0% 10%;
-    --surface-foreground: 0 0% 95%;
+    /* Dark mode with deep warm tones */
+    --background: 28 25% 12%;
+    --background-secondary: 28 25% 15%;
+    --foreground: 35 15% 95%;
+    --foreground-secondary: 35 15% 75%;
+    --border: 28 20% 20%;
+    --border-secondary: 28 20% 25%;
+
+    --brand: 28 47% 64%;
+
+    /* Adjusted dark mode colors */
+    --primary: 28 45% 65%;
+    --primary-foreground: 28 25% 12%;
+
+    --accent: 250 35% 65%;
+    --accent-foreground: 28 25% 12%;
+
+    --secondary: 28 35% 60%;
+    --secondary-foreground: 28 25% 12%;
+
+    --success: 145 35% 50%;
+    --success-foreground: 28 25% 12%;
+
+    --warning: 35 75% 60%;
+    --warning-foreground: 28 25% 12%;
+
+    --error: 0 45% 60%;
+    --error-foreground: 28 25% 12%;
+
+    --surface: 28 25% 12%;
+    --surface-foreground: 35 15% 95%;
   }
 }
 
@@ -77,18 +118,20 @@ code[class*="language-"] {
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-primary ring-offset-2;
+    @apply outline-none ring-2 ring-primary/70 ring-offset-2;
   }
 
   ::-webkit-scrollbar {
-    @apply w-2 h-2;
+    @apply h-2 w-2;
   }
 
   ::-webkit-scrollbar-track {
@@ -96,17 +139,17 @@ code[class*="language-"] {
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-foreground/20 rounded-full hover:bg-foreground/30 transition-colors;
+    @apply rounded-full bg-foreground/15 transition-colors hover:bg-foreground/25;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply bg-background/95 backdrop-blur-md backdrop-saturate-150 border border-border/50 shadow-lg;
+    @apply border border-border/30 bg-background/85 shadow-lg backdrop-blur-md backdrop-saturate-150;
   }
 
   .glass-hover {
-    @apply hover:bg-background/100 hover:border-border/70 hover:shadow-xl transition-all duration-200;
+    @apply transition-all duration-200 hover:border-border/50 hover:bg-background/90 hover:shadow-xl;
   }
 
   .text-balance {
@@ -118,7 +161,7 @@ code[class*="language-"] {
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r;
+    @apply bg-gradient-to-r from-primary via-accent to-secondary bg-clip-text text-transparent;
   }
 
   .transition-smooth {
@@ -134,46 +177,63 @@ code[class*="language-"] {
     background-image: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(0, 0, 0, 0.05) 20%,
-      rgba(0, 0, 0, 0.1) 60%,
+      rgba(212, 163, 115, 0.08) 20%,
+      rgba(212, 163, 115, 0.12) 60%,
       transparent 100%
     );
     animation: shimmer 2s infinite;
     content: '';
   }
 
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
-    }
+  .animate-gradient {
+    animation: gradient 15s ease infinite;
+    background-size: 200% 200%;
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 
 @layer components {
   .input-range {
-    @apply w-full h-2 bg-background-secondary rounded-lg appearance-none cursor-pointer;
+    @apply h-2 w-full cursor-pointer appearance-none rounded-lg bg-background-secondary;
   }
 
   .input-range::-webkit-slider-thumb {
-    @apply w-4 h-4 bg-primary rounded-full appearance-none;
-    @apply hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply h-4 w-4 appearance-none rounded-full bg-primary/85;
+    @apply hover:bg-primary/95 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
   }
 
   .input-range::-moz-range-thumb {
-    @apply w-4 h-4 bg-primary rounded-full appearance-none border-0;
-    @apply hover:bg-primary/90 focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply h-4 w-4 appearance-none rounded-full border-0 bg-primary/85;
+    @apply hover:bg-primary/95 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
   }
 
   .btn-primary {
-    @apply text-primary-foreground bg-primary hover:bg-primary/90;
+    @apply bg-primary/90 text-primary-foreground hover:bg-primary;
   }
 
   .btn-secondary {
-    @apply text-foreground bg-background-secondary hover:bg-background-secondary/90;
+    @apply bg-background-secondary/80 text-foreground hover:bg-background-secondary;
   }
 
   .btn-ghost {
-    @apply text-foreground hover:bg-background-secondary;
+    @apply text-foreground hover:bg-background-secondary/60;
   }
 }
 
@@ -189,11 +249,11 @@ code[class*="language-"] {
 .progress-striped {
   background-image: linear-gradient(
     45deg,
-    rgba(255, 255, 255, 0.15) 25%,
+    rgba(212, 163, 115, 0.15) 25%,
     transparent 25%,
     transparent 50%,
-    rgba(255, 255, 255, 0.15) 50%,
-    rgba(255, 255, 255, 0.15) 75%,
+    rgba(212, 163, 115, 0.15) 50%,
+    rgba(212, 163, 115, 0.15) 75%,
     transparent 75%,
     transparent
   );

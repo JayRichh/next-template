@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 interface PersistentStateOptions<T> {
   defaultValue: T;
@@ -13,10 +13,10 @@ const getDefaultStorage = (): Storage | undefined => {
   return undefined;
 };
 
-export function usePersistentState<T>({ 
-  defaultValue, 
-  key, 
-  storage = getDefaultStorage()
+export function usePersistentState<T>({
+  defaultValue,
+  key,
+  storage = getDefaultStorage(),
 }: PersistentStateOptions<T>) {
   // Always initialize with defaultValue to avoid hydration mismatch
   const [state, setState] = useState<T>(defaultValue);

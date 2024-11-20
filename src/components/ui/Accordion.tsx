@@ -1,5 +1,7 @@
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { cn } from '@/utils/cn';
 
 interface AccordionItem {
@@ -26,37 +28,33 @@ export function Accordion({
 
   const toggleItem = (itemId: string) => {
     if (allowMultiple) {
-      setExpandedItems(current =>
-        current.includes(itemId)
-          ? current.filter(id => id !== itemId)
-          : [...current, itemId]
+      setExpandedItems((current) =>
+        current.includes(itemId) ? current.filter((id) => id !== itemId) : [...current, itemId]
       );
     } else {
-      setExpandedItems(current =>
-        current.includes(itemId) ? [] : [itemId]
-      );
+      setExpandedItems((current) => (current.includes(itemId) ? [] : [itemId]));
     }
   };
 
   const isExpanded = (itemId: string) => expandedItems.includes(itemId);
 
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn('space-y-2', className)}>
       {items.map((item) => (
         <div
           key={item.id}
           className={cn(
-            "border-2 border-border/50 rounded-xl overflow-hidden",
-            "bg-background/40 backdrop-blur-sm"
+            'border-2 border-border/50 rounded-xl overflow-hidden',
+            'bg-background/40 backdrop-blur-sm'
           )}
         >
           <button
             onClick={() => toggleItem(item.id)}
             className={cn(
-              "w-full px-6 py-4",
-              "flex items-center justify-between",
-              "text-left focus:outline-none focus:ring-2 focus:ring-primary/50",
-              isExpanded(item.id) && "border-b border-border/50"
+              'w-full px-6 py-4',
+              'flex items-center justify-between',
+              'text-left focus:outline-none focus:ring-2 focus:ring-primary/50',
+              isExpanded(item.id) && 'border-b border-border/50'
             )}
           >
             <div className="flex items-center gap-3">
@@ -79,9 +77,7 @@ export function Accordion({
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="px-6 py-4">
-                  {item.content}
-                </div>
+                <div className="px-6 py-4">{item.content}</div>
               </motion.div>
             )}
           </AnimatePresence>
@@ -100,9 +96,8 @@ export function AccordionDemo() {
       icon: <span className="text-lg">?</span>,
       content: (
         <p className="text-foreground/70">
-          This is a modern Next.js template with TypeScript, Tailwind CSS, 
-          and Framer Motion. It includes various interactive components 
-          and utilities for rapid development.
+          This is a modern Next.js template with TypeScript, Tailwind CSS, and Framer Motion. It
+          includes various interactive components and utilities for rapid development.
         </p>
       ),
     },
@@ -112,8 +107,8 @@ export function AccordionDemo() {
       icon: <span className="text-lg">→</span>,
       content: (
         <p className="text-foreground/70">
-          Clone the repository, install dependencies with npm install, 
-          and run npm run dev to start the development server.
+          Clone the repository, install dependencies with npm install, and run npm run dev to start
+          the development server.
         </p>
       ),
     },
@@ -123,9 +118,8 @@ export function AccordionDemo() {
       icon: <span className="text-lg">✎</span>,
       content: (
         <p className="text-foreground/70">
-          Yes! All components are built with customization in mind. 
-          You can modify styles, behaviors, and extend functionality 
-          to suit your needs.
+          Yes! All components are built with customization in mind. You can modify styles,
+          behaviors, and extend functionality to suit your needs.
         </p>
       ),
     },

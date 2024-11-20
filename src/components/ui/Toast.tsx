@@ -1,6 +1,9 @@
+import { AnimatePresence, motion } from 'framer-motion';
+
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { cn } from '@/utils/cn';
+
 import { Button } from './Button';
 
 export type ToastType = 'success' | 'error' | 'info' | 'warning';
@@ -45,10 +48,7 @@ export function Toast({ message, type = 'info', isVisible, onClose }: ToastProps
           >
             <span className="text-lg">{toastIcons[type]}</span>
             <p className="font-medium">{message}</p>
-            <button
-              onClick={onClose}
-              className="ml-4 hover:opacity-80 transition-opacity"
-            >
+            <button onClick={onClose} className="ml-4 hover:opacity-80 transition-opacity">
               ✕
             </button>
           </div>
@@ -75,7 +75,7 @@ export function ToastDemo() {
       <Button onClick={() => showToast('error')}>Error</Button>
       <Button onClick={() => showToast('info')}>Info</Button>
       <Button onClick={() => showToast('warning')}>Warning</Button>
-      
+
       <Toast
         message={`This is a ${toastType} message!`}
         type={toastType}

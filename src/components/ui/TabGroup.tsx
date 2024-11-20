@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { useEffect, useState } from 'react';
+
 import { cn } from '@/utils/cn';
 
 interface Tab {
@@ -21,27 +23,27 @@ interface TabGroupProps {
 
 const variants = {
   pills: {
-    tab: "px-4 py-2 rounded-lg",
-    active: "bg-primary text-primary-foreground shadow-lg",
-    inactive: "hover:bg-primary/10 text-foreground/60",
-    container: "p-1 bg-background/50 rounded-xl backdrop-blur-sm",
+    tab: 'px-4 py-2 rounded-lg',
+    active: 'bg-primary text-primary-foreground shadow-lg',
+    inactive: 'hover:bg-primary/10 text-foreground/60',
+    container: 'p-1 bg-background/50 rounded-xl backdrop-blur-sm',
   },
   underline: {
-    tab: "px-4 py-2 border-b-2",
-    active: "border-primary text-primary",
-    inactive: "border-transparent hover:border-border text-foreground/60",
-    container: "border-b border-border/50",
+    tab: 'px-4 py-2 border-b-2',
+    active: 'border-primary text-primary',
+    inactive: 'border-transparent hover:border-border text-foreground/60',
+    container: 'border-b border-border/50',
   },
   solid: {
-    tab: "px-4 py-2",
-    active: "bg-background text-foreground border-t-2 border-primary rounded-t-lg",
-    inactive: "bg-background/50 hover:bg-background/80 text-foreground/60",
-    container: "bg-background/30 backdrop-blur-sm rounded-xl p-1",
+    tab: 'px-4 py-2',
+    active: 'bg-background text-foreground border-t-2 border-primary rounded-t-lg',
+    inactive: 'bg-background/50 hover:bg-background/80 text-foreground/60',
+    container: 'bg-background/30 backdrop-blur-sm rounded-xl p-1',
   },
 };
 
-export function TabGroup({ 
-  tabs, 
+export function TabGroup({
+  tabs,
   defaultTab,
   value: controlledValue,
   onChange,
@@ -52,7 +54,7 @@ export function TabGroup({
   const [localValue, setLocalValue] = useState(defaultTab || tabs[0]?.id);
   const isControlled = controlledValue !== undefined;
   const activeTab = isControlled ? controlledValue : localValue;
-  const activeContent = tabs.find(tab => tab.id === activeTab)?.content;
+  const activeContent = tabs.find((tab) => tab.id === activeTab)?.content;
   const styles = variants[variant];
 
   useEffect(() => {
@@ -73,14 +75,14 @@ export function TabGroup({
   return (
     <div className={className}>
       {/* Tab Headers */}
-      <div className={cn("flex gap-1 mb-8", styles.container)}>
+      <div className={cn('flex gap-1 mb-8', styles.container)}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
             className={cn(
-              "relative transition-colors duration-200",
-              "focus:outline-none focus:ring-2 focus:ring-primary/50",
+              'relative transition-colors duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-primary/50',
               styles.tab,
               activeTab === tab.id ? styles.active : styles.inactive
             )}
@@ -118,9 +120,7 @@ export function TabGroupDemo() {
       content: (
         <div className="p-4 space-y-4">
           <h3 className="text-lg font-semibold">Account Settings</h3>
-          <p className="text-foreground/70">
-            Manage your account settings and preferences.
-          </p>
+          <p className="text-foreground/70">Manage your account settings and preferences.</p>
         </div>
       ),
     },
@@ -142,9 +142,7 @@ export function TabGroupDemo() {
       content: (
         <div className="p-4 space-y-4">
           <h3 className="text-lg font-semibold">Notification Preferences</h3>
-          <p className="text-foreground/70">
-            Customize how and when you receive notifications.
-          </p>
+          <p className="text-foreground/70">Customize how and when you receive notifications.</p>
         </div>
       ),
     },
@@ -152,24 +150,9 @@ export function TabGroupDemo() {
 
   return (
     <div className="space-y-8">
-      <TabGroup 
-        tabs={demoTabs} 
-        value={activeTab}
-        onChange={setActiveTab}
-        variant="pills" 
-      />
-      <TabGroup 
-        tabs={demoTabs} 
-        value={activeTab}
-        onChange={setActiveTab}
-        variant="underline" 
-      />
-      <TabGroup 
-        tabs={demoTabs} 
-        value={activeTab}
-        onChange={setActiveTab}
-        variant="solid" 
-      />
+      <TabGroup tabs={demoTabs} value={activeTab} onChange={setActiveTab} variant="pills" />
+      <TabGroup tabs={demoTabs} value={activeTab} onChange={setActiveTab} variant="underline" />
+      <TabGroup tabs={demoTabs} value={activeTab} onChange={setActiveTab} variant="solid" />
     </div>
   );
 }

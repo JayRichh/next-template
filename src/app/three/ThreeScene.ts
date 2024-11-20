@@ -11,7 +11,14 @@ interface PhysicsObject {
   update: (deltaTime: number) => void;
 }
 
-type MaterialProperty = 'metalness' | 'roughness' | 'clearcoat' | 'transmission' | 'ior' | 'thickness' | 'color';
+type MaterialProperty =
+  | 'metalness'
+  | 'roughness'
+  | 'clearcoat'
+  | 'transmission'
+  | 'ior'
+  | 'thickness'
+  | 'color';
 
 export class ThreeScene {
   private scene: THREE.Scene;
@@ -131,7 +138,7 @@ export class ThreeScene {
       acceleration,
       boundingBox,
       isStatic,
-      update: function(deltaTime: number) {
+      update: function (deltaTime: number) {
         if (!isStatic) {
           velocity.add(acceleration.clone().multiplyScalar(deltaTime));
           mesh.position.add(velocity.clone().multiplyScalar(deltaTime));
@@ -316,7 +323,9 @@ export class ThreeScene {
   }
 
   private updateParticles(): void {
-    const particles = this.scene.children.find((child) => child instanceof THREE.Points) as THREE.Points;
+    const particles = this.scene.children.find(
+      (child) => child instanceof THREE.Points
+    ) as THREE.Points;
     if (!particles) return;
 
     const positions = particles.geometry.attributes.position as THREE.BufferAttribute;
@@ -365,7 +374,7 @@ export class ThreeScene {
   public setMainMeshMaterial(property: MaterialProperty, value: number | string): void {
     if (this.mainMesh.material instanceof THREE.MeshPhysicalMaterial) {
       const material = this.mainMesh.material;
-      
+
       if (property === 'color' && typeof value === 'string') {
         material.color.set(value);
       } else if (property !== 'color' && typeof value === 'number') {
@@ -396,7 +405,7 @@ export class ThreeScene {
     }
 
     // Remove old physics object from array
-    this.physicsObjects = this.physicsObjects.filter(obj => obj !== this.mainPhysicsObj);
+    this.physicsObjects = this.physicsObjects.filter((obj) => obj !== this.mainPhysicsObj);
 
     // Create new mesh
     this.mainMesh = this.createMainMesh(shape);
@@ -448,7 +457,7 @@ export class ThreeScene {
 
   public clearPhysicsObjects(): void {
     const objectsToRemove = this.physicsObjects.filter(
-      obj => obj !== this.groundPhysicsObj && obj !== this.mainPhysicsObj
+      (obj) => obj !== this.groundPhysicsObj && obj !== this.mainPhysicsObj
     );
 
     for (const obj of objectsToRemove) {

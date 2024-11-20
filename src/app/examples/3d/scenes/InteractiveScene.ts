@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-export class MaterialScene {
+export class InteractiveScene {
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
-  private mesh: THREE.Mesh;
   private controls: OrbitControls;
+  private mesh: THREE.Mesh;
+  private light: THREE.DirectionalLight;
   private container: HTMLElement;
   private animationId: number | null = null;
   private grid: THREE.GridHelper;
@@ -22,6 +23,7 @@ export class MaterialScene {
     });
     this.mesh = this.createMesh();
     this.grid = this.createGrid();
+    this.light = this.createLight();
     this.controls = this.createControls();
 
     this.init();
@@ -50,6 +52,29 @@ export class MaterialScene {
     return grid;
   }
 
+  private createMesh(): THREE.Mesh {
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshPhysicalMaterial({
+      color: '#2563eb',
+      metalness: 0.2,
+      roughness: 0.1,
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    mesh.position.y = 0.5;
+    return mesh;
+  }
+
+  private createLight(): THREE.DirectionalLight {
+    const light = new THREE.DirectionalLight('#ffffff', 1);
+    light.position.set(5, 5, 5);
+    light.castShadow = true;
+    light.shadow.mapSize.width = 2048;
+    light.shadow.mapSize.height = 2048;
+    return light;
+  }
+
   private init(): void {
     // Setup renderer
     this.renderer.setSize(this.container.clientWidth, this.container.clientHeight);
@@ -75,38 +100,13 @@ export class MaterialScene {
     this.handleResize();
   }
 
-  private createMesh(): THREE.Mesh {
-    const geometry = new THREE.SphereGeometry(1.2, 32, 32);
-    const material = new THREE.MeshPhysicalMaterial({
-      color: '#2563eb',
-      metalness: 0.2,
-      roughness: 0.1,
-      clearcoat: 0.8,
-      clearcoatRoughness: 0.2,
-      transmission: 0,
-      ior: 1.5,
-      thickness: 0.5,
-    });
-
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    mesh.position.y = 0.5;
-    return mesh;
-  }
-
   private setupLights(): void {
+    // Main directional light
+    this.scene.add(this.light);
+
     // Ambient light
     const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
     this.scene.add(ambientLight);
-
-    // Main directional light
-    const mainLight = new THREE.DirectionalLight('#ffffff', 1);
-    mainLight.position.set(5, 5, 5);
-    mainLight.castShadow = true;
-    mainLight.shadow.mapSize.width = 2048;
-    mainLight.shadow.mapSize.height = 2048;
-    this.scene.add(mainLight);
 
     // Fill light
     const fillLight = new THREE.DirectionalLight('#bfdbfe', 0.5);
@@ -141,21 +141,12 @@ export class MaterialScene {
   private animate = (): void => {
     this.animationId = requestAnimationFrame(this.animate);
     this.controls.update();
+    this.mesh.rotation.y += 0.005;
     this.renderer.render(this.scene, this.camera);
   };
 
-  public setMaterialProperty(property: string, value: number): void {
-    if (this.mesh.material instanceof THREE.MeshPhysicalMaterial) {
-      switch (property) {
-        case 'metalness':
-        case 'roughness':
-        case 'clearcoat':
-        case 'transmission':
-        case 'ior':
-          this.mesh.material[property] = value;
-          break;
-      }
-    }
+  public setLightPosition(x: number, y: number, z: number): void {
+    this.light.position.set(x, y, z);
   }
 
   public dispose(): void {

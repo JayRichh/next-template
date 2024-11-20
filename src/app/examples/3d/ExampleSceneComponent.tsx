@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+
 import { ExampleScene } from './ExampleScene';
 
 interface ExampleSceneComponentProps {
@@ -29,11 +30,5 @@ export function ExampleSceneComponent({ onSceneReady, className, id }: ExampleSc
     };
   }, [onSceneReady]);
 
-  return (
-    <div 
-      ref={containerRef}
-      id={id}
-      className={className}
-    />
-  );
+  return <div ref={containerRef} id={id} className={className} />;
 }

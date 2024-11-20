@@ -1,7 +1,7 @@
 import { ComponentExample } from '../types';
 import { progressMeta } from './progress';
-import { spinnerMeta } from './spinner';
 import { skeletonMeta } from './skeleton';
+import { spinnerMeta } from './spinner';
 import { toastMeta } from './toast';
 
 export * from './progress';

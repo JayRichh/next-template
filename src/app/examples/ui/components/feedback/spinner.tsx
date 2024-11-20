@@ -1,6 +1,7 @@
 'use client';
 
 import { Spinner } from '@/components/ui/Spinner';
+
 import { ComponentExample } from '../types';
 
 export const spinnerCode = `import { Spinner } from '@/components/ui/Spinner';
@@ -119,7 +120,7 @@ export function SpinnerExample() {
           </div>
 
           {/* Button loading state */}
-          <button 
+          <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground"
             disabled
           >

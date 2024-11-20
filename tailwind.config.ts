@@ -1,12 +1,8 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 import type { PluginAPI } from 'tailwindcss/types/config';
 
 const config: Config = {
-  content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ['./src/components/**/*.{js,ts,jsx,tsx,mdx}', './src/app/**/*.{js,ts,jsx,tsx,mdx}'],
   theme: {
     extend: {
       colors: {
@@ -50,6 +46,10 @@ const config: Config = {
           800: '#5b21b6',
           900: '#4c1d95',
         },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
         success: {
           DEFAULT: 'hsl(var(--success))',
           foreground: 'hsl(var(--success-foreground))',
@@ -72,6 +72,21 @@ const config: Config = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      fontFamily: {
+        sans: ['var(--font-geist-sans)'],
+        mono: ['var(--font-geist-mono)'],
+      },
+      animation: {
+        gradient: 'gradient 8s linear infinite',
+        'gradient-fast': 'gradient 4s linear infinite',
+        'gradient-slow': 'gradient 12s linear infinite',
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'gradient-mesh':
+          'repeating-linear-gradient(45deg, var(--tw-gradient-stops) 0px, var(--tw-gradient-stops) 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, var(--tw-gradient-stops) 0px, var(--tw-gradient-stops) 1px, transparent 1px, transparent 10px)',
+      },
     },
   },
   plugins: [
@@ -85,15 +100,18 @@ const config: Config = {
             '@screen lg': { maxWidth: '1024px' },
             '@screen xl': { maxWidth: '1280px' },
             '@screen 2xl': { maxWidth: '1536px' },
-          }
-        });
-
-        addUtilities({
-          '.glass': {
-            '@apply bg-background/80 backdrop-blur-md backdrop-saturate-150 border border-background/20': {},
           },
-          '.glass-hover': {
-            '@apply hover:bg-background/90 hover:border-background/30 transition-all duration-200': {},
+        });
+        addUtilities({
+          '.bg-gradient-primary': {
+            background: 'linear-gradient(to right, hsl(var(--primary)), hsl(var(--accent)))',
+          },
+          '.bg-gradient-secondary': {
+            background: 'linear-gradient(to right, hsl(var(--accent)), hsl(var(--secondary)))',
+          },
+          '.bg-gradient-mesh': {
+            backgroundImage:
+              'repeating-linear-gradient(45deg, currentColor 0px, currentColor 1px, transparent 1px, transparent 10px), repeating-linear-gradient(-45deg, currentColor 0px, currentColor 1px, transparent 1px, transparent 10px)',
           },
         });
       },

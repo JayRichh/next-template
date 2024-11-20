@@ -2,51 +2,89 @@
 
 import { motion } from 'framer-motion';
 
-export const GradientBackground = () => {
+import { cn } from '@/utils/cn';
+
+export interface GradientBackgroundProps {
+  variant?: 'default' | 'radial' | 'spotlight' | 'mesh';
+  interactive?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export const GradientBackground = ({
+  variant = 'default',
+  interactive = false,
+  className,
+  children,
+}: GradientBackgroundProps) => {
+  const variants = {
+    default: {
+      initial: { scale: 1, opacity: 0.5 },
+      animate: {
+        scale: [1, 1.05, 1],
+        opacity: [0.5, 0.6, 0.5],
+      },
+    },
+    radial: {
+      initial: { scale: 1, opacity: 0.4 },
+      animate: {
+        scale: [1, 1.1, 1],
+        opacity: [0.4, 0.5, 0.4],
+      },
+    },
+  };
+
+  const gradientElements = {
+    default: (
+      <motion.div
+        initial={variants.default.initial}
+        animate={interactive ? undefined : variants.default.animate}
+        transition={{
+          duration: 15,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle_at_center,var(--primary-color)_0%,transparent_70%)] opacity-[0.15] dark:opacity-[0.07] blur-[100px]"
+        style={
+          {
+            '--primary-color': 'hsl(var(--primary))',
+          } as any
+        }
+      />
+    ),
+    radial: (
+      <motion.div
+        initial={variants.radial.initial}
+        animate={interactive ? undefined : variants.radial.animate}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          repeatType: 'reverse',
+        }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px]"
+      >
+        <div
+          className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-color)_0%,var(--accent-color)_25%,transparent_60%)] opacity-[0.15] dark:opacity-[0.07] blur-[100px]"
+          style={
+            {
+              '--primary-color': 'hsl(var(--primary))',
+              '--accent-color': 'hsl(var(--accent))',
+            } as any
+          }
+        />
+      </motion.div>
+    ),
+    spotlight: null,
+    mesh: null,
+  };
+
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
-      <div className="absolute inset-0 bg-white dark:bg-gray-950 transition-colors duration-500" />
+    <div className={cn('relative w-full h-full overflow-hidden', className)}>
+      <div className="absolute inset-0 bg-background/20" />
       <div className="absolute inset-0 flex items-center justify-center">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 30, 0],
-            y: [0, -30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-purple-300 to-pink-300 dark:from-purple-800 dark:to-pink-800 opacity-30 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            x: [30, -30, 30],
-            y: [-20, 20, -20],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-300 to-teal-300 dark:from-blue-800 dark:to-teal-800 opacity-30 blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [0.8, 1.1, 0.8],
-            x: [-20, 20, -20],
-            y: [15, -15, 15],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-          className="absolute w-[600px] h-[600px] rounded-full bg-gradient-to-r from-rose-300 to-orange-300 dark:from-rose-800 dark:to-orange-800 opacity-30 blur-3xl"
-        />
+        {gradientElements[variant]}
       </div>
+      {children && <div className="relative z-10">{children}</div>}
     </div>
   );
 };

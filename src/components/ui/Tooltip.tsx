@@ -1,6 +1,8 @@
-import { useState, useRef, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+
 import { cn } from '@/utils/cn';
 
 type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
@@ -94,14 +96,14 @@ export function Tooltip({
     <>
       <div
         ref={triggerRef}
-      className="relative inline-flex"
-      onMouseEnter={showTooltip}
-      onMouseLeave={hideTooltip}
-      onFocus={showTooltip}
-      onBlur={hideTooltip}
-    >
-      {children}
-            </div>
+        className="relative inline-flex"
+        onMouseEnter={showTooltip}
+        onMouseLeave={hideTooltip}
+        onFocus={showTooltip}
+        onBlur={hideTooltip}
+      >
+        {children}
+      </div>
       {isVisible &&
         createPortal(
           <AnimatePresence>
@@ -111,7 +113,7 @@ export function Tooltip({
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.15 }}
               className={cn(
-                "fixed z-[9999] whitespace-nowrap",
+                'fixed z-[9999] whitespace-nowrap',
                 positionStyles[position],
                 className
               )}
@@ -120,19 +122,23 @@ export function Tooltip({
                 left: `${tooltipPosition.left}px`,
               }}
             >
-              <div className={cn(
-                "relative",
-                "bg-background/95 backdrop-blur-md",
-                "border border-border/50 rounded-lg shadow-lg",
-                "px-3 py-2 text-sm"
-              )}>
+              <div
+                className={cn(
+                  'relative',
+                  'bg-background/95 backdrop-blur-md',
+                  'border border-border/50 rounded-lg shadow-lg',
+                  'px-3 py-2 text-sm'
+                )}
+              >
                 {content}
-                <div className={cn(
-                  "absolute w-2 h-2 rotate-45",
-                  "border border-border/50 bg-background/95",
-                  arrowStyles[position]
-                )} />
-    </div>
+                <div
+                  className={cn(
+                    'absolute w-2 h-2 rotate-45',
+                    'border border-border/50 bg-background/95',
+                    arrowStyles[position]
+                  )}
+                />
+              </div>
             </motion.div>
           </AnimatePresence>,
           document.body

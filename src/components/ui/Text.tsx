@@ -1,37 +1,21 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { forwardRef, ReactNode } from 'react';
+import { HTMLAttributes, forwardRef } from 'react';
 
-type TextVariant = 
-  | 'h1' 
-  | 'h2' 
-  | 'h3' 
-  | 'h4' 
-  | 'body-lg' 
-  | 'body' 
-  | 'body-sm' 
-  | 'caption';
+import { cn } from '@/utils/cn';
 
-type TextGradient = 
-  | 'none'
-  | 'blue'
-  | 'purple'
-  | 'orange'
-  | 'primary';
+type TextVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'body-lg' | 'body' | 'body-sm' | 'caption';
+type TextGradient = 'none' | 'blue' | 'purple' | 'orange' | 'primary';
 
-interface TextProps {
+interface TextProps extends HTMLAttributes<HTMLDivElement> {
   variant?: TextVariant;
-  children?: ReactNode;
   color?: 'default' | 'primary' | 'secondary' | 'success' | 'error';
   weight?: 'normal' | 'medium' | 'semibold' | 'bold';
   align?: 'left' | 'center' | 'right';
   gradient?: TextGradient;
   glass?: boolean;
   balance?: boolean;
-  animate?: boolean;
   mono?: boolean;
-  className?: string;
 }
 
 const variantClasses: Record<TextVariant, string> = {
@@ -42,7 +26,7 @@ const variantClasses: Record<TextVariant, string> = {
   'body-lg': 'text-lg md:text-xl leading-relaxed',
   body: 'text-base leading-relaxed',
   'body-sm': 'text-sm leading-relaxed',
-  caption: 'text-xs leading-normal'
+  caption: 'text-xs leading-normal',
 };
 
 const colorClasses = {
@@ -50,20 +34,20 @@ const colorClasses = {
   primary: 'text-primary',
   secondary: 'text-muted-foreground',
   success: 'text-success',
-  error: 'text-error'
+  error: 'text-error',
 };
 
 const weightClasses = {
   normal: 'font-normal',
   medium: 'font-medium',
   semibold: 'font-semibold',
-  bold: 'font-bold'
+  bold: 'font-bold',
 };
 
 const alignClasses = {
   left: 'text-left',
   center: 'text-center',
-  right: 'text-right'
+  right: 'text-right',
 };
 
 const gradientClasses: Record<TextGradient, string> = {
@@ -75,71 +59,47 @@ const gradientClasses: Record<TextGradient, string> = {
 };
 
 export const Text = forwardRef<HTMLDivElement, TextProps>(
-  ({
-    variant = 'body',
-    color = 'default',
-    weight,
-    align = 'left',
-    gradient = 'none',
-    glass = false,
-    balance = false,
-    animate = false,
-    mono = false,
-    className = '',
-    children,
-    ...props
-  }, ref) => {
-    // Get default weight from variant if not explicitly set
+  (
+    {
+      variant = 'body',
+      color = 'default',
+      weight,
+      align = 'left',
+      gradient = 'none',
+      glass = false,
+      balance = false,
+      mono = false,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => {
     const defaultWeight = variant.startsWith('h') ? 'bold' : 'normal';
     const finalWeight = weight || defaultWeight;
 
-    // Animation variants
-    const textAnimation = {
-      initial: { opacity: 0, y: 10 },
-      animate: { 
-        opacity: 1, 
-        y: 0,
-        transition: {
-          duration: 0.4,
-          ease: 'easeOut'
-        }
-      }
-    };
-
-    // Determine the HTML element based on variant
-    const Component = variant.startsWith('h') 
-      ? motion[variant as 'h1' | 'h2' | 'h3' | 'h4']
-      : motion.p;
-
     return (
-      <Component
+      <div
         ref={ref}
-        variants={animate ? textAnimation : undefined}
-        initial={animate ? 'initial' : undefined}
-        animate={animate ? 'animate' : undefined}
-        className={`
-          ${variantClasses[variant]}
-          ${colorClasses[color]}
-          ${weightClasses[finalWeight]}
-          ${alignClasses[align]}
-          ${gradientClasses[gradient]}
-          ${glass ? 'glass' : ''}
-          ${balance ? 'text-balance' : ''}
-          ${mono ? 'font-mono' : 'font-sans'}
-          ${className}
-        `}
+        className={cn(
+          variantClasses[variant],
+          colorClasses[color],
+          weightClasses[finalWeight],
+          alignClasses[align],
+          gradientClasses[gradient],
+          glass && 'glass',
+          balance && 'text-balance',
+          mono ? 'font-mono' : 'font-sans',
+          'relative',
+          className
+        )}
         {...props}
       >
-        {/* Glass effect overlay */}
         {glass && (
           <span className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-25 blur-sm" />
         )}
-        
-        {/* Main content */}
-        <span className="relative">
-          {children}
-        </span>
-      </Component>
+        <span className="relative">{children}</span>
+      </div>
     );
   }
 );

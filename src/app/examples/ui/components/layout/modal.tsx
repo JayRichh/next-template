@@ -1,8 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Modal } from '@/components/ui/Modal';
+
 import { Button } from '@/components/ui/Button';
+import { Modal } from '@/components/ui/Modal';
+
 import { ComponentExample } from '../types';
 
 export const modalCode = `import { Modal } from '@/components/ui/Modal';

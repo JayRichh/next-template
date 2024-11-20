@@ -25,7 +25,7 @@ export class PhysicsScene {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color('#f8fafc');
     this.camera = new THREE.PerspectiveCamera(50, this.getAspect(), 0.1, 1000);
-    this.renderer = new THREE.WebGLRenderer({ 
+    this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
     });
@@ -80,14 +80,14 @@ export class PhysicsScene {
 
     // Handle resize
     window.addEventListener('resize', this.handleResize);
-    
+
     // Initial resize
     this.handleResize();
   }
 
   private createGround(): void {
     const groundGeometry = new THREE.PlaneGeometry(20, 20);
-    const groundMaterial = new THREE.MeshStandardMaterial({ 
+    const groundMaterial = new THREE.MeshStandardMaterial({
       color: '#f1f5f9',
       metalness: 0,
       roughness: 1,
@@ -130,7 +130,7 @@ export class PhysicsScene {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height);
-  }
+  };
 
   private updatePhysics(deltaTime: number): void {
     for (const obj of this.objects) {
@@ -146,9 +146,7 @@ export class PhysicsScene {
 
         if (distance < minDistance) {
           // Calculate collision normal
-          const normal = obj.mesh.position.clone()
-            .sub(other.mesh.position)
-            .normalize();
+          const normal = obj.mesh.position.clone().sub(other.mesh.position).normalize();
 
           // Move objects apart
           const overlap = minDistance - distance;
@@ -158,7 +156,7 @@ export class PhysicsScene {
           // Reflect velocities
           const relativeVelocity = obj.velocity.clone().sub(other.velocity);
           const normalVelocity = normal.clone().multiplyScalar(relativeVelocity.dot(normal));
-          
+
           obj.velocity.sub(normalVelocity.multiplyScalar(1.5));
           other.velocity.add(normalVelocity.multiplyScalar(1.5));
 
@@ -173,11 +171,11 @@ export class PhysicsScene {
   private animate = (): void => {
     this.animationId = requestAnimationFrame(this.animate);
     const deltaTime = Math.min(this.clock.getDelta(), 0.1);
-    
+
     this.updatePhysics(deltaTime);
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 
   public addObject(type: 'box' | 'sphere', position: { x: number; y: number; z: number }): void {
     let geometry: THREE.BufferGeometry;
@@ -191,8 +189,8 @@ export class PhysicsScene {
       geometry = new THREE.BoxGeometry(1, 1, 1);
     }
 
-    const material = new THREE.MeshPhysicalMaterial({ 
-      color: '#' + Math.floor(Math.random()*16777215).toString(16),
+    const material = new THREE.MeshPhysicalMaterial({
+      color: '#' + Math.floor(Math.random() * 16777215).toString(16),
       metalness: 0.2,
       roughness: 0.1,
       clearcoat: 0.8,
@@ -232,7 +230,7 @@ export class PhysicsScene {
           physicsObj.mesh.position.z = Math.sign(physicsObj.mesh.position.z) * bounds;
           physicsObj.velocity.z = -physicsObj.velocity.z * 0.5;
         }
-      }
+      },
     };
 
     this.objects.push(physicsObj);

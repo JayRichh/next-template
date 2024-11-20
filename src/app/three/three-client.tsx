@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+
 import { ThreeScene } from './ThreeScene';
 
 interface ThreeClientProps {
@@ -14,7 +15,7 @@ export default function ThreeClient({
   color = '#4338ca',
   rotation = 0,
   wireframe = false,
-  className
+  className,
 }: ThreeClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<ThreeScene | null>(null);
@@ -51,16 +52,16 @@ export default function ThreeClient({
   }, [wireframe]);
 
   return (
-    <div 
-      ref={containerRef} 
+    <div
+      ref={containerRef}
       className={className}
-      style={{ 
-        width: '100%', 
-        height: '100%', 
+      style={{
+        width: '100%',
+        height: '100%',
         background: '#000000',
         position: 'relative',
         overflow: 'hidden',
-        borderRadius: 'inherit'
+        borderRadius: 'inherit',
       }}
     />
   );

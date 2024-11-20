@@ -1,25 +1,10 @@
 'use client';
 
-import { useState, useCallback } from 'react';
-import { Card } from '@/components/ui/Card';
+import { useCallback, useState } from 'react';
+
 import { Slider } from '@/components/ui/Slider';
+
 import { MaterialScene } from '../scenes/MaterialScene';
-
-const materialCode = `// Create a physically based material with dynamic properties
-const material = new THREE.MeshPhysicalMaterial({ 
-  color: '#2563eb',
-  metalness: 0.2,    // Metallic look (0-1)
-  roughness: 0.1,    // Surface smoothness (0-1)
-  clearcoat: 0.8,    // Clear coating amount (0-1)
-  transmission: 0,   // Transparency (0-1)
-  ior: 1.5,         // Index of refraction
-});
-
-// Update material properties in real-time
-function updateMaterial(property: string, value: number) {
-  material[property] = value;
-  material.needsUpdate = true;
-}`;
 
 export function MaterialExample() {
   const [scene, setScene] = useState<MaterialScene | null>(null);
@@ -38,25 +23,20 @@ export function MaterialExample() {
   }, []);
 
   const handlePropertyChange = (property: keyof typeof properties) => (value: number) => {
-    setProperties(prev => ({ ...prev, [property]: value }));
+    setProperties((prev) => ({ ...prev, [property]: value }));
     scene?.setMaterialProperty(property, value);
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Card className="p-6">
-        <pre className="text-sm bg-slate-950 text-slate-50 p-4 rounded-lg overflow-x-auto">
-          <code>{materialCode}</code>
-        </pre>
-      </Card>
+    <div className="flex flex-col min-h-[600px]">
+      {/* Scene Container */}
+      <div className="relative flex-1 min-h-[400px] bg-background rounded-lg shadow-sm overflow-hidden">
+        <div ref={handleSceneReady} className="absolute inset-0" />
+      </div>
 
-      <Card className="p-6 space-y-6">
-        <div 
-          ref={handleSceneReady}
-          className="w-full h-[300px] bg-white rounded-lg shadow-sm"
-        />
-
-        <div className="space-y-4">
+      {/* Controls */}
+      <div className="mt-8 p-4 bg-background rounded-lg shadow-sm">
+        <div className="space-y-6">
           <div>
             <div className="flex justify-between text-sm mb-2">
               <span>Metalness</span>
@@ -127,7 +107,7 @@ export function MaterialExample() {
             />
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

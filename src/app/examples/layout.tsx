@@ -1,33 +1,22 @@
 'use client';
 
-import { cn } from '@/utils/cn';
-import { 
-  Sidebar, 
-  SidebarContent, 
-  SidebarGroup, 
-  SidebarHeader, 
-  SidebarItem, 
-  SidebarProvider,
-  useSidebar
-} from '@/components/ui/sidebar';
-import { Breadcrumb } from '@/components/ui/breadcrumb';
+import { Box, Component, FileCode, FormInput, Home, Palette } from 'lucide-react';
+
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { 
-  Home,
-  Component,
-  Box,
-  FileCode,
-  FormInput,
-  Palette,
-} from 'lucide-react';
+import { usePathname, useSearchParams } from 'next/navigation';
+
+import { Breadcrumb } from '@/components/ui/Breadcrumb';
+
+import { useActiveSection } from '@/hooks/useActiveSection';
+
+import { cn } from '@/utils/cn';
 
 const categories = [
   {
     id: 'overview',
     label: 'Overview',
     icon: Home,
-    href: '/examples'
+    href: '/examples',
   },
   {
     id: 'ui',
@@ -41,7 +30,7 @@ const categories = [
       { id: 'data-display', label: 'Data Display' },
       { id: 'overlay', label: 'Overlay' },
       { id: 'effects', label: 'Effects' },
-    ]
+    ],
   },
   {
     id: '3d',
@@ -49,10 +38,11 @@ const categories = [
     icon: Box,
     href: '/examples/3d',
     items: [
-      { id: 'basic', label: 'Basic Scene' },
+      { id: 'basic', label: 'Physical Materials' },
       { id: 'interactive', label: 'Interactive Controls' },
-      { id: 'advanced', label: 'Advanced Effects' },
-    ]
+      { id: 'advanced', label: 'Geometry Morphing' },
+      { id: 'physics', label: 'Interactive Physics' },
+    ],
   },
   {
     id: 'nextjs',
@@ -63,7 +53,7 @@ const categories = [
       { id: 'api', label: 'API Routes' },
       { id: 'routing', label: 'Dynamic Routing' },
       { id: 'server', label: 'Server Components' },
-    ]
+    ],
   },
   {
     id: 'data',
@@ -74,7 +64,7 @@ const categories = [
       { id: 'forms', label: 'Form Validation' },
       { id: 'state', label: 'State Management' },
       { id: 'storage', label: 'Local Storage' },
-    ]
+    ],
   },
   {
     id: 'theme',
@@ -85,90 +75,98 @@ const categories = [
       { id: 'darkmode', label: 'Dark Mode' },
       { id: 'colors', label: 'Color System' },
       { id: 'gradients', label: 'Gradients' },
-    ]
-  }
+    ],
+  },
 ];
 
-function MainContent({ children }: { children: React.ReactNode }) {
-  const { expanded } = useSidebar();
-  
-  return (
-    <div className={cn(
-      "w-full min-h-screen transition-[padding] duration-300 ease-in-out",
-      expanded ? "md:pl-64" : "md:pl-12"
-    )}>
-      <div className="border-b py-2">
-        <div className="max-w-7xl mx-auto px-2 py-3">
-          <Breadcrumb />
-        </div>
-      </div>
-      <main className="overflow-y-auto">
-        <div className="max-w-7xl mx-auto px-2 py-6">
-          {children}
-        </div>
-      </main>
-    </div>
-  );
-}
-
-export default function ExamplesLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  // const router = useRouter();
+export default function ExamplesLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { section: activeSection, category: activeCategory } = useActiveSection();
 
   return (
-    <SidebarProvider defaultExpanded={false}>
-      <div className="relative z-20">
-        <Sidebar>
-          <SidebarHeader
-            icon={<Component className="h-4 w-4" />}
-            title="Examples"
+    <div className="flex flex-1">
+      {/* Sidebar */}
+      <nav
+        className="fixed top-16 left-0 z-30 w-64 h-[calc(100vh-4rem)] border-r bg-background flex flex-col"
+        aria-label="Examples navigation"
+      >
+        {/* Header */}
+        <div className="flex h-14 items-center border-b px-4 flex-shrink-0">
+          <Link
             href="/examples"
+            className="flex items-center space-x-2 hover:opacity-80"
+            aria-label="Examples home"
           >
-            <Link href="/examples" className="flex items-center space-x-2 px-2">
-              <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-background">
-                <Component className="h-4 w-4" />
-              </div>
-              <span className="font-bold">Examples</span>
-            </Link>
-          </SidebarHeader>
-          <SidebarContent>
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg border bg-background">
+              <Component className="h-4 w-4" aria-hidden="true" />
+            </div>
+            <span className="font-bold">Examples</span>
+          </Link>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex-1 overflow-y-auto p-2">
+          <ul className="space-y-1">
             {categories.map((category) => {
               const Icon = category.icon;
-              const isCategoryActive = pathname.startsWith(category.href);
-              const isExactPath = pathname === category.href;
-              
+              const isActive = pathname.startsWith(category.href);
+
               return (
-                <SidebarGroup 
-                  key={category.id} 
-                  title={category.label}
-                  defaultOpen={isCategoryActive}
-                  href={category.href}
-                  icon={<Icon className="h-4 w-4" />}
-                  isRoot={category.id === 'overview'}
-                  section={isExactPath ? category.id : undefined}
-                >
-                  {category.items?.map((item) => (
-                    <SidebarItem 
-                      key={item.id}
-                      className="pl-8"
-                      section={item.id}
-                      href={category.href}
-                    >
-                      {item.label}
-                    </SidebarItem>
-                  ))}
-                </SidebarGroup>
+                <li key={category.id}>
+                  <Link
+                    href={category.href}
+                    className={cn(
+                      'flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors duration-200',
+                      isActive ? 'bg-background-secondary' : 'hover:bg-background-secondary/50'
+                    )}
+                    aria-current={isActive ? 'page' : undefined}
+                  >
+                    <Icon className="h-4 w-4" aria-hidden="true" />
+                    <span>{category.label}</span>
+                  </Link>
+                  {isActive && category.items && (
+                    <ul className="mt-1 ml-4 space-y-1 border-l pl-4">
+                      {category.items.map((item) => {
+                        const isItemActive =
+                          activeSection === item.id ||
+                          (!activeSection && activeCategory === item.id);
+
+                        return (
+                          <li key={item.id}>
+                            <Link
+                              href={`${category.href}?section=${item.id}`}
+                              className={cn(
+                                'block rounded-lg px-3 py-2 transition-all duration-200',
+                                isItemActive
+                                  ? 'bg-background-secondary text-primary font-medium'
+                                  : 'hover:bg-background-secondary/25'
+                              )}
+                              aria-current={isItemActive ? 'true' : undefined}
+                            >
+                              {item.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
               );
             })}
-          </SidebarContent>
-        </Sidebar>
+          </ul>
+        </div>
+      </nav>
 
-        <MainContent>{children}</MainContent>
+      {/* Main content */}
+      <div className="flex-1 pl-64">
+        <div className="sticky top-16 z-20 bg-background/80 backdrop-blur-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 py-3">
+            <Breadcrumb />
+          </div>
+        </div>
+        <div className="flex-1">{children}</div>
       </div>
-    </SidebarProvider>
+    </div>
   );
 }

@@ -131,13 +131,13 @@ export class DemoScene {
   public updateMaterialProperty(property: MaterialProperty, value: MaterialValue): void {
     if (this.mesh.material instanceof THREE.MeshStandardMaterial) {
       const material = this.mesh.material;
-      
+
       if (property === 'color' && typeof value === 'string') {
         material.color.set(value);
       } else if (property !== 'color' && typeof value === 'number') {
         material[property] = value;
       }
-      
+
       material.needsUpdate = true;
     }
   }

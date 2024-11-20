@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+
 import { usePersistentState } from './usePersistentState';
 
 interface UseResizableOptions {
@@ -14,11 +15,11 @@ export function useResizable({
   maxWidth = 480,
   defaultWidth = 280,
   storageKey = 'sidebar-width',
-  onResize
+  onResize,
 }: UseResizableOptions = {}) {
   const [width, setWidth] = usePersistentState({
     key: storageKey,
-    defaultValue: defaultWidth
+    defaultValue: defaultWidth,
   });
   const [isResizing, setIsResizing] = useState(false);
 
@@ -31,14 +32,17 @@ export function useResizable({
     setIsResizing(false);
   }, []);
 
-  const resize = useCallback((event: MouseEvent) => {
-    if (isResizing) {
-      event.preventDefault();
-      const newWidth = Math.max(minWidth, Math.min(maxWidth, event.clientX));
-      setWidth(newWidth);
-      onResize?.(newWidth);
-    }
-  }, [isResizing, maxWidth, minWidth, setWidth, onResize]);
+  const resize = useCallback(
+    (event: MouseEvent) => {
+      if (isResizing) {
+        event.preventDefault();
+        const newWidth = Math.max(minWidth, Math.min(maxWidth, event.clientX));
+        setWidth(newWidth);
+        onResize?.(newWidth);
+      }
+    },
+    [isResizing, maxWidth, minWidth, setWidth, onResize]
+  );
 
   useEffect(() => {
     if (isResizing) {
@@ -60,6 +64,6 @@ export function useResizable({
     width,
     isResizing,
     startResizing,
-    setWidth
+    setWidth,
   };
 }

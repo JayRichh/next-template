@@ -1,21 +1,23 @@
 'use client';
 
-import { Button } from '@/components/ui/Button';
-import { ComponentExample } from '../types';
-import { 
-  Mail, 
-  Send, 
-  ArrowRight, 
-  Plus, 
-  Trash, 
-  Save, 
-  Download, 
-  ExternalLink, 
-  Settings,
+import {
+  ArrowRight,
   Bell,
+  Download,
+  ExternalLink,
+  Mail,
+  MoreHorizontal,
+  Plus,
+  Save,
   Search,
-  MoreHorizontal 
+  Send,
+  Settings,
+  Trash,
 } from 'lucide-react';
+
+import { Button } from '@/components/ui/Button';
+
+import { ComponentExample } from '../types';
 
 export const buttonCode = `import { Button } from '@/components/ui/Button';
 
@@ -66,9 +68,15 @@ export function ButtonExample() {
       <div className="space-y-3">
         <div className="text-sm font-medium">Sizes</div>
         <div className="flex items-center gap-4">
-          <Button variant="primary" size="sm">Small</Button>
-          <Button variant="primary" size="md">Medium</Button>
-          <Button variant="primary" size="lg">Large</Button>
+          <Button variant="primary" size="sm">
+            Small
+          </Button>
+          <Button variant="primary" size="md">
+            Medium
+          </Button>
+          <Button variant="primary" size="lg">
+            Large
+          </Button>
         </div>
       </div>
 
@@ -98,28 +106,16 @@ export function ButtonExample() {
       <div className="space-y-3">
         <div className="text-sm font-medium">With Icons</div>
         <div className="flex flex-wrap gap-4">
-          <Button 
-            variant="primary" 
-            leftIcon={<Plus className="h-4 w-4" />}
-          >
+          <Button variant="primary" leftIcon={<Plus className="h-4 w-4" />}>
             Create New
           </Button>
-          <Button 
-            variant="outline" 
-            rightIcon={<ArrowRight className="h-4 w-4" />}
-          >
+          <Button variant="outline" rightIcon={<ArrowRight className="h-4 w-4" />}>
             Next Step
           </Button>
-          <Button 
-            variant="secondary" 
-            leftIcon={<Download className="h-4 w-4" />}
-          >
+          <Button variant="secondary" leftIcon={<Download className="h-4 w-4" />}>
             Download
           </Button>
-          <Button 
-            variant="ghost" 
-            rightIcon={<ExternalLink className="h-4 w-4" />}
-          >
+          <Button variant="ghost" rightIcon={<ExternalLink className="h-4 w-4" />}>
             View Details
           </Button>
         </div>
@@ -150,43 +146,28 @@ export function ButtonExample() {
         <div className="space-y-4">
           {/* Form Actions */}
           <div className="flex gap-2">
-            <Button 
-              variant="primary" 
-              leftIcon={<Save className="h-4 w-4" />}
-            >
+            <Button variant="primary" leftIcon={<Save className="h-4 w-4" />}>
               Save Changes
             </Button>
             <Button variant="ghost">Cancel</Button>
-            <Button 
-              variant="outline" 
-              size="icon"
-            >
+            <Button variant="outline" size="icon">
               <MoreHorizontal className="h-4 w-4" />
             </Button>
           </div>
 
           {/* Communication Actions */}
           <div className="flex gap-2">
-            <Button 
-              variant="primary" 
-              leftIcon={<Mail className="h-4 w-4" />}
-            >
+            <Button variant="primary" leftIcon={<Mail className="h-4 w-4" />}>
               Send Email
             </Button>
-            <Button 
-              variant="secondary" 
-              leftIcon={<Send className="h-4 w-4" />}
-            >
+            <Button variant="secondary" leftIcon={<Send className="h-4 w-4" />}>
               Send Message
             </Button>
           </div>
 
           {/* Destructive Actions */}
           <div className="flex gap-2">
-            <Button 
-              variant="destructive" 
-              leftIcon={<Trash className="h-4 w-4" />}
-            >
+            <Button variant="destructive" leftIcon={<Trash className="h-4 w-4" />}>
               Delete Account
             </Button>
             <Button variant="outline">Cancel</Button>

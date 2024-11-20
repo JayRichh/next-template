@@ -21,7 +21,7 @@ export class ExampleScene {
     this.scene = new THREE.Scene();
     this.scene.background = new THREE.Color('#f8fafc'); // Soft white background
     this.camera = new THREE.PerspectiveCamera(50, this.getAspect(), 0.1, 1000);
-    this.renderer = new THREE.WebGLRenderer({ 
+    this.renderer = new THREE.WebGLRenderer({
       antialias: true,
       alpha: true,
     });
@@ -29,7 +29,7 @@ export class ExampleScene {
     this.mesh = this.createMesh();
     this.grid = this.createGrid();
     this.controls = this.createControls();
-    
+
     // Initialize lights
     this.ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
     this.mainLight = this.createMainLight();
@@ -121,14 +121,14 @@ export class ExampleScene {
 
     // Handle resize
     window.addEventListener('resize', this.handleResize);
-    
+
     // Initial resize
     this.handleResize();
   }
 
   private createMesh(): THREE.Mesh {
     const geometry = new THREE.BoxGeometry(2, 2, 2, 2, 2, 2);
-    const material = new THREE.MeshPhysicalMaterial({ 
+    const material = new THREE.MeshPhysicalMaterial({
       color: '#2563eb',
       metalness: 0.2,
       roughness: 0.1,
@@ -155,7 +155,7 @@ export class ExampleScene {
 
     // Ground plane for shadows
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
-    const groundMaterial = new THREE.ShadowMaterial({ 
+    const groundMaterial = new THREE.ShadowMaterial({
       opacity: 0.3,
       color: '#1e293b',
       transparent: true,
@@ -176,16 +176,18 @@ export class ExampleScene {
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height);
-  }
+  };
 
   private animate = (): void => {
     this.animationId = requestAnimationFrame(this.animate);
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
-  }
+  };
 
   // Public methods for controlling the scene
-  public setGeometry(type: 'box' | 'sphere' | 'torus' | 'octahedron' | 'icosahedron' | 'cylinder'): void {
+  public setGeometry(
+    type: 'box' | 'sphere' | 'torus' | 'octahedron' | 'icosahedron' | 'cylinder'
+  ): void {
     let geometry: THREE.BufferGeometry;
 
     switch (type) {

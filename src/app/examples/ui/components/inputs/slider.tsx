@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from 'react';
+
 import { Slider } from '@/components/ui/Slider';
+
 import { ComponentExample } from '../types';
 
 export const sliderCode = `import { Slider } from '@/components/ui/Slider';
@@ -40,14 +42,7 @@ export function SliderExample() {
 
   return (
     <div className="space-y-8">
-      <Slider
-        label="Volume"
-        value={volume}
-        onChange={setVolume}
-        min={0}
-        max={100}
-        step={1}
-      />
+      <Slider label="Volume" value={volume} onChange={setVolume} min={0} max={100} step={1} />
 
       <Slider
         label="Brightness"

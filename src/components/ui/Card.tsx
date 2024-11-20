@@ -1,25 +1,27 @@
 'use client';
 
-import { motion, HTMLMotionProps, Variants } from 'framer-motion';
-import { forwardRef, ReactNode } from 'react';
+import { HTMLMotionProps, Variants, motion } from 'framer-motion';
+
+import { ReactNode, forwardRef } from 'react';
+
 import { cn } from '@/utils/cn';
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { 
-    opacity: 1, 
+  visible: {
+    opacity: 1,
     y: 0,
     transition: {
       duration: 0.3,
-      ease: 'easeOut'
-    }
+      ease: 'easeOut',
+    },
   },
   hover: {
     y: -5,
     transition: {
-      duration: 0.2
-    }
-  }
+      duration: 0.2,
+    },
+  },
 };
 
 interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
@@ -31,32 +33,36 @@ interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
 }
 
 const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ 
-    variant = 'elevated', 
-    interactive = true, 
-    fullHeight = false,
-    noPadding = false,
-    className = '', 
-    children, 
-    ...props 
-  }, ref) => {
+  (
+    {
+      variant = 'elevated',
+      interactive = true,
+      fullHeight = false,
+      noPadding = false,
+      className = '',
+      children,
+      ...props
+    },
+    ref
+  ) => {
     return (
       <motion.div
         ref={ref}
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        whileHover={interactive ? "hover" : undefined}
+        whileHover={interactive ? 'hover' : undefined}
         className={cn(
           'rounded-lg',
           'flex flex-col',
           {
             'h-full': fullHeight,
+            'min-h-0': !fullHeight,
             'p-6': !noPadding,
-            'bg-white dark:bg-gray-800 shadow-lg': variant === 'elevated',
-            'border-2 border-gray-200 dark:border-gray-700': variant === 'outlined',
-            'bg-gray-50 dark:bg-gray-900': variant === 'filled',
-            'cursor-pointer': interactive,
+            'bg-background shadow-lg border border-border/50': variant === 'elevated',
+            'border-2 border-border': variant === 'outlined',
+            'bg-background-secondary': variant === 'filled',
+            'cursor-pointer transition-transform': interactive,
           },
           className
         )}
@@ -80,22 +86,12 @@ interface CardHeaderProps {
 const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ title, subtitle, action, className = '' }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn(
-          'flex justify-between items-start gap-4',
-          className
-        )}
-      >
+      <div ref={ref} className={cn('flex justify-between items-start gap-4 mb-4', className)}>
         <div className="flex-1 min-w-0">
-          <div className="text-xl font-semibold text-gray-900 dark:text-white leading-tight truncate">
+          <div className="text-xl font-semibold text-foreground leading-tight truncate space-y-1">
             {title}
           </div>
-          {subtitle && (
-            <div className="mt-1 text-base text-gray-600 dark:text-gray-300">
-              {subtitle}
-            </div>
-          )}
+          {subtitle && <div className="mt-2 text-base text-foreground-secondary">{subtitle}</div>}
         </div>
         {action && <div className="flex-shrink-0">{action}</div>}
       </div>
@@ -115,11 +111,7 @@ const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          'flex-1 min-h-0',
-          'mt-4 text-gray-600 dark:text-gray-300',
-          className
-        )}
+        className={cn('flex-1 min-h-0 w-full', 'text-foreground-secondary', className)}
       >
         {children}
       </div>
@@ -143,7 +135,7 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
         className={cn(
           'mt-6',
           {
-            'pt-4 border-t border-gray-200 dark:border-gray-700': !noBorder
+            'pt-4 border-t border-border': !noBorder,
           },
           className
         )}

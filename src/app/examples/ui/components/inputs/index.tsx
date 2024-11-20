@@ -9,9 +9,4 @@ export * from './form';
 export * from './select';
 export * from './slider';
 
-export const inputComponents: ComponentExample[] = [
-  buttonMeta,
-  formMeta,
-  selectMeta,
-  sliderMeta,
-];
+export const inputComponents: ComponentExample[] = [buttonMeta, formMeta, selectMeta, sliderMeta];

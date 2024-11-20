@@ -3,6 +3,4 @@ import { dropdownMeta } from './dropdown';
 
 export * from './dropdown';
 
-export const overlayComponents: ComponentExample[] = [
-  dropdownMeta,
-];
+export const overlayComponents: ComponentExample[] = [dropdownMeta];
