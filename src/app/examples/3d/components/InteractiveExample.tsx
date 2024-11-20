@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-import { Slider } from '@/components/ui/Slider';
-
-import { InteractiveScene } from '../scenes/InteractiveScene';
+import { InteractiveScene } from "../scenes/InteractiveScene";
+import { Slider } from "@/components/ui/Slider";
 
 export function InteractiveExample() {
   const [scene, setScene] = useState<InteractiveScene | null>(null);
@@ -20,7 +19,7 @@ export function InteractiveExample() {
     return () => newScene.dispose();
   }, []);
 
-  const handleLightPositionChange = (axis: 'x' | 'y' | 'z') => (value: number) => {
+  const handleLightPositionChange = (axis: "x" | "y" | "z") => (value: number) => {
     setLightPosition((prev) => {
       const newPosition = { ...prev, [axis]: value };
       scene?.setLightPosition(newPosition.x, newPosition.y, newPosition.z);
@@ -45,7 +44,7 @@ export function InteractiveExample() {
             </div>
             <Slider
               value={lightPosition.x}
-              onChange={handleLightPositionChange('x')}
+              onChange={handleLightPositionChange("x")}
               min={-10}
               max={10}
               step={0.1}
@@ -59,7 +58,7 @@ export function InteractiveExample() {
             </div>
             <Slider
               value={lightPosition.y}
-              onChange={handleLightPositionChange('y')}
+              onChange={handleLightPositionChange("y")}
               min={-10}
               max={10}
               step={0.1}
@@ -73,7 +72,7 @@ export function InteractiveExample() {
             </div>
             <Slider
               value={lightPosition.z}
-              onChange={handleLightPositionChange('z')}
+              onChange={handleLightPositionChange("z")}
               min={-10}
               max={10}
               step={0.1}

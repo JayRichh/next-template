@@ -1,40 +1,39 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
+import { useEffect, useState } from "react";
 
-import { useEffect, useState } from 'react';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { motion } from "framer-motion";
 
 interface ProgressProps {
   value: number;
   max?: number;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   showValue?: boolean;
   animate?: boolean;
-  variant?: 'default' | 'gradient' | 'striped';
+  variant?: "default" | "gradient" | "striped";
   className?: string;
 }
 
 const sizeStyles = {
-  sm: 'h-1',
-  md: 'h-2',
-  lg: 'h-4',
+  sm: "h-1",
+  md: "h-2",
+  lg: "h-4",
 };
 
 const variants = {
-  default: 'bg-blue-500',
-  gradient: 'bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500',
-  striped: 'progress-striped bg-blue-500',
+  default: "bg-blue-500",
+  gradient: "bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500",
+  striped: "progress-striped bg-blue-500",
 };
 
 export function Progress({
   value,
   max = 100,
-  size = 'md',
+  size = "md",
   showValue = false,
   animate = true,
-  variant = 'default',
+  variant = "default",
   className,
 }: ProgressProps) {
   const [mounted, setMounted] = useState(false);
@@ -52,28 +51,28 @@ export function Progress({
   const percentage = Math.min(Math.max((currentValue / max) * 100, 0), 100);
 
   return (
-    <div className={cn('w-full', className)}>
+    <div className={cn("w-full", className)}>
       <div
         className={cn(
-          'relative w-full overflow-hidden rounded-full',
-          'bg-slate-200 dark:bg-slate-800',
-          'ring-1 ring-inset ring-slate-900/5 dark:ring-slate-100/10',
+          "relative w-full overflow-hidden rounded-full",
+          "bg-slate-200 dark:bg-slate-800",
+          "ring-1 ring-inset ring-slate-900/5 dark:ring-slate-100/10",
           sizeStyles[size]
         )}
       >
         <motion.div
           initial={animate ? { width: 0 } : { width: `${percentage}%` }}
           animate={{ width: `${percentage}%` }}
-          transition={{ duration: 0.5, ease: 'easeOut' }}
-          className={cn('absolute inset-y-0 left-0 flex items-center', variants[variant], {
-            'animate-[progress-stripe_1s_linear_infinite]': variant === 'striped',
-            'shadow-[0_0_12px_rgba(59,130,246,0.5)] dark:shadow-[0_0_12px_rgba(59,130,246,0.3)]':
-              variant === 'default',
-            'shadow-[0_0_12px_rgba(99,102,241,0.5)] dark:shadow-[0_0_12px_rgba(99,102,241,0.3)]':
-              variant === 'gradient',
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className={cn("absolute inset-y-0 left-0 flex items-center", variants[variant], {
+            "animate-[progress-stripe_1s_linear_infinite]": variant === "striped",
+            "shadow-[0_0_12px_rgba(59,130,246,0.5)] dark:shadow-[0_0_12px_rgba(59,130,246,0.3)]":
+              variant === "default",
+            "shadow-[0_0_12px_rgba(99,102,241,0.5)] dark:shadow-[0_0_12px_rgba(99,102,241,0.3)]":
+              variant === "gradient",
           })}
         >
-          {variant === 'striped' && (
+          {variant === "striped" && (
             <div className="absolute inset-0 bg-[linear-gradient(45deg,rgba(255,255,255,.15)_25%,transparent_25%,transparent_50%,rgba(255,255,255,.15)_50%,rgba(255,255,255,.15)_75%,transparent_75%,transparent)] bg-[length:1rem_1rem] animate-[progress-stripe_1s_linear_infinite]" />
           )}
         </motion.div>

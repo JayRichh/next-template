@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import { Badge } from '@/components/ui/Badge';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Badge } from "@/components/ui/Badge";
 
 export const badgeCode = `import { Badge } from '@/components/ui/Badge';
 
@@ -37,9 +36,9 @@ export function BadgeExample() {
 }
 
 export const badgeMeta: ComponentExample = {
-  id: 'badge',
-  title: 'Badge',
-  description: 'Status indicators and labels',
+  id: "badge",
+  title: "Badge",
+  description: "Status indicators and labels",
   code: badgeCode,
   component: <BadgeExample />,
 };

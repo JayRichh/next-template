@@ -1,11 +1,10 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
-import { useEffect, useRef, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
-import { cn } from '@/utils/cn';
-
-type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
+type TooltipPosition = "top" | "right" | "bottom" | "left";
 
 interface TooltipProps {
   content: React.ReactNode;
@@ -16,22 +15,22 @@ interface TooltipProps {
 }
 
 const positionStyles: Record<TooltipPosition, string> = {
-  top: '-translate-x-1/2 -translate-y-full',
-  right: '-translate-y-1/2',
-  bottom: '-translate-x-1/2 translate-y-full',
-  left: '-translate-y-1/2 -translate-x-full',
+  top: "-translate-x-1/2 -translate-y-full",
+  right: "-translate-y-1/2",
+  bottom: "-translate-x-1/2 translate-y-full",
+  left: "-translate-y-1/2 -translate-x-full",
 };
 
 const arrowStyles: Record<TooltipPosition, string> = {
-  top: 'bottom-0 left-1/2 -translate-x-1/2 translate-y-full border-t-foreground/10',
-  right: 'left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 border-r-foreground/10',
-  bottom: 'top-0 left-1/2 -translate-x-1/2 -translate-y-full border-b-foreground/10',
-  left: 'right-0 top-1/2 -translate-y-1/2 translate-x-1/2 border-l-foreground/10',
+  top: "bottom-0 left-1/2 -translate-x-1/2 translate-y-full border-t-foreground/10",
+  right: "left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 border-r-foreground/10",
+  bottom: "top-0 left-1/2 -translate-x-1/2 -translate-y-full border-b-foreground/10",
+  left: "right-0 top-1/2 -translate-y-1/2 translate-x-1/2 border-l-foreground/10",
 };
 
 export function Tooltip({
   content,
-  position = 'right',
+  position = "right",
   delay = 200,
   children,
   className,
@@ -62,19 +61,19 @@ export function Tooltip({
       let left = 0;
 
       switch (position) {
-        case 'top':
+        case "top":
           top = rect.top + window.scrollY;
           left = rect.left + rect.width / 2 + window.scrollX;
           break;
-        case 'right':
+        case "right":
           top = rect.top + rect.height / 2 + window.scrollY;
           left = rect.right + window.scrollX;
           break;
-        case 'bottom':
+        case "bottom":
           top = rect.bottom + window.scrollY;
           left = rect.left + rect.width / 2 + window.scrollX;
           break;
-        case 'left':
+        case "left":
           top = rect.top + rect.height / 2 + window.scrollY;
           left = rect.left + window.scrollX;
           break;
@@ -113,7 +112,7 @@ export function Tooltip({
               exit={{ opacity: 0, scale: 0.95 }}
               transition={{ duration: 0.15 }}
               className={cn(
-                'fixed z-[9999] whitespace-nowrap',
+                "fixed z-[9999] whitespace-nowrap",
                 positionStyles[position],
                 className
               )}
@@ -124,17 +123,17 @@ export function Tooltip({
             >
               <div
                 className={cn(
-                  'relative',
-                  'bg-background/95 backdrop-blur-md',
-                  'border border-border/50 rounded-lg shadow-lg',
-                  'px-3 py-2 text-sm'
+                  "relative",
+                  "bg-background/95 backdrop-blur-md",
+                  "border border-border/50 rounded-lg shadow-lg",
+                  "px-3 py-2 text-sm"
                 )}
               >
                 {content}
                 <div
                   className={cn(
-                    'absolute w-2 h-2 rotate-45',
-                    'border border-border/50 bg-background/95',
+                    "absolute w-2 h-2 rotate-45",
+                    "border border-border/50 bg-background/95",
                     arrowStyles[position]
                   )}
                 />

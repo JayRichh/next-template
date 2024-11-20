@@ -1,12 +1,10 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from "react";
 
-import { useState } from 'react';
+import { Button } from "./Button";
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
-import { cn } from '@/utils/cn';
-
-import { Button } from './Button';
-
-export type ToastType = 'success' | 'error' | 'info' | 'warning';
+export type ToastType = "success" | "error" | "info" | "warning";
 
 interface ToastProps {
   message: string;
@@ -16,20 +14,20 @@ interface ToastProps {
 }
 
 const toastStyles: Record<ToastType, string> = {
-  success: 'bg-green-500/90 text-white',
-  error: 'bg-red-500/90 text-white',
-  info: 'bg-blue-500/90 text-white',
-  warning: 'bg-yellow-500/90 text-white',
+  success: "bg-green-500/90 text-white",
+  error: "bg-red-500/90 text-white",
+  info: "bg-blue-500/90 text-white",
+  warning: "bg-yellow-500/90 text-white",
 };
 
 const toastIcons: Record<ToastType, string> = {
-  success: '✓',
-  error: '✕',
-  info: 'ℹ',
-  warning: '⚠',
+  success: "✓",
+  error: "✕",
+  info: "ℹ",
+  warning: "⚠",
 };
 
-export function Toast({ message, type = 'info', isVisible, onClose }: ToastProps) {
+export function Toast({ message, type = "info", isVisible, onClose }: ToastProps) {
   return (
     <AnimatePresence>
       {isVisible && (
@@ -41,8 +39,8 @@ export function Toast({ message, type = 'info', isVisible, onClose }: ToastProps
         >
           <div
             className={cn(
-              'px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm',
-              'flex items-center gap-3',
+              "px-6 py-4 rounded-lg shadow-lg backdrop-blur-sm",
+              "flex items-center gap-3",
               toastStyles[type]
             )}
           >
@@ -61,7 +59,7 @@ export function Toast({ message, type = 'info', isVisible, onClose }: ToastProps
 // Example usage:
 export function ToastDemo() {
   const [isVisible, setIsVisible] = useState(false);
-  const [toastType, setToastType] = useState<ToastType>('success');
+  const [toastType, setToastType] = useState<ToastType>("success");
 
   const showToast = (type: ToastType) => {
     setToastType(type);
@@ -71,10 +69,10 @@ export function ToastDemo() {
 
   return (
     <div className="space-x-2">
-      <Button onClick={() => showToast('success')}>Success</Button>
-      <Button onClick={() => showToast('error')}>Error</Button>
-      <Button onClick={() => showToast('info')}>Info</Button>
-      <Button onClick={() => showToast('warning')}>Warning</Button>
+      <Button onClick={() => showToast("success")}>Success</Button>
+      <Button onClick={() => showToast("error")}>Error</Button>
+      <Button onClick={() => showToast("info")}>Info</Button>
+      <Button onClick={() => showToast("warning")}>Warning</Button>
 
       <Toast
         message={`This is a ${toastType} message!`}

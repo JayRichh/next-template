@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import { ThreeScene } from './ThreeScene';
+import { ThreeScene } from "./ThreeScene";
 
 interface ThreeClientProps {
   color?: string;
@@ -12,7 +12,7 @@ interface ThreeClientProps {
 }
 
 export default function ThreeClient({
-  color = '#4338ca',
+  color = "#4338ca",
   rotation = 0,
   wireframe = false,
   className,
@@ -38,7 +38,7 @@ export default function ThreeClient({
   // Handle prop updates
   useEffect(() => {
     if (!sceneRef.current) return;
-    sceneRef.current.setMainMeshMaterial('color', color);
+    sceneRef.current.setMainMeshMaterial("color", color);
   }, [color]);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export default function ThreeClient({
 
   useEffect(() => {
     if (!sceneRef.current) return;
-    sceneRef.current.setMainMeshMaterial('metalness', wireframe ? 1 : 0.2);
+    sceneRef.current.setMainMeshMaterial("metalness", wireframe ? 1 : 0.2);
   }, [wireframe]);
 
   return (
@@ -56,12 +56,12 @@ export default function ThreeClient({
       ref={containerRef}
       className={className}
       style={{
-        width: '100%',
-        height: '100%',
-        background: '#000000',
-        position: 'relative',
-        overflow: 'hidden',
-        borderRadius: 'inherit',
+        width: "100%",
+        height: "100%",
+        background: "#000000",
+        position: "relative",
+        overflow: "hidden",
+        borderRadius: "inherit",
       }}
     />
   );

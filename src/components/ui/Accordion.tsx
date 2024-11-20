@@ -1,8 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState } from "react";
 
-import { useState } from 'react';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface AccordionItem {
   id: string;
@@ -39,22 +38,22 @@ export function Accordion({
   const isExpanded = (itemId: string) => expandedItems.includes(itemId);
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       {items.map((item) => (
         <div
           key={item.id}
           className={cn(
-            'border-2 border-border/50 rounded-xl overflow-hidden',
-            'bg-background/40 backdrop-blur-sm'
+            "border-2 border-border/50 rounded-xl overflow-hidden",
+            "bg-background/40 backdrop-blur-sm"
           )}
         >
           <button
             onClick={() => toggleItem(item.id)}
             className={cn(
-              'w-full px-6 py-4',
-              'flex items-center justify-between',
-              'text-left focus:outline-none focus:ring-2 focus:ring-primary/50',
-              isExpanded(item.id) && 'border-b border-border/50'
+              "w-full px-6 py-4",
+              "flex items-center justify-between",
+              "text-left focus:outline-none focus:ring-2 focus:ring-primary/50",
+              isExpanded(item.id) && "border-b border-border/50"
             )}
           >
             <div className="flex items-center gap-3">
@@ -73,7 +72,7 @@ export function Accordion({
             {isExpanded(item.id) && (
               <motion.div
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
+                animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 transition={{ duration: 0.2 }}
               >
@@ -91,8 +90,8 @@ export function Accordion({
 export function AccordionDemo() {
   const faqItems = [
     {
-      id: '1',
-      title: 'What is this template?',
+      id: "1",
+      title: "What is this template?",
       icon: <span className="text-lg">?</span>,
       content: (
         <p className="text-foreground/70">
@@ -102,8 +101,8 @@ export function AccordionDemo() {
       ),
     },
     {
-      id: '2',
-      title: 'How do I get started?',
+      id: "2",
+      title: "How do I get started?",
       icon: <span className="text-lg">→</span>,
       content: (
         <p className="text-foreground/70">
@@ -113,8 +112,8 @@ export function AccordionDemo() {
       ),
     },
     {
-      id: '3',
-      title: 'Can I customize the components?',
+      id: "3",
+      title: "Can I customize the components?",
       icon: <span className="text-lg">✎</span>,
       content: (
         <p className="text-foreground/70">
@@ -128,7 +127,7 @@ export function AccordionDemo() {
   return (
     <div className="space-y-4">
       <Accordion items={faqItems} />
-      <Accordion items={faqItems} allowMultiple defaultExpanded={['1']} />
+      <Accordion items={faqItems} allowMultiple defaultExpanded={["1"]} />
     </div>
   );
 }

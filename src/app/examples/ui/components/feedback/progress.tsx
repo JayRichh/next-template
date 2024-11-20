@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { Progress } from '@/components/ui/Progress';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Progress } from "@/components/ui/Progress";
 
 export const progressCode = `import { Progress } from '@/components/ui/Progress';
 
@@ -77,9 +76,9 @@ export function ProgressExample() {
 }
 
 export const progressMeta: ComponentExample = {
-  id: 'progress',
-  title: 'Progress Indicators',
-  description: 'Loading and progress states',
+  id: "progress",
+  title: "Progress Indicators",
+  description: "Loading and progress states",
   code: progressCode,
   component: <ProgressExample />,
 };

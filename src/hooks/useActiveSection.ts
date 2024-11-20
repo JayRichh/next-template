@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export interface ActiveState {
   section: string | null;
@@ -19,7 +19,7 @@ export function useActiveSection() {
 
   useEffect(() => {
     // Get current state from URL
-    const section = searchParams.get('section');
+    const section = searchParams.get("section");
 
     setActiveState({
       section: section || null,

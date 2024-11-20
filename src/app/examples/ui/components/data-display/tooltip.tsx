@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/Button';
-import { Tooltip } from '@/components/ui/Tooltip';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Button } from "@/components/ui/Button";
+import { Tooltip } from "@/components/ui/Tooltip";
 
 export const tooltipCode = `import { Tooltip } from '@/components/ui/Tooltip';
 import { Button } from '@/components/ui/Button';
@@ -25,9 +24,9 @@ export function TooltipExample() {
 }
 
 export const tooltipMeta: ComponentExample = {
-  id: 'tooltip',
-  title: 'Tooltip',
-  description: 'Hover information tooltips',
+  id: "tooltip",
+  title: "Tooltip",
+  description: "Hover information tooltips",
   code: tooltipCode,
   component: <TooltipExample />,
 };

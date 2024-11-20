@@ -1,5 +1,7 @@
-'use client';
+"use client";
 
+import { ComponentExample } from "../types";
+import { Button } from "@/components/ui/Button";
 import {
   ArrowRight,
   Bell,
@@ -13,11 +15,7 @@ import {
   Send,
   Settings,
   Trash,
-} from 'lucide-react';
-
-import { Button } from '@/components/ui/Button';
-
-import { ComponentExample } from '../types';
+} from "lucide-react";
 
 export const buttonCode = `import { Button } from '@/components/ui/Button';
 
@@ -185,9 +183,9 @@ export function ButtonExample() {
 }
 
 export const buttonMeta: ComponentExample = {
-  id: 'button',
-  title: 'Button',
-  description: 'Interactive button component with various styles and states',
+  id: "button",
+  title: "Button",
+  description: "Interactive button component with various styles and states",
   code: buttonCode,
   component: <ButtonExample />,
 };

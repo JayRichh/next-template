@@ -1,33 +1,33 @@
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
 
 interface SkeletonProps {
   className?: string;
-  variant?: 'text' | 'circular' | 'rectangular';
-  animation?: 'pulse' | 'wave' | 'none';
+  variant?: "text" | "circular" | "rectangular";
+  animation?: "pulse" | "wave" | "none";
   width?: string | number;
   height?: string | number;
 }
 
 export function Skeleton({
   className,
-  variant = 'text',
-  animation = 'pulse',
+  variant = "text",
+  animation = "pulse",
   width,
   height,
 }: SkeletonProps) {
   const baseStyles = cn(
-    'bg-foreground/10',
-    animation === 'pulse' && 'animate-pulse',
-    animation === 'wave' && 'animate-shimmer',
-    variant === 'text' && 'h-4 rounded-md',
-    variant === 'circular' && 'rounded-full',
-    variant === 'rectangular' && 'rounded-lg',
+    "bg-foreground/10",
+    animation === "pulse" && "animate-pulse",
+    animation === "wave" && "animate-shimmer",
+    variant === "text" && "h-4 rounded-md",
+    variant === "circular" && "rounded-full",
+    variant === "rectangular" && "rounded-lg",
     className
   );
 
   const style = {
-    width: width ? (typeof width === 'number' ? `${width}px` : width) : undefined,
-    height: height ? (typeof height === 'number' ? `${height}px` : height) : undefined,
+    width: width ? (typeof width === "number" ? `${width}px` : width) : undefined,
+    height: height ? (typeof height === "number" ? `${height}px` : height) : undefined,
   };
 
   return <div className={baseStyles} style={style} />;

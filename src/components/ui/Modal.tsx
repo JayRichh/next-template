@@ -1,10 +1,8 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from "react";
 
-import { useEffect, useState } from 'react';
-
-import { cn } from '@/utils/cn';
-
-import { Button } from './Button';
+import { Button } from "./Button";
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface ModalProps {
   isOpen: boolean;
@@ -17,17 +15,17 @@ interface ModalProps {
 export function Modal({ isOpen, onClose, title, children, className }: ModalProps) {
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === "Escape") onClose();
     };
 
     if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
+      document.addEventListener("keydown", handleEscape);
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      document.removeEventListener("keydown", handleEscape);
+      document.body.style.overflow = "unset";
     };
   }, [isOpen, onClose]);
 
@@ -54,9 +52,9 @@ export function Modal({ isOpen, onClose, title, children, className }: ModalProp
           >
             <div
               className={cn(
-                'bg-background/95 backdrop-blur-md',
-                'rounded-xl shadow-xl border-2 border-border/50',
-                'w-full max-w-lg p-6',
+                "bg-background/95 backdrop-blur-md",
+                "rounded-xl shadow-xl border-2 border-border/50",
+                "w-full max-w-lg p-6",
                 className
               )}
             >

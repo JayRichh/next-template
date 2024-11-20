@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import { Accordion } from '@/components/ui/Accordion';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Accordion } from "@/components/ui/Accordion";
 
 export const accordionCode = `import { Accordion } from '@/components/ui/Accordion';
 
@@ -26,14 +25,14 @@ export function AccordionExample() {
 export function AccordionExample() {
   const items = [
     {
-      id: '1',
-      title: 'Section 1',
-      content: 'Content for section 1',
+      id: "1",
+      title: "Section 1",
+      content: "Content for section 1",
     },
     {
-      id: '2',
-      title: 'Section 2',
-      content: 'Content for section 2',
+      id: "2",
+      title: "Section 2",
+      content: "Content for section 2",
     },
   ];
 
@@ -41,9 +40,9 @@ export function AccordionExample() {
 }
 
 export const accordionMeta: ComponentExample = {
-  id: 'accordion',
-  title: 'Accordion',
-  description: 'Collapsible content sections',
+  id: "accordion",
+  title: "Accordion",
+  description: "Collapsible content sections",
   code: accordionCode,
   component: <AccordionExample />,
 };

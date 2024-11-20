@@ -1,8 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
 
-import { useEffect, useRef, useState } from 'react';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface DropdownProps {
   trigger: React.ReactNode;
@@ -27,8 +26,8 @@ export function Dropdown({ trigger, items, value, onChange, className }: Dropdow
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleSelect = (itemValue: string) => {
@@ -37,7 +36,7 @@ export function Dropdown({ trigger, items, value, onChange, className }: Dropdow
   };
 
   return (
-    <div className={cn('relative', className)} ref={dropdownRef}>
+    <div className={cn("relative", className)} ref={dropdownRef}>
       <div onClick={() => setIsOpen(!isOpen)}>{trigger}</div>
 
       <AnimatePresence>
@@ -53,13 +52,13 @@ export function Dropdown({ trigger, items, value, onChange, className }: Dropdow
               {items.map((item) => (
                 <motion.button
                   key={item.value}
-                  whileHover={{ backgroundColor: 'rgba(0,0,0,0.05)' }}
+                  whileHover={{ backgroundColor: "rgba(0,0,0,0.05)" }}
                   onClick={() => handleSelect(item.value)}
                   className={cn(
-                    'w-full px-4 py-2 text-left flex items-center gap-2',
-                    'transition-colors duration-200',
-                    'hover:text-primary',
-                    value === item.value && 'text-primary font-medium'
+                    "w-full px-4 py-2 text-left flex items-center gap-2",
+                    "transition-colors duration-200",
+                    "hover:text-primary",
+                    value === item.value && "text-primary font-medium"
                   )}
                 >
                   {item.icon}

@@ -1,18 +1,17 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { motion } from "framer-motion";
 
 export interface GradientBackgroundProps {
-  variant?: 'default' | 'radial' | 'spotlight' | 'mesh';
+  variant?: "default" | "radial" | "spotlight" | "mesh";
   interactive?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
 
 export const GradientBackground = ({
-  variant = 'default',
+  variant = "default",
   interactive = false,
   className,
   children,
@@ -42,12 +41,12 @@ export const GradientBackground = ({
         transition={{
           duration: 15,
           repeat: Infinity,
-          repeatType: 'reverse',
+          repeatType: "reverse",
         }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-[radial-gradient(circle_at_center,var(--primary-color)_0%,transparent_70%)] opacity-[0.15] dark:opacity-[0.07] blur-[100px]"
         style={
           {
-            '--primary-color': 'hsl(var(--primary))',
+            "--primary-color": "hsl(var(--primary))",
           } as any
         }
       />
@@ -59,7 +58,7 @@ export const GradientBackground = ({
         transition={{
           duration: 20,
           repeat: Infinity,
-          repeatType: 'reverse',
+          repeatType: "reverse",
         }}
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px]"
       >
@@ -67,8 +66,8 @@ export const GradientBackground = ({
           className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--primary-color)_0%,var(--accent-color)_25%,transparent_60%)] opacity-[0.15] dark:opacity-[0.07] blur-[100px]"
           style={
             {
-              '--primary-color': 'hsl(var(--primary))',
-              '--accent-color': 'hsl(var(--accent))',
+              "--primary-color": "hsl(var(--primary))",
+              "--accent-color": "hsl(var(--accent))",
             } as any
           }
         />
@@ -79,7 +78,7 @@ export const GradientBackground = ({
   };
 
   return (
-    <div className={cn('relative w-full h-full overflow-hidden', className)}>
+    <div className={cn("relative w-full h-full overflow-hidden", className)}>
       <div className="absolute inset-0 bg-background/20" />
       <div className="absolute inset-0 flex items-center justify-center">
         {gradientElements[variant]}

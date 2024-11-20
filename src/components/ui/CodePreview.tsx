@@ -1,15 +1,14 @@
-'use client';
+"use client";
 
-import type * as Monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { memo, useEffect, useRef, useState } from "react";
 
-import { memo, useEffect, useRef, useState } from 'react';
+import dynamic from "next/dynamic";
 
-import dynamic from 'next/dynamic';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 // Dynamically import Monaco editor with no SSR
-const Editor = dynamic(() => import('@monaco-editor/react').then((mod) => mod.default), {
+const Editor = dynamic(() => import("@monaco-editor/react").then((mod) => mod.default), {
   ssr: false,
 });
 
@@ -19,22 +18,22 @@ let monacoInitialized = false;
 const initializeMonaco = async () => {
   if (monacoInitialized) return;
 
-  const { loader } = await import('@monaco-editor/react');
+  const { loader } = await import("@monaco-editor/react");
   const monaco = await loader.init();
 
   // Configure TypeScript/JavaScript defaults
   monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
     jsx: monaco.languages.typescript.JsxEmit.React,
-    jsxFactory: 'React.createElement',
-    reactNamespace: 'React',
+    jsxFactory: "React.createElement",
+    reactNamespace: "React",
     allowNonTsExtensions: true,
     target: monaco.languages.typescript.ScriptTarget.Latest,
     allowJs: true,
-    typeRoots: ['node_modules/@types'],
+    typeRoots: ["node_modules/@types"],
   });
 
   // Add custom component completions
-  monaco.languages.registerCompletionItemProvider('typescript', {
+  monaco.languages.registerCompletionItemProvider("typescript", {
     provideCompletionItems: (model, position) => {
       const wordInfo = model.getWordUntilPosition(position);
       const range = {
@@ -46,19 +45,19 @@ const initializeMonaco = async () => {
 
       const suggestions = [
         {
-          label: 'Slider',
+          label: "Slider",
           kind: monaco.languages.CompletionItemKind.Class,
-          insertText: 'Slider',
-          detail: 'UI Component',
-          documentation: 'A slider input component',
+          insertText: "Slider",
+          detail: "UI Component",
+          documentation: "A slider input component",
           range,
         },
         {
-          label: 'Button',
+          label: "Button",
           kind: monaco.languages.CompletionItemKind.Class,
-          insertText: 'Button',
-          detail: 'UI Component',
-          documentation: 'A button component',
+          insertText: "Button",
+          detail: "UI Component",
+          documentation: "A button component",
           range,
         },
       ];
@@ -107,29 +106,29 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
       <Editor
         height="auto"
         defaultValue={code}
-        defaultLanguage={language === 'typescript' ? 'typescript' : 'javascript'}
+        defaultLanguage={language === "typescript" ? "typescript" : "javascript"}
         theme="vs-dark"
         options={{
           readOnly: true,
           minimap: { enabled: false },
           scrollBeyondLastLine: false,
           scrollbar: {
-            vertical: 'hidden',
-            horizontal: 'hidden',
+            vertical: "hidden",
+            horizontal: "hidden",
           },
           overviewRulerLanes: 0,
           fontSize: 13,
           lineHeight: 20,
           padding: { top: 16, bottom: 16 },
-          renderLineHighlight: 'none',
+          renderLineHighlight: "none",
           contextmenu: false,
           folding: false,
-          lineNumbers: 'on',
+          lineNumbers: "on",
           lineNumbersMinChars: 3,
           glyphMargin: false,
           guides: { indentation: false },
           domReadOnly: true,
-          wordWrap: 'on',
+          wordWrap: "on",
         }}
         onMount={handleEditorDidMount}
         loading={
@@ -142,7 +141,7 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
   );
 });
 
-CodeHighlight.displayName = 'CodeHighlight';
+CodeHighlight.displayName = "CodeHighlight";
 
 interface CodePreviewProps {
   code: string;
@@ -154,7 +153,7 @@ interface CodePreviewProps {
 
 export function CodePreview({
   code,
-  language = 'typescript',
+  language = "typescript",
   title,
   preview,
   className,
@@ -173,16 +172,16 @@ export function CodePreview({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy code:', err);
+      console.error("Failed to copy code:", err);
     }
   };
 
   return (
     <div
       className={cn(
-        'overflow-hidden rounded-xl border-2 border-border/50',
-        'bg-background/40 backdrop-blur-md',
-        'shadow-lg shadow-black/5',
+        "overflow-hidden rounded-xl border-2 border-border/50",
+        "bg-background/40 backdrop-blur-md",
+        "shadow-lg shadow-black/5",
         className
       )}
     >
@@ -201,18 +200,18 @@ export function CodePreview({
             <button
               onClick={handleCopy}
               className={cn(
-                'absolute top-2 right-2 z-10',
-                'px-3 py-1.5 rounded-lg',
-                'text-xs font-medium',
-                'bg-white/10 hover:bg-white/20',
-                'text-white/60 hover:text-white',
-                'transition-colors duration-200',
-                'focus:outline-none focus:ring-2 focus:ring-white/20',
-                'border border-white/10',
-                'shadow-sm shadow-black/10'
+                "absolute top-2 right-2 z-10",
+                "px-3 py-1.5 rounded-lg",
+                "text-xs font-medium",
+                "bg-white/10 hover:bg-white/20",
+                "text-white/60 hover:text-white",
+                "transition-colors duration-200",
+                "focus:outline-none focus:ring-2 focus:ring-white/20",
+                "border border-white/10",
+                "shadow-sm shadow-black/10"
               )}
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? "Copied!" : "Copy"}
             </button>
           )}
         </div>
@@ -227,7 +226,7 @@ interface CodePopoverProps {
   children: React.ReactNode;
 }
 
-export function CodePopover({ code, language = 'typescript', children }: CodePopoverProps) {
+export function CodePopover({ code, language = "typescript", children }: CodePopoverProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -243,19 +242,19 @@ export function CodePopover({ code, language = 'typescript', children }: CodePop
       {children}
       <div
         className={cn(
-          'absolute z-50 w-max max-w-2xl',
-          'opacity-0 pointer-events-none',
-          'group-hover:opacity-100 group-hover:pointer-events-auto',
-          'transition-opacity duration-200',
-          'top-full left-0 mt-2'
+          "absolute z-50 w-max max-w-2xl",
+          "opacity-0 pointer-events-none",
+          "group-hover:opacity-100 group-hover:pointer-events-auto",
+          "transition-opacity duration-200",
+          "top-full left-0 mt-2"
         )}
       >
         <div
           className={cn(
-            'overflow-hidden rounded-xl',
-            'bg-[#1E1E1E]',
-            'border-2 border-white/10',
-            'shadow-xl shadow-black/20'
+            "overflow-hidden rounded-xl",
+            "bg-[#1E1E1E]",
+            "border-2 border-white/10",
+            "shadow-xl shadow-black/20"
           )}
         >
           <CodeHighlight code={code} language={language} />

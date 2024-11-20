@@ -1,8 +1,8 @@
-import { OrbitControls } from '@react-three/drei';
-import { ReactThreeFiber } from '@react-three/fiber';
-import * as THREE from 'three';
+import { OrbitControls } from "@react-three/drei";
+import { ReactThreeFiber } from "@react-three/fiber";
+import * as THREE from "three";
 
-declare module '@react-three/fiber' {
+declare module "@react-three/fiber" {
   interface ThreeElements {
     orbitControls: ReactThreeFiber.Object3DNode<OrbitControls, typeof OrbitControls>;
     mesh: ReactThreeFiber.Object3DNode<THREE.Mesh, typeof THREE.Mesh> & {
@@ -18,7 +18,7 @@ declare module '@react-three/fiber' {
     > & {
       intensity?: number;
       castShadow?: boolean;
-      'shadow-mapSize'?: number[];
+      "shadow-mapSize"?: number[];
     };
     boxGeometry: ReactThreeFiber.BufferGeometryNode<THREE.BoxGeometry, typeof THREE.BoxGeometry>;
     sphereGeometry: ReactThreeFiber.BufferGeometryNode<
@@ -41,6 +41,6 @@ declare module '@react-three/fiber' {
   }
 }
 
-declare module 'three-stdlib' {
-  export * from 'three/examples/jsm/controls/OrbitControls';
+declare module "three-stdlib" {
+  export * from "three/examples/jsm/controls/OrbitControls";
 }

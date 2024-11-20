@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import { Skeleton } from '@/components/ui/Skeleton';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 export const skeletonCode = `import { Skeleton } from '@/components/ui/Skeleton';
 
@@ -27,9 +26,9 @@ export function SkeletonExample() {
 }
 
 export const skeletonMeta: ComponentExample = {
-  id: 'skeleton',
-  title: 'Loading Skeletons',
-  description: 'Content loading placeholders',
+  id: "skeleton",
+  title: "Loading Skeletons",
+  description: "Content loading placeholders",
   code: skeletonCode,
   component: <SkeletonExample />,
 };

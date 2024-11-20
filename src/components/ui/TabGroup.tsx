@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useState } from "react";
 
-import { useEffect, useState } from 'react';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Tab {
   id: string;
@@ -17,28 +16,28 @@ interface TabGroupProps {
   defaultTab?: string;
   value?: string;
   onChange?: (value: string) => void;
-  variant?: 'pills' | 'underline' | 'solid';
+  variant?: "pills" | "underline" | "solid";
   className?: string;
 }
 
 const variants = {
   pills: {
-    tab: 'px-4 py-2 rounded-lg',
-    active: 'bg-primary text-primary-foreground shadow-lg',
-    inactive: 'hover:bg-primary/10 text-foreground/60',
-    container: 'p-1 bg-background/50 rounded-xl backdrop-blur-sm',
+    tab: "px-4 py-2 rounded-lg",
+    active: "bg-primary text-primary-foreground shadow-lg",
+    inactive: "hover:bg-primary/10 text-foreground/60",
+    container: "p-1 bg-background/50 rounded-xl backdrop-blur-sm",
   },
   underline: {
-    tab: 'px-4 py-2 border-b-2',
-    active: 'border-primary text-primary',
-    inactive: 'border-transparent hover:border-border text-foreground/60',
-    container: 'border-b border-border/50',
+    tab: "px-4 py-2 border-b-2",
+    active: "border-primary text-primary",
+    inactive: "border-transparent hover:border-border text-foreground/60",
+    container: "border-b border-border/50",
   },
   solid: {
-    tab: 'px-4 py-2',
-    active: 'bg-background text-foreground border-t-2 border-primary rounded-t-lg',
-    inactive: 'bg-background/50 hover:bg-background/80 text-foreground/60',
-    container: 'bg-background/30 backdrop-blur-sm rounded-xl p-1',
+    tab: "px-4 py-2",
+    active: "bg-background text-foreground border-t-2 border-primary rounded-t-lg",
+    inactive: "bg-background/50 hover:bg-background/80 text-foreground/60",
+    container: "bg-background/30 backdrop-blur-sm rounded-xl p-1",
   },
 };
 
@@ -47,7 +46,7 @@ export function TabGroup({
   defaultTab,
   value: controlledValue,
   onChange,
-  variant = 'pills',
+  variant = "pills",
   className,
 }: TabGroupProps) {
   const [mounted, setMounted] = useState(false);
@@ -75,14 +74,14 @@ export function TabGroup({
   return (
     <div className={className}>
       {/* Tab Headers */}
-      <div className={cn('flex gap-1 mb-8', styles.container)}>
+      <div className={cn("flex gap-1 mb-8", styles.container)}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => handleTabChange(tab.id)}
             className={cn(
-              'relative transition-colors duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-primary/50',
+              "relative transition-colors duration-200",
+              "focus:outline-none focus:ring-2 focus:ring-primary/50",
               styles.tab,
               activeTab === tab.id ? styles.active : styles.inactive
             )}
@@ -111,12 +110,12 @@ export function TabGroup({
 
 // Example usage:
 export function TabGroupDemo() {
-  const [activeTab, setActiveTab] = useState('tab1');
+  const [activeTab, setActiveTab] = useState("tab1");
 
   const demoTabs = [
     {
-      id: 'tab1',
-      label: 'Account',
+      id: "tab1",
+      label: "Account",
       content: (
         <div className="p-4 space-y-4">
           <h3 className="text-lg font-semibold">Account Settings</h3>
@@ -125,8 +124,8 @@ export function TabGroupDemo() {
       ),
     },
     {
-      id: 'tab2',
-      label: 'Security',
+      id: "tab2",
+      label: "Security",
       content: (
         <div className="p-4 space-y-4">
           <h3 className="text-lg font-semibold">Security Settings</h3>
@@ -137,8 +136,8 @@ export function TabGroupDemo() {
       ),
     },
     {
-      id: 'tab3',
-      label: 'Notifications',
+      id: "tab3",
+      label: "Notifications",
       content: (
         <div className="p-4 space-y-4">
           <h3 className="text-lg font-semibold">Notification Preferences</h3>

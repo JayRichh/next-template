@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import { ExampleContainer } from '@/components/ExampleSection';
-import { Card, CardContent } from '@/components/ui/Card';
-import { WaterText } from '@/components/ui/WaterText';
+import { ExampleContainer } from "@/components/ExampleSection";
+import { Card, CardContent } from "@/components/ui/Card";
+import { WaterText } from "@/components/ui/WaterText";
 
 interface Category {
   id: string;
@@ -17,39 +17,39 @@ interface Category {
 
 const categories: Category[] = [
   {
-    id: 'ui',
-    label: 'UI Components',
+    id: "ui",
+    label: "UI Components",
     description:
-      'Core UI components and interactive elements including buttons, tooltips, progress indicators, and more.',
-    examples: ['Button', 'Tooltip', 'Progress', 'Form', 'Modal', 'Card'],
+      "Core UI components and interactive elements including buttons, tooltips, progress indicators, and more.",
+    examples: ["Button", "Tooltip", "Progress", "Form", "Modal", "Card"],
   },
   {
-    id: '3d',
-    label: '3D Graphics',
+    id: "3d",
+    label: "3D Graphics",
     description:
-      'Three.js powered 3D scenes and interactions with customizable properties and controls.',
-    examples: ['Physical Materials', 'Interactive Controls', 'Geometry Morphing', 'Physics'],
+      "Three.js powered 3D scenes and interactions with customizable properties and controls.",
+    examples: ["Physical Materials", "Interactive Controls", "Geometry Morphing", "Physics"],
   },
   {
-    id: 'nextjs',
-    label: 'Next.js Features',
+    id: "nextjs",
+    label: "Next.js Features",
     description:
-      'Examples showcasing Next.js capabilities including API routes, dynamic routing, and server components.',
-    examples: ['API Routes', 'Dynamic Routing', 'Server Components', 'Middleware'],
+      "Examples showcasing Next.js capabilities including API routes, dynamic routing, and server components.",
+    examples: ["API Routes", "Dynamic Routing", "Server Components", "Middleware"],
   },
   {
-    id: 'data',
-    label: 'Data & Forms',
+    id: "data",
+    label: "Data & Forms",
     description:
-      'Form handling, data management, and state persistence examples with validation and local storage.',
-    examples: ['Form Validation', 'Data Selection', 'Local Storage', 'Custom Hooks'],
+      "Form handling, data management, and state persistence examples with validation and local storage.",
+    examples: ["Form Validation", "Data Selection", "Local Storage", "Custom Hooks"],
   },
   {
-    id: 'theme',
-    label: 'Theming',
+    id: "theme",
+    label: "Theming",
     description:
-      'Theme customization examples including dark mode, color system, and gradient utilities.',
-    examples: ['Dark Mode', 'Color System', 'Gradients', 'CSS Variables'],
+      "Theme customization examples including dark mode, color system, and gradient utilities.",
+    examples: ["Dark Mode", "Color System", "Gradients", "CSS Variables"],
   },
 ];
 

@@ -1,8 +1,8 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
+import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 
-type MaterialProperty = 'color' | 'metalness' | 'roughness' | 'envMapIntensity';
+type MaterialProperty = "color" | "metalness" | "roughness" | "envMapIntensity";
 type MaterialValue = string | number;
 
 export class DemoScene {
@@ -59,7 +59,7 @@ export class DemoScene {
     this.animate();
 
     // Handle resize
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
 
     // Initial resize
     this.handleResize();
@@ -67,7 +67,7 @@ export class DemoScene {
 
   private async loadEnvironment() {
     const loader = new RGBELoader();
-    const hdrTexture = await loader.loadAsync('path_to_hdr_file.hdr');
+    const hdrTexture = await loader.loadAsync("path_to_hdr_file.hdr");
     this.envMap = this.pmremGenerator.fromEquirectangular(hdrTexture).texture;
     this.scene.environment = this.envMap;
     hdrTexture.dispose();
@@ -88,7 +88,7 @@ export class DemoScene {
   private createMesh(): THREE.Mesh {
     const geometry = new THREE.IcosahedronGeometry(1, 0);
     const material = new THREE.MeshStandardMaterial({
-      color: '#ffffff',
+      color: "#ffffff",
       metalness: 0.7,
       roughness: 0.2,
       envMapIntensity: 1.0,
@@ -101,10 +101,10 @@ export class DemoScene {
   }
 
   private setupLights(): void {
-    const ambientLight = new THREE.AmbientLight('#ffffff', 0.2);
+    const ambientLight = new THREE.AmbientLight("#ffffff", 0.2);
     this.scene.add(ambientLight);
 
-    const spotLight = new THREE.SpotLight('#ffffff', 1);
+    const spotLight = new THREE.SpotLight("#ffffff", 1);
     spotLight.position.set(5, 5, 5);
     spotLight.castShadow = true;
     spotLight.shadow.mapSize.width = 2048;
@@ -132,9 +132,9 @@ export class DemoScene {
     if (this.mesh.material instanceof THREE.MeshStandardMaterial) {
       const material = this.mesh.material;
 
-      if (property === 'color' && typeof value === 'string') {
+      if (property === "color" && typeof value === "string") {
         material.color.set(value);
-      } else if (property !== 'color' && typeof value === 'number') {
+      } else if (property !== "color" && typeof value === "number") {
         material[property] = value;
       }
 
@@ -152,7 +152,7 @@ export class DemoScene {
       cancelAnimationFrame(this.animationId);
     }
 
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
     this.controls.dispose();
     this.renderer.dispose();
     this.container.removeChild(this.renderer.domElement);

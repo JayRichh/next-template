@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
 
 export const gradientBackgroundCode = `export function GradientExamples() {
   return (
@@ -123,20 +123,20 @@ export function GradientExamples() {
 }
 
 export const gradientBackgroundMeta: ComponentExample = {
-  id: 'gradient-background',
-  title: 'Gradient Examples',
+  id: "gradient-background",
+  title: "Gradient Examples",
   description:
-    'Beautiful gradient styles and effects using Tailwind utilities. Features vibrant colors, glass effects, animated gradients, mesh patterns, and spotlight effects.',
+    "Beautiful gradient styles and effects using Tailwind utilities. Features vibrant colors, glass effects, animated gradients, mesh patterns, and spotlight effects.",
   code: gradientBackgroundCode,
   component: <GradientExamples />,
   meta: {
     features: [
-      'Vibrant multi-color gradients',
-      'Glass effect with backdrop blur',
-      'Smooth animated gradients',
-      'Geometric mesh patterns',
-      'Spotlight and overlay effects',
-      'Interactive hover states',
+      "Vibrant multi-color gradients",
+      "Glass effect with backdrop blur",
+      "Smooth animated gradients",
+      "Geometric mesh patterns",
+      "Spotlight and overlay effects",
+      "Interactive hover states",
     ],
   },
 };

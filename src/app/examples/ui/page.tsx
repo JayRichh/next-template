@@ -1,19 +1,16 @@
-'use client';
+"use client";
 
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
-import { Card, CardContent } from '@/components/ui/Card';
-import { CodePreview } from '@/components/ui/CodePreview';
-import { TabGroup } from '@/components/ui/TabGroup';
-
-import { useActiveSection } from '@/hooks/useActiveSection';
-
-import { cn } from '@/utils/cn';
-
-import { allExamples, componentCategories } from './components';
+import { allExamples, componentCategories } from "./components";
+import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
+import { Card, CardContent } from "@/components/ui/Card";
+import { CodePreview } from "@/components/ui/CodePreview";
+import { TabGroup } from "@/components/ui/TabGroup";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { cn } from "@/utils/cn";
 
 function UIExamplesContent() {
   const router = useRouter();
@@ -27,8 +24,8 @@ function UIExamplesContent() {
   // Create tabs configuration
   const tabs = [
     {
-      id: 'all',
-      label: 'All',
+      id: "all",
+      label: "All",
       content: null,
     },
     ...componentCategories.map((category) => ({
@@ -39,7 +36,7 @@ function UIExamplesContent() {
   ];
 
   const handleCategoryChange = (categoryId: string) => {
-    const targetCategory = categoryId === 'all' ? null : categoryId;
+    const targetCategory = categoryId === "all" ? null : categoryId;
 
     if (targetCategory) {
       // Get first item in category for default selection
@@ -51,7 +48,7 @@ function UIExamplesContent() {
         router.push(`/examples/ui?section=${targetCategory}`);
       }
     } else {
-      router.push(activeSection ? `/examples/ui#${activeSection}` : '/examples/ui');
+      router.push(activeSection ? `/examples/ui#${activeSection}` : "/examples/ui");
     }
   };
 
@@ -62,7 +59,7 @@ function UIExamplesContent() {
         <div className="max-w-7xl mx-auto px-6">
           <TabGroup
             tabs={tabs}
-            value={activeCategory || 'all'}
+            value={activeCategory || "all"}
             onChange={handleCategoryChange}
             variant="pills"
             className="sticky top-24 bg-background/80 backdrop-blur-sm z-10 py-6 border-b border-border/10"
@@ -83,7 +80,7 @@ function UIExamplesContent() {
           <ExampleSection
             key={example.id}
             id={example.id}
-            category={activeCategory || 'all'}
+            category={activeCategory || "all"}
             title={example.title}
             description={example.description}
           >

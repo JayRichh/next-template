@@ -1,12 +1,10 @@
-'use client';
+"use client";
 
-import { ReactNode, Suspense } from 'react';
+import { ReactNode, Suspense } from "react";
 
-import { Text } from '@/components/ui/Text';
-
-import { useActiveSection } from '@/hooks/useActiveSection';
-
-import { cn } from '@/utils/cn';
+import { Text } from "@/components/ui/Text";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { cn } from "@/utils/cn";
 
 interface ExampleSectionProps {
   id: string;
@@ -32,8 +30,8 @@ function ExampleSectionContent({
       data-section
       data-category={category}
       className={cn(
-        'w-full py-12 transition-all duration-300 ease-in-out border-b border-border/10',
-        isActive && 'bg-muted/50 shadow-sm'
+        "w-full py-12 transition-all duration-300 ease-in-out border-b border-border/10",
+        isActive && "bg-muted/50 shadow-sm"
       )}
     >
       <div className="max-w-7xl mx-auto px-6">

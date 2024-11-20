@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
-import { ExampleScene } from './ExampleScene';
+import { ExampleScene } from "./ExampleScene";
 
 interface ExampleSceneComponentProps {
   onSceneReady?: (scene: ExampleScene) => void;

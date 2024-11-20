@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { HTMLMotionProps, Variants, motion } from 'framer-motion';
+import { ReactNode, forwardRef } from "react";
 
-import { ReactNode, forwardRef } from 'react';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { HTMLMotionProps, Variants, motion } from "framer-motion";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -13,7 +12,7 @@ const cardVariants: Variants = {
     y: 0,
     transition: {
       duration: 0.3,
-      ease: 'easeOut',
+      ease: "easeOut",
     },
   },
   hover: {
@@ -24,8 +23,8 @@ const cardVariants: Variants = {
   },
 };
 
-interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
-  variant?: 'elevated' | 'outlined' | 'filled';
+interface CardProps extends Omit<HTMLMotionProps<"div">, "children"> {
+  variant?: "elevated" | "outlined" | "filled";
   interactive?: boolean;
   fullHeight?: boolean;
   noPadding?: boolean;
@@ -35,11 +34,11 @@ interface CardProps extends Omit<HTMLMotionProps<'div'>, 'children'> {
 const Card = forwardRef<HTMLDivElement, CardProps>(
   (
     {
-      variant = 'elevated',
+      variant = "elevated",
       interactive = true,
       fullHeight = false,
       noPadding = false,
-      className = '',
+      className = "",
       children,
       ...props
     },
@@ -51,18 +50,18 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        whileHover={interactive ? 'hover' : undefined}
+        whileHover={interactive ? "hover" : undefined}
         className={cn(
-          'rounded-lg',
-          'flex flex-col',
+          "rounded-lg",
+          "flex flex-col",
           {
-            'h-full': fullHeight,
-            'min-h-0': !fullHeight,
-            'p-6': !noPadding,
-            'bg-background shadow-lg border border-border/50': variant === 'elevated',
-            'border-2 border-border': variant === 'outlined',
-            'bg-background-secondary': variant === 'filled',
-            'cursor-pointer transition-transform': interactive,
+            "h-full": fullHeight,
+            "min-h-0": !fullHeight,
+            "p-6": !noPadding,
+            "bg-background shadow-lg border border-border/50": variant === "elevated",
+            "border-2 border-border": variant === "outlined",
+            "bg-background-secondary": variant === "filled",
+            "cursor-pointer transition-transform": interactive,
           },
           className
         )}
@@ -74,7 +73,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   }
 );
 
-Card.displayName = 'Card';
+Card.displayName = "Card";
 
 interface CardHeaderProps {
   title: ReactNode;
@@ -84,9 +83,9 @@ interface CardHeaderProps {
 }
 
 const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
-  ({ title, subtitle, action, className = '' }, ref) => {
+  ({ title, subtitle, action, className = "" }, ref) => {
     return (
-      <div ref={ref} className={cn('flex justify-between items-start gap-4 mb-4', className)}>
+      <div ref={ref} className={cn("flex justify-between items-start gap-4 mb-4", className)}>
         <div className="flex-1 min-w-0">
           <div className="text-xl font-semibold text-foreground leading-tight truncate space-y-1">
             {title}
@@ -99,7 +98,7 @@ const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   }
 );
 
-CardHeader.displayName = 'CardHeader';
+CardHeader.displayName = "CardHeader";
 
 interface CardContentProps {
   children?: ReactNode;
@@ -107,11 +106,11 @@ interface CardContentProps {
 }
 
 const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
-  ({ className = '', children }, ref) => {
+  ({ className = "", children }, ref) => {
     return (
       <div
         ref={ref}
-        className={cn('flex-1 min-h-0 w-full', 'text-foreground-secondary', className)}
+        className={cn("flex-1 min-h-0 w-full", "text-foreground-secondary", className)}
       >
         {children}
       </div>
@@ -119,7 +118,7 @@ const CardContent = forwardRef<HTMLDivElement, CardContentProps>(
   }
 );
 
-CardContent.displayName = 'CardContent';
+CardContent.displayName = "CardContent";
 
 interface CardFooterProps {
   children?: ReactNode;
@@ -128,14 +127,14 @@ interface CardFooterProps {
 }
 
 const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
-  ({ className = '', noBorder = false, children }, ref) => {
+  ({ className = "", noBorder = false, children }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          'mt-6',
+          "mt-6",
           {
-            'pt-4 border-t border-border': !noBorder,
+            "pt-4 border-t border-border": !noBorder,
           },
           className
         )}
@@ -146,6 +145,6 @@ const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
   }
 );
 
-CardFooter.displayName = 'CardFooter';
+CardFooter.displayName = "CardFooter";
 
 export { Card, CardHeader, CardContent, CardFooter };

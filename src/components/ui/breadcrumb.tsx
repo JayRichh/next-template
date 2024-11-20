@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
-import { useActiveSection } from '@/hooks/useActiveSection';
-
-import { cn } from '@/utils/cn';
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { cn } from "@/utils/cn";
 
 interface BreadcrumbProps {
   className?: string;
@@ -14,10 +13,10 @@ interface BreadcrumbProps {
 export function Breadcrumb({ className }: BreadcrumbProps) {
   const pathname = usePathname();
   const { section: activeSection, category: activeCategory } = useActiveSection();
-  const segments = pathname.split('/').filter(Boolean);
+  const segments = pathname.split("/").filter(Boolean);
 
   const breadcrumbItems = segments.map((segment, index) => {
-    const href = `/${segments.slice(0, index + 1).join('/')}`;
+    const href = `/${segments.slice(0, index + 1).join("/")}`;
     const label = segment.charAt(0).toUpperCase() + segment.slice(1);
     return { href, label };
   });
@@ -27,9 +26,9 @@ export function Breadcrumb({ className }: BreadcrumbProps) {
     const sectionLabel = activeSection || activeCategory;
     if (sectionLabel) {
       const formattedLabel = sectionLabel
-        .split('-')
+        .split("-")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(' ');
+        .join(" ");
 
       breadcrumbItems.push({
         href: `${pathname}?section=${sectionLabel}`,
@@ -41,7 +40,7 @@ export function Breadcrumb({ className }: BreadcrumbProps) {
   if (breadcrumbItems.length === 0) return null;
 
   return (
-    <nav aria-label="Breadcrumb" className={cn('flex', className)}>
+    <nav aria-label="Breadcrumb" className={cn("flex", className)}>
       <ol className="flex items-center space-x-2">
         <li>
           <Link

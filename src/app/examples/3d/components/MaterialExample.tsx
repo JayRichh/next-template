@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-import { Slider } from '@/components/ui/Slider';
-
-import { MaterialScene } from '../scenes/MaterialScene';
+import { MaterialScene } from "../scenes/MaterialScene";
+import { Slider } from "@/components/ui/Slider";
 
 export function MaterialExample() {
   const [scene, setScene] = useState<MaterialScene | null>(null);
@@ -44,7 +43,7 @@ export function MaterialExample() {
             </div>
             <Slider
               value={properties.metalness}
-              onChange={handlePropertyChange('metalness')}
+              onChange={handlePropertyChange("metalness")}
               min={0}
               max={1}
               step={0.01}
@@ -58,7 +57,7 @@ export function MaterialExample() {
             </div>
             <Slider
               value={properties.roughness}
-              onChange={handlePropertyChange('roughness')}
+              onChange={handlePropertyChange("roughness")}
               min={0}
               max={1}
               step={0.01}
@@ -72,7 +71,7 @@ export function MaterialExample() {
             </div>
             <Slider
               value={properties.clearcoat}
-              onChange={handlePropertyChange('clearcoat')}
+              onChange={handlePropertyChange("clearcoat")}
               min={0}
               max={1}
               step={0.01}
@@ -86,7 +85,7 @@ export function MaterialExample() {
             </div>
             <Slider
               value={properties.transmission}
-              onChange={handlePropertyChange('transmission')}
+              onChange={handlePropertyChange("transmission")}
               min={0}
               max={1}
               step={0.01}
@@ -100,7 +99,7 @@ export function MaterialExample() {
             </div>
             <Slider
               value={properties.ior}
-              onChange={handlePropertyChange('ior')}
+              onChange={handlePropertyChange("ior")}
               min={1}
               max={2.33}
               step={0.01}

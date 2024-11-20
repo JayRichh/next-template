@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from "react";
 
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
 
 interface Point {
   x: number;
@@ -78,7 +78,7 @@ export function WaterText({
         return;
       }
 
-      const chars = container.querySelectorAll<HTMLElement>('.water-char');
+      const chars = container.querySelectorAll<HTMLElement>(".water-char");
       const containerRect = container.getBoundingClientRect();
 
       chars.forEach((char) => {
@@ -91,7 +91,7 @@ export function WaterText({
 
         // Only update DOM if intensity has changed significantly
         const currentIntensity = parseFloat(
-          char.style.getPropertyValue('--water-intensity') || '0'
+          char.style.getPropertyValue("--water-intensity") || "0"
         );
         const newIntensity = Math.max(minIntensity, currentIntensity - decaySpeed);
 
@@ -99,8 +99,8 @@ export function WaterText({
           Math.abs(intensity - currentIntensity) > 0.01 ||
           Math.abs(newIntensity - currentIntensity) > 0.01
         ) {
-          char.style.setProperty('--water-intensity', Math.max(intensity, newIntensity).toString());
-          char.style.setProperty('--water-angle', angle.toString());
+          char.style.setProperty("--water-intensity", Math.max(intensity, newIntensity).toString());
+          char.style.setProperty("--water-angle", angle.toString());
         }
       });
 
@@ -114,11 +114,11 @@ export function WaterText({
     const container = containerRef.current;
     if (!container) return;
 
-    container.addEventListener('mousemove', updateRipple, { passive: true });
+    container.addEventListener("mousemove", updateRipple, { passive: true });
     frameRef.current = requestAnimationFrame(animate);
 
     return () => {
-      container.removeEventListener('mousemove', updateRipple);
+      container.removeEventListener("mousemove", updateRipple);
       if (frameRef.current) {
         cancelAnimationFrame(frameRef.current);
       }
@@ -128,20 +128,20 @@ export function WaterText({
   return (
     <div
       ref={containerRef}
-      className={cn('relative select-none cursor-pointer', className)}
+      className={cn("relative select-none cursor-pointer", className)}
       aria-label={text}
     >
-      {text.split(' ').map((word, wordIndex) => (
+      {text.split(" ").map((word, wordIndex) => (
         <span key={`word-${wordIndex}`} className="inline-block">
-          {word.split('').map((char, charIndex) => (
+          {word.split("").map((char, charIndex) => (
             <span
               key={`${char}-${charIndex}`}
               className="water-char inline-block"
               style={
                 {
-                  '--char-index': charIndex,
-                  '--water-intensity': '0',
-                  '--water-angle': '0',
+                  "--char-index": charIndex,
+                  "--water-intensity": "0",
+                  "--water-angle": "0",
                 } as React.CSSProperties
               }
               aria-hidden="true"
@@ -149,8 +149,8 @@ export function WaterText({
               {char}
             </span>
           ))}
-          {wordIndex < text.split(' ').length - 1 && (
-            <span className="inline-block" style={{ width: '0.3em' }}></span>
+          {wordIndex < text.split(" ").length - 1 && (
+            <span className="inline-block" style={{ width: "0.3em" }}></span>
           )}
         </span>
       ))}

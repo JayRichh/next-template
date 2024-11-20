@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 export class MorphScene {
   private scene: THREE.Scene;
@@ -15,7 +15,7 @@ export class MorphScene {
   constructor(container: HTMLElement) {
     this.container = container;
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color('#f8fafc');
+    this.scene.background = new THREE.Color("#f8fafc");
     this.camera = new THREE.PerspectiveCamera(50, this.getAspect(), 0.1, 1000);
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -45,7 +45,7 @@ export class MorphScene {
   }
 
   private createGrid(): THREE.GridHelper {
-    const grid = new THREE.GridHelper(20, 20, '#e2e8f0', '#e2e8f0');
+    const grid = new THREE.GridHelper(20, 20, "#e2e8f0", "#e2e8f0");
     grid.position.y = -1;
     grid.material.transparent = true;
     grid.material.opacity = 0.5;
@@ -58,10 +58,10 @@ export class MorphScene {
 
     // Create cube morph target by cloning and modifying the sphere geometry
     const cubeGeometry = geometry.clone();
-    const positionAttribute = cubeGeometry.getAttribute('position');
+    const positionAttribute = cubeGeometry.getAttribute("position");
 
     if (!positionAttribute) {
-      throw new Error('Position attribute is missing from geometry');
+      throw new Error("Position attribute is missing from geometry");
     }
 
     const positions = positionAttribute.array as Float32Array;
@@ -88,7 +88,7 @@ export class MorphScene {
     cubeGeometry.dispose();
 
     const material = new THREE.MeshPhysicalMaterial({
-      color: '#2563eb',
+      color: "#2563eb",
       metalness: 0.2,
       roughness: 0.1,
       clearcoat: 0.8,
@@ -114,17 +114,17 @@ export class MorphScene {
   }
 
   private setupLights(): void {
-    const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
+    const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
     this.scene.add(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight('#ffffff', 1);
+    const mainLight = new THREE.DirectionalLight("#ffffff", 1);
     mainLight.position.set(5, 5, 5);
     mainLight.castShadow = true;
     mainLight.shadow.mapSize.width = 2048;
     mainLight.shadow.mapSize.height = 2048;
     this.scene.add(mainLight);
 
-    const fillLight = new THREE.DirectionalLight('#bfdbfe', 0.5);
+    const fillLight = new THREE.DirectionalLight("#bfdbfe", 0.5);
     fillLight.position.set(-5, 0, -5);
     this.scene.add(fillLight);
   }
@@ -143,7 +143,7 @@ export class MorphScene {
     this.camera.lookAt(0, 0, 0);
 
     this.animate();
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
   }
 
@@ -176,13 +176,13 @@ export class MorphScene {
     this.renderer.render(this.scene, this.camera);
   };
 
-  public morphTo(shape: 'sphere' | 'cube'): void {
+  public morphTo(shape: "sphere" | "cube"): void {
     if (!this.mesh.userData.targetInfluences) {
       this.mesh.userData.targetInfluences = [0];
     }
 
     switch (shape) {
-      case 'cube':
+      case "cube":
         this.mesh.userData.targetInfluences = [1];
         break;
       default:
@@ -195,7 +195,7 @@ export class MorphScene {
       cancelAnimationFrame(this.animationId);
     }
 
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
     this.controls.dispose();
     this.renderer.dispose();
     this.container.removeChild(this.renderer.domElement);

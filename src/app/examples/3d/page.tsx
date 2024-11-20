@@ -1,20 +1,18 @@
-'use client';
+"use client";
 
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect } from "react";
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from "next/navigation";
 
-import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
-import { Card, CardContent } from '@/components/ui/Card';
-import { CodePreview } from '@/components/ui/CodePreview';
-import { TabGroup } from '@/components/ui/TabGroup';
-
-import { useActiveSection } from '@/hooks/useActiveSection';
-
-import { InteractiveExample } from './components/InteractiveExample';
-import { MaterialExample } from './components/MaterialExample';
-import { MorphExample } from './components/MorphExample';
-import { PhysicsExample } from './components/PhysicsExample';
+import { InteractiveExample } from "./components/InteractiveExample";
+import { MaterialExample } from "./components/MaterialExample";
+import { MorphExample } from "./components/MorphExample";
+import { PhysicsExample } from "./components/PhysicsExample";
+import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
+import { Card, CardContent } from "@/components/ui/Card";
+import { CodePreview } from "@/components/ui/CodePreview";
+import { TabGroup } from "@/components/ui/TabGroup";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 // Code examples with proper formatting and indentation
 const materialCode = `import { useEffect, useRef } from 'react';
@@ -400,34 +398,34 @@ export function PhysicsExample() {
 
 const examples = [
   {
-    id: 'basic',
-    title: 'Physical Materials',
+    id: "basic",
+    title: "Physical Materials",
     description:
-      'Explore physically based materials with real-time property adjustments. Demonstrates metalness, roughness, clearcoat, and transmission effects.',
+      "Explore physically based materials with real-time property adjustments. Demonstrates metalness, roughness, clearcoat, and transmission effects.",
     code: materialCode,
     component: <MaterialExample />,
   },
   {
-    id: 'interactive',
-    title: 'Interactive Controls',
+    id: "interactive",
+    title: "Interactive Controls",
     description:
-      'Dynamic camera and lighting controls for interactive 3D scenes. Experiment with light positioning and orbit controls for scene exploration.',
+      "Dynamic camera and lighting controls for interactive 3D scenes. Experiment with light positioning and orbit controls for scene exploration.",
     code: interactiveCode,
     component: <InteractiveExample />,
   },
   {
-    id: 'advanced',
-    title: 'Geometry Morphing',
+    id: "advanced",
+    title: "Geometry Morphing",
     description:
-      'Smooth transitions between different 3D shapes using vertex interpolation. Watch as one geometry seamlessly morphs into another.',
+      "Smooth transitions between different 3D shapes using vertex interpolation. Watch as one geometry seamlessly morphs into another.",
     code: morphCode,
     component: <MorphExample />,
   },
   {
-    id: 'physics',
-    title: 'Interactive Physics',
+    id: "physics",
+    title: "Interactive Physics",
     description:
-      'Real-time physics simulation with dynamic objects and collisions. Add objects, watch them fall, bounce, and interact with each other.',
+      "Real-time physics simulation with dynamic objects and collisions. Add objects, watch them fall, bounce, and interact with each other.",
     code: physicsCode,
     component: <PhysicsExample />,
   },
@@ -449,7 +447,7 @@ function ThreeExamplesContent() {
 
   // Effect to handle initial section
   useEffect(() => {
-    if (!searchParams.get('section')) {
+    if (!searchParams.get("section")) {
       router.replace(`/examples/3d?section=${tabs[0]!.id}`);
     }
   }, [router, searchParams]);
@@ -465,7 +463,7 @@ function ThreeExamplesContent() {
 
         window.scrollBy({
           top: scrollOffset,
-          behavior: 'smooth',
+          behavior: "smooth",
         });
       }
     }

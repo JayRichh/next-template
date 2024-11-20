@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
-import { usePersistentState } from './usePersistentState';
+import { usePersistentState } from "./usePersistentState";
 
 interface UseResizableOptions {
   minWidth?: number;
@@ -14,7 +14,7 @@ export function useResizable({
   minWidth = 240,
   maxWidth = 480,
   defaultWidth = 280,
-  storageKey = 'sidebar-width',
+  storageKey = "sidebar-width",
   onResize,
 }: UseResizableOptions = {}) {
   const [width, setWidth] = usePersistentState({
@@ -46,17 +46,17 @@ export function useResizable({
 
   useEffect(() => {
     if (isResizing) {
-      window.addEventListener('mousemove', resize, { passive: false });
-      window.addEventListener('mouseup', stopResizing);
-      document.body.style.userSelect = 'none';
-      document.body.style.cursor = 'ew-resize';
+      window.addEventListener("mousemove", resize, { passive: false });
+      window.addEventListener("mouseup", stopResizing);
+      document.body.style.userSelect = "none";
+      document.body.style.cursor = "ew-resize";
     }
 
     return () => {
-      window.removeEventListener('mousemove', resize);
-      window.removeEventListener('mouseup', stopResizing);
-      document.body.style.userSelect = '';
-      document.body.style.cursor = '';
+      window.removeEventListener("mousemove", resize);
+      window.removeEventListener("mouseup", stopResizing);
+      document.body.style.userSelect = "";
+      document.body.style.cursor = "";
     };
   }, [isResizing, resize, stopResizing]);
 

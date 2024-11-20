@@ -1,12 +1,10 @@
-'use client';
+"use client";
 
-import { Box, CircleIcon, Trash } from 'lucide-react';
+import { useCallback, useState } from "react";
 
-import { useCallback, useState } from 'react';
-
-import { Button } from '@/components/ui/Button';
-
-import { PhysicsScene } from '../scenes/PhysicsScene';
+import { PhysicsScene } from "../scenes/PhysicsScene";
+import { Button } from "@/components/ui/Button";
+import { Box, CircleIcon, Trash } from "lucide-react";
 
 export function PhysicsExample() {
   const [scene, setScene] = useState<PhysicsScene | null>(null);
@@ -18,7 +16,7 @@ export function PhysicsExample() {
   }, []);
 
   const addSphere = () => {
-    scene?.addObject('sphere', {
+    scene?.addObject("sphere", {
       x: (Math.random() - 0.5) * 3,
       y: 5,
       z: (Math.random() - 0.5) * 3,
@@ -26,7 +24,7 @@ export function PhysicsExample() {
   };
 
   const addCube = () => {
-    scene?.addObject('box', {
+    scene?.addObject("box", {
       x: (Math.random() - 0.5) * 3,
       y: 5,
       z: (Math.random() - 0.5) * 3,

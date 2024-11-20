@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 export class InteractiveScene {
   private scene: THREE.Scene;
@@ -15,7 +15,7 @@ export class InteractiveScene {
   constructor(container: HTMLElement) {
     this.container = container;
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color('#f8fafc');
+    this.scene.background = new THREE.Color("#f8fafc");
     this.camera = new THREE.PerspectiveCamera(50, this.getAspect(), 0.1, 1000);
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -45,7 +45,7 @@ export class InteractiveScene {
   }
 
   private createGrid(): THREE.GridHelper {
-    const grid = new THREE.GridHelper(20, 20, '#e2e8f0', '#e2e8f0');
+    const grid = new THREE.GridHelper(20, 20, "#e2e8f0", "#e2e8f0");
     grid.position.y = -1;
     grid.material.transparent = true;
     grid.material.opacity = 0.5;
@@ -55,7 +55,7 @@ export class InteractiveScene {
   private createMesh(): THREE.Mesh {
     const geometry = new THREE.BoxGeometry(2, 2, 2);
     const material = new THREE.MeshPhysicalMaterial({
-      color: '#2563eb',
+      color: "#2563eb",
       metalness: 0.2,
       roughness: 0.1,
     });
@@ -67,7 +67,7 @@ export class InteractiveScene {
   }
 
   private createLight(): THREE.DirectionalLight {
-    const light = new THREE.DirectionalLight('#ffffff', 1);
+    const light = new THREE.DirectionalLight("#ffffff", 1);
     light.position.set(5, 5, 5);
     light.castShadow = true;
     light.shadow.mapSize.width = 2048;
@@ -94,7 +94,7 @@ export class InteractiveScene {
     this.animate();
 
     // Handle resize
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
 
     // Initial resize
     this.handleResize();
@@ -105,11 +105,11 @@ export class InteractiveScene {
     this.scene.add(this.light);
 
     // Ambient light
-    const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
+    const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
     this.scene.add(ambientLight);
 
     // Fill light
-    const fillLight = new THREE.DirectionalLight('#bfdbfe', 0.5);
+    const fillLight = new THREE.DirectionalLight("#bfdbfe", 0.5);
     fillLight.position.set(-5, 0, -5);
     this.scene.add(fillLight);
 
@@ -117,7 +117,7 @@ export class InteractiveScene {
     const groundGeometry = new THREE.PlaneGeometry(100, 100);
     const groundMaterial = new THREE.ShadowMaterial({
       opacity: 0.3,
-      color: '#1e293b',
+      color: "#1e293b",
       transparent: true,
     });
     const ground = new THREE.Mesh(groundGeometry, groundMaterial);
@@ -154,7 +154,7 @@ export class InteractiveScene {
       cancelAnimationFrame(this.animationId);
     }
 
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
     this.controls.dispose();
     this.renderer.dispose();
     this.container.removeChild(this.renderer.domElement);

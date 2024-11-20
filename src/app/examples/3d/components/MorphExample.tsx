@@ -1,19 +1,18 @@
-'use client';
+"use client";
 
-import { useCallback, useState } from 'react';
+import { useCallback, useState } from "react";
 
-import { Button } from '@/components/ui/Button';
-
-import { MorphScene } from '../scenes/MorphScene';
+import { MorphScene } from "../scenes/MorphScene";
+import { Button } from "@/components/ui/Button";
 
 const shapes = [
-  { id: 'sphere', label: 'Sphere' },
-  { id: 'cube', label: 'Cube' },
+  { id: "sphere", label: "Sphere" },
+  { id: "cube", label: "Cube" },
 ] as const;
 
 export function MorphExample() {
   const [scene, setScene] = useState<MorphScene | null>(null);
-  const [currentShape, setCurrentShape] = useState<(typeof shapes)[number]['id']>('sphere');
+  const [currentShape, setCurrentShape] = useState<(typeof shapes)[number]["id"]>("sphere");
 
   const handleSceneReady = useCallback((container: HTMLDivElement) => {
     const newScene = new MorphScene(container);
@@ -21,7 +20,7 @@ export function MorphExample() {
     return () => newScene.dispose();
   }, []);
 
-  const handleShapeChange = (shape: (typeof shapes)[number]['id']) => {
+  const handleShapeChange = (shape: (typeof shapes)[number]["id"]) => {
     if (shape === currentShape) return;
     setCurrentShape(shape);
     scene?.morphTo(shape);
@@ -40,7 +39,7 @@ export function MorphExample() {
           {shapes.map(({ id, label }) => (
             <Button
               key={id}
-              variant={currentShape === id ? 'primary' : 'secondary'}
+              variant={currentShape === id ? "primary" : "secondary"}
               onClick={() => handleShapeChange(id)}
               className="w-full"
             >

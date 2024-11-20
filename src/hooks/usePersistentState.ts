@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 interface PersistentStateOptions<T> {
   defaultValue: T;
@@ -7,7 +7,7 @@ interface PersistentStateOptions<T> {
 }
 
 const getDefaultStorage = (): Storage | undefined => {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return window.localStorage;
   }
   return undefined;

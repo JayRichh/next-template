@@ -1,5 +1,13 @@
-'use client';
+"use client";
 
+import { useCallback, useState } from "react";
+
+import { ThreeScene } from "./ThreeScene";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Container } from "@/components/ui/Container";
+import { Slider } from "@/components/ui/Slider";
+import { Text } from "@/components/ui/Text";
 import {
   Box,
   Camera,
@@ -10,17 +18,7 @@ import {
   Plus,
   RotateCcw,
   Trash,
-} from 'lucide-react';
-
-import { useCallback, useState } from 'react';
-
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { Container } from '@/components/ui/Container';
-import { Slider } from '@/components/ui/Slider';
-import { Text } from '@/components/ui/Text';
-
-import { ThreeScene } from './ThreeScene';
+} from "lucide-react";
 
 function ControlSection({
   title,
@@ -43,23 +41,23 @@ function ControlSection({
 }
 
 const shapes = [
-  { id: 'box', label: 'Cube', icon: Box },
-  { id: 'sphere', label: 'Sphere', icon: CircleIcon },
-  { id: 'torus', label: 'Torus', icon: CircleIcon },
+  { id: "box", label: "Cube", icon: Box },
+  { id: "sphere", label: "Sphere", icon: CircleIcon },
+  { id: "torus", label: "Torus", icon: CircleIcon },
 ] as const;
 
 const colors = [
-  { id: '#d4a373', label: 'Terra' }, // Warm terra cotta
-  { id: '#9d8189', label: 'Mauve' }, // Muted mauve
-  { id: '#8e9aaf', label: 'Steel' }, // Soft steel blue
-  { id: '#7c6a7d', label: 'Plum' }, // Muted plum
-  { id: '#cb997e', label: 'Rose' }, // Dusty rose
-  { id: '#ddbea9', label: 'Sand' }, // Warm sand
+  { id: "#d4a373", label: "Terra" }, // Warm terra cotta
+  { id: "#9d8189", label: "Mauve" }, // Muted mauve
+  { id: "#8e9aaf", label: "Steel" }, // Soft steel blue
+  { id: "#7c6a7d", label: "Plum" }, // Muted plum
+  { id: "#cb997e", label: "Rose" }, // Dusty rose
+  { id: "#ddbea9", label: "Sand" }, // Warm sand
 ];
 
 export default function ThreeDemoPage() {
   const [scene, setScene] = useState<ThreeScene | null>(null);
-  const [currentShape, setCurrentShape] = useState<(typeof shapes)[number]['id']>('box');
+  const [currentShape, setCurrentShape] = useState<(typeof shapes)[number]["id"]>("box");
   const [selectedColor, setSelectedColor] = useState(colors[0]!.id);
   const [isRotating, setIsRotating] = useState(true);
   const [rotationSpeed, setRotationSpeed] = useState(2);
@@ -79,7 +77,7 @@ export default function ThreeDemoPage() {
     return () => newScene.dispose();
   }, []);
 
-  const handleShapeChange = (shape: (typeof shapes)[number]['id']) => {
+  const handleShapeChange = (shape: (typeof shapes)[number]["id"]) => {
     if (shape === currentShape || !scene) return;
     setCurrentShape(shape);
     scene.morphMainMesh(shape);
@@ -88,7 +86,7 @@ export default function ThreeDemoPage() {
   const handleColorChange = (color: string) => {
     if (!scene) return;
     setSelectedColor(color);
-    scene.setMainMeshMaterial('color', color);
+    scene.setMainMeshMaterial("color", color);
   };
 
   const handleMaterialChange = (property: keyof typeof materialProps) => (value: number) => {
@@ -111,7 +109,7 @@ export default function ThreeDemoPage() {
 
   const addSphere = () => {
     if (!scene) return;
-    scene.addPhysicsObject('sphere', {
+    scene.addPhysicsObject("sphere", {
       x: (Math.random() - 0.5) * 3,
       y: 5,
       z: (Math.random() - 0.5) * 3,
@@ -120,7 +118,7 @@ export default function ThreeDemoPage() {
 
   const addCube = () => {
     if (!scene) return;
-    scene.addPhysicsObject('box', {
+    scene.addPhysicsObject("box", {
       x: (Math.random() - 0.5) * 3,
       y: 5,
       z: (Math.random() - 0.5) * 3,
@@ -164,7 +162,7 @@ export default function ThreeDemoPage() {
                     <Button
                       key={id}
                       size="sm"
-                      variant={currentShape === id ? 'primary' : 'secondary'}
+                      variant={currentShape === id ? "primary" : "secondary"}
                       onClick={() => handleShapeChange(id)}
                       className="flex flex-col items-center gap-1 h-auto py-2"
                     >
@@ -184,8 +182,8 @@ export default function ThreeDemoPage() {
                         onClick={() => handleColorChange(id)}
                         className={`w-8 h-8 rounded-full border-2 transition-all ${
                           selectedColor === id
-                            ? 'scale-110 border-primary shadow-lg'
-                            : 'border-transparent'
+                            ? "scale-110 border-primary shadow-lg"
+                            : "border-transparent"
                         }`}
                         style={{ backgroundColor: id }}
                         title={label}
@@ -201,7 +199,7 @@ export default function ThreeDemoPage() {
                       </div>
                       <Slider
                         value={materialProps.metalness}
-                        onChange={handleMaterialChange('metalness')}
+                        onChange={handleMaterialChange("metalness")}
                         min={0}
                         max={1}
                         step={0.01}
@@ -215,7 +213,7 @@ export default function ThreeDemoPage() {
                       </div>
                       <Slider
                         value={materialProps.roughness}
-                        onChange={handleMaterialChange('roughness')}
+                        onChange={handleMaterialChange("roughness")}
                         min={0}
                         max={1}
                         step={0.01}
@@ -229,7 +227,7 @@ export default function ThreeDemoPage() {
                       </div>
                       <Slider
                         value={materialProps.clearcoat}
-                        onChange={handleMaterialChange('clearcoat')}
+                        onChange={handleMaterialChange("clearcoat")}
                         min={0}
                         max={1}
                         step={0.01}
@@ -243,7 +241,7 @@ export default function ThreeDemoPage() {
                       </div>
                       <Slider
                         value={materialProps.transmission}
-                        onChange={handleMaterialChange('transmission')}
+                        onChange={handleMaterialChange("transmission")}
                         min={0}
                         max={1}
                         step={0.01}
@@ -257,7 +255,7 @@ export default function ThreeDemoPage() {
                       </div>
                       <Slider
                         value={materialProps.ior}
-                        onChange={handleMaterialChange('ior')}
+                        onChange={handleMaterialChange("ior")}
                         min={1}
                         max={2.33}
                         step={0.01}
@@ -297,11 +295,11 @@ export default function ThreeDemoPage() {
                   <div className="grid grid-cols-2 gap-2">
                     <Button
                       size="sm"
-                      variant={isRotating ? 'primary' : 'secondary'}
+                      variant={isRotating ? "primary" : "secondary"}
                       onClick={toggleRotation}
                     >
                       <RotateCcw className="h-4 w-4 mr-2" />
-                      {isRotating ? 'Stop' : 'Rotate'}
+                      {isRotating ? "Stop" : "Rotate"}
                     </Button>
                     <Button size="sm" onClick={resetCamera}>
                       <Camera className="h-4 w-4 mr-2" />

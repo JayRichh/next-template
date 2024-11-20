@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
-import { CodePreview } from '@/components/ui/CodePreview';
+import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { CodePreview } from "@/components/ui/CodePreview";
 
 const middlewareCode = `// middleware.ts
 import { NextResponse } from 'next/server';
@@ -174,11 +174,11 @@ function ApiExample() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/hello');
+      const res = await fetch("/api/hello");
       const json = await res.json();
       setData(json);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
     setLoading(false);
   };
@@ -186,7 +186,7 @@ function ApiExample() {
   return (
     <div className="space-y-4">
       <Button onClick={fetchData} disabled={loading}>
-        {loading ? 'Loading...' : 'Fetch Data'}
+        {loading ? "Loading..." : "Fetch Data"}
       </Button>
       {data && (
         <pre className="bg-background-secondary p-4 rounded-lg overflow-auto max-h-[200px]">
@@ -201,10 +201,10 @@ function DynamicRouteExample() {
   return (
     <div className="space-y-4">
       <div className="flex gap-4">
-        <Button variant="outline" onClick={() => window.open('/examples/products/1', '_blank')}>
+        <Button variant="outline" onClick={() => window.open("/examples/products/1", "_blank")}>
           Product 1
         </Button>
-        <Button variant="outline" onClick={() => window.open('/examples/blog/hello', '_blank')}>
+        <Button variant="outline" onClick={() => window.open("/examples/blog/hello", "_blank")}>
           Blog Post
         </Button>
       </div>

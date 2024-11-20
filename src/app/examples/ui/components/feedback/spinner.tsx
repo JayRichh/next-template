@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import { Spinner } from '@/components/ui/Spinner';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Spinner } from "@/components/ui/Spinner";
 
 export const spinnerCode = `import { Spinner } from '@/components/ui/Spinner';
 
@@ -139,9 +138,9 @@ export function SpinnerExample() {
 }
 
 export const spinnerMeta: ComponentExample = {
-  id: 'spinner',
-  title: 'Spinner',
-  description: 'Loading spinner indicators for various states',
+  id: "spinner",
+  title: "Spinner",
+  description: "Loading spinner indicators for various states",
   code: spinnerCode,
   component: <SpinnerExample />,
 };

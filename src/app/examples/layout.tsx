@@ -1,82 +1,79 @@
-'use client';
+"use client";
 
-import { Box, Component, FileCode, FormInput, Home, Palette } from 'lucide-react';
+import { Suspense } from "react";
 
-import { Suspense } from 'react';
+import Link from "next/link";
+import { usePathname, useSearchParams } from "next/navigation";
 
-import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
-
-import { Breadcrumb } from '@/components/ui/Breadcrumb';
-
-import { useActiveSection } from '@/hooks/useActiveSection';
-
-import { cn } from '@/utils/cn';
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { cn } from "@/utils/cn";
+import { Box, Component, FileCode, FormInput, Home, Palette } from "lucide-react";
 
 const categories = [
   {
-    id: 'overview',
-    label: 'Overview',
+    id: "overview",
+    label: "Overview",
     icon: Home,
-    href: '/examples',
+    href: "/examples",
   },
   {
-    id: 'ui',
-    label: 'UI Components',
+    id: "ui",
+    label: "UI Components",
     icon: Component,
-    href: '/examples/ui',
+    href: "/examples/ui",
     items: [
-      { id: 'inputs', label: 'Inputs' },
-      { id: 'feedback', label: 'Feedback' },
-      { id: 'layout', label: 'Layout' },
-      { id: 'data-display', label: 'Data Display' },
-      { id: 'overlay', label: 'Overlay' },
-      { id: 'effects', label: 'Effects' },
+      { id: "inputs", label: "Inputs" },
+      { id: "feedback", label: "Feedback" },
+      { id: "layout", label: "Layout" },
+      { id: "data-display", label: "Data Display" },
+      { id: "overlay", label: "Overlay" },
+      { id: "effects", label: "Effects" },
     ],
   },
   {
-    id: '3d',
-    label: '3D Graphics',
+    id: "3d",
+    label: "3D Graphics",
     icon: Box,
-    href: '/examples/3d',
+    href: "/examples/3d",
     items: [
-      { id: 'basic', label: 'Physical Materials' },
-      { id: 'interactive', label: 'Interactive Controls' },
-      { id: 'advanced', label: 'Geometry Morphing' },
-      { id: 'physics', label: 'Interactive Physics' },
+      { id: "basic", label: "Physical Materials" },
+      { id: "interactive", label: "Interactive Controls" },
+      { id: "advanced", label: "Geometry Morphing" },
+      { id: "physics", label: "Interactive Physics" },
     ],
   },
   {
-    id: 'nextjs',
-    label: 'Next.js Features',
+    id: "nextjs",
+    label: "Next.js Features",
     icon: FileCode,
-    href: '/examples/nextjs',
+    href: "/examples/nextjs",
     items: [
-      { id: 'api', label: 'API Routes' },
-      { id: 'routing', label: 'Dynamic Routing' },
-      { id: 'server', label: 'Server Components' },
+      { id: "api", label: "API Routes" },
+      { id: "routing", label: "Dynamic Routing" },
+      { id: "server", label: "Server Components" },
     ],
   },
   {
-    id: 'data',
-    label: 'Data & Forms',
+    id: "data",
+    label: "Data & Forms",
     icon: FormInput,
-    href: '/examples/data',
+    href: "/examples/data",
     items: [
-      { id: 'forms', label: 'Form Validation' },
-      { id: 'state', label: 'State Management' },
-      { id: 'storage', label: 'Local Storage' },
+      { id: "forms", label: "Form Validation" },
+      { id: "state", label: "State Management" },
+      { id: "storage", label: "Local Storage" },
     ],
   },
   {
-    id: 'theme',
-    label: 'Theming',
+    id: "theme",
+    label: "Theming",
     icon: Palette,
-    href: '/examples/theme',
+    href: "/examples/theme",
     items: [
-      { id: 'darkmode', label: 'Dark Mode' },
-      { id: 'colors', label: 'Color System' },
-      { id: 'gradients', label: 'Gradients' },
+      { id: "darkmode", label: "Dark Mode" },
+      { id: "colors", label: "Color System" },
+      { id: "gradients", label: "Gradients" },
     ],
   },
 ];
@@ -117,10 +114,10 @@ function Navigation() {
                 <Link
                   href={category.href}
                   className={cn(
-                    'flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors duration-200',
-                    isActive ? 'bg-background-secondary' : 'hover:bg-background-secondary/50'
+                    "flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors duration-200",
+                    isActive ? "bg-background-secondary" : "hover:bg-background-secondary/50"
                   )}
-                  aria-current={isActive ? 'page' : undefined}
+                  aria-current={isActive ? "page" : undefined}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
                   <span>{category.label}</span>
@@ -136,12 +133,12 @@ function Navigation() {
                           <Link
                             href={`${category.href}?section=${item.id}`}
                             className={cn(
-                              'block rounded-lg px-3 py-2 transition-all duration-200',
+                              "block rounded-lg px-3 py-2 transition-all duration-200",
                               isItemActive
-                                ? 'bg-background-secondary text-primary font-medium'
-                                : 'hover:bg-background-secondary/25'
+                                ? "bg-background-secondary text-primary font-medium"
+                                : "hover:bg-background-secondary/25"
                             )}
-                            aria-current={isItemActive ? 'true' : undefined}
+                            aria-current={isItemActive ? "true" : undefined}
                           >
                             {item.label}
                           </Link>

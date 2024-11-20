@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
-import { CodePreview } from '@/components/ui/CodePreview';
-import { Form } from '@/components/ui/Form';
-import { Select } from '@/components/ui/Select';
+import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { CodePreview } from "@/components/ui/CodePreview";
+import { Form } from "@/components/ui/Form";
+import { Select } from "@/components/ui/Select";
 
 const hookCode = `// Custom hook for local storage
 import { useState, useEffect } from 'react';
@@ -165,12 +165,12 @@ export function LocalStorageExample() {
 }`;
 
 function DataSelectExample() {
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState("");
 
   const options = [
-    { value: '1', label: 'Option 1' },
-    { value: '2', label: 'Option 2' },
-    { value: '3', label: 'Option 3' },
+    { value: "1", label: "Option 1" },
+    { value: "2", label: "Option 2" },
+    { value: "3", label: "Option 3" },
   ];
 
   return (
@@ -194,19 +194,19 @@ function LocalStorageExample() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    const stored = localStorage.getItem('count');
+    const stored = localStorage.getItem("count");
     if (stored) setCount(parseInt(stored));
   }, []);
 
   const increment = () => {
     const newCount = count + 1;
     setCount(newCount);
-    localStorage.setItem('count', newCount.toString());
+    localStorage.setItem("count", newCount.toString());
   };
 
   const reset = () => {
     setCount(0);
-    localStorage.removeItem('count');
+    localStorage.removeItem("count");
   };
 
   return (

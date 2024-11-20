@@ -1,8 +1,7 @@
-'use client';
+"use client";
 
-import { Form } from '@/components/ui/Form';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Form } from "@/components/ui/Form";
 
 export const formCode = `import { Form } from '@/components/ui/Form';
 
@@ -17,9 +16,9 @@ export function FormExample() {
 }
 
 export const formMeta: ComponentExample = {
-  id: 'form',
-  title: 'Form',
-  description: 'Form with validation and error handling',
+  id: "form",
+  title: "Form",
+  description: "Form with validation and error handling",
   code: formCode,
   component: <FormExample />,
 };

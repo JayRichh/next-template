@@ -1,30 +1,29 @@
-import type { Metadata } from 'next';
-import localFont from 'next/font/local';
+import type { Metadata } from "next";
+import localFont from "next/font/local";
 
-import { GradientBackground } from '@/components/ui/GradientBackground';
-
-import './globals.css';
+import "./globals.css";
+import { GradientBackground } from "@/components/ui/GradientBackground";
 
 // Load Geist fonts
 const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
+  src: "./fonts/GeistVF.woff",
+  variable: "--font-geist-sans",
 });
 
 const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
-  title: 'Next.js Template',
-  description: 'Minimal Next.js template with TypeScript, Tailwind, and Framer Motion',
+  title: "Next.js Template",
+  description: "Minimal Next.js template with TypeScript, Tailwind, and Framer Motion",
 };
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/examples', label: 'Examples' },
-  { href: '/three', label: '3D Demo' },
+  { href: "/", label: "Home" },
+  { href: "/examples", label: "Examples" },
+  { href: "/three", label: "3D Demo" },
 ];
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

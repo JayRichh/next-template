@@ -1,6 +1,6 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import Stats from 'three/addons/libs/stats.module.js';
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import Stats from "three/addons/libs/stats.module.js";
 
 interface PhysicsObject {
   mesh: THREE.Mesh;
@@ -12,13 +12,13 @@ interface PhysicsObject {
 }
 
 type MaterialProperty =
-  | 'metalness'
-  | 'roughness'
-  | 'clearcoat'
-  | 'transmission'
-  | 'ior'
-  | 'thickness'
-  | 'color';
+  | "metalness"
+  | "roughness"
+  | "clearcoat"
+  | "transmission"
+  | "ior"
+  | "thickness"
+  | "color";
 
 export class ThreeScene {
   private scene: THREE.Scene;
@@ -42,7 +42,7 @@ export class ThreeScene {
   constructor(container: HTMLElement) {
     this.container = container;
     this.scene = new THREE.Scene();
-    this.scene.background = new THREE.Color('#ffffff');
+    this.scene.background = new THREE.Color("#ffffff");
     this.camera = new THREE.PerspectiveCamera(50, this.getAspect(), 0.1, 1000);
     this.renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -50,15 +50,15 @@ export class ThreeScene {
     });
     this.clock = new THREE.Clock();
     this.grid = this.createGrid();
-    this.mainMesh = this.createMainMesh('box');
+    this.mainMesh = this.createMainMesh("box");
     this.mainPhysicsObj = this.createPhysicsObject(this.mainMesh, false);
     this.controls = this.createControls();
 
     this.stats = new Stats();
     this.stats.showPanel(0);
-    this.stats.dom.style.cssText = 'position:absolute;top:0;left:0;z-index:100;';
+    this.stats.dom.style.cssText = "position:absolute;top:0;left:0;z-index:100;";
 
-    this.container.style.position = 'relative';
+    this.container.style.position = "relative";
     this.init();
   }
 
@@ -80,21 +80,21 @@ export class ThreeScene {
   }
 
   private createGrid(): THREE.GridHelper {
-    const grid = new THREE.GridHelper(40, 40, '#e2e8f0', '#e2e8f0');
+    const grid = new THREE.GridHelper(40, 40, "#e2e8f0", "#e2e8f0");
     grid.position.y = 0;
     (grid.material as THREE.Material).transparent = true;
     (grid.material as THREE.Material).opacity = 0.5;
     return grid;
   }
 
-  private createMainMesh(shape: 'box' | 'sphere' | 'torus'): THREE.Mesh {
+  private createMainMesh(shape: "box" | "sphere" | "torus"): THREE.Mesh {
     let geometry: THREE.BufferGeometry;
 
     switch (shape) {
-      case 'sphere':
+      case "sphere":
         geometry = new THREE.SphereGeometry(1.2, 32, 32);
         break;
-      case 'torus':
+      case "torus":
         geometry = new THREE.TorusGeometry(1, 0.4, 32, 48);
         break;
       default:
@@ -102,7 +102,7 @@ export class ThreeScene {
     }
 
     const material = new THREE.MeshPhysicalMaterial({
-      color: '#2563eb',
+      color: "#2563eb",
       metalness: 0.2,
       roughness: 0.1,
       clearcoat: 0.8,
@@ -176,14 +176,14 @@ export class ThreeScene {
     this.camera.lookAt(0, 0, 0);
 
     this.animate();
-    window.addEventListener('resize', this.handleResize);
+    window.addEventListener("resize", this.handleResize);
     this.handleResize();
   }
 
   private setupGroundPhysics(): void {
     const groundGeometry = new THREE.BoxGeometry(100, 1, 100);
     const groundMaterial = new THREE.MeshStandardMaterial({
-      color: '#dddddd',
+      color: "#dddddd",
       transparent: true,
       opacity: 0.5,
     });
@@ -197,11 +197,11 @@ export class ThreeScene {
   }
 
   private setupLights(): void {
-    const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
+    const ambientLight = new THREE.AmbientLight("#ffffff", 0.5);
     this.scene.add(ambientLight);
     this.lights.push(ambientLight);
 
-    const mainLight = new THREE.DirectionalLight('#ffffff', 1);
+    const mainLight = new THREE.DirectionalLight("#ffffff", 1);
     mainLight.position.set(5, 5, 5);
     mainLight.castShadow = true;
     mainLight.shadow.mapSize.width = 2048;
@@ -216,7 +216,7 @@ export class ThreeScene {
     this.scene.add(mainLight);
     this.lights.push(mainLight);
 
-    const fillLight = new THREE.DirectionalLight('#e2e8f0', 0.5);
+    const fillLight = new THREE.DirectionalLight("#e2e8f0", 0.5);
     fillLight.position.set(-5, 0, -5);
     this.scene.add(fillLight);
     this.lights.push(fillLight);
@@ -239,11 +239,11 @@ export class ThreeScene {
       velocities[i3 + 2] = (Math.random() - 0.5) * 0.02;
     }
 
-    particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    particleGeometry.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
+    particleGeometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+    particleGeometry.setAttribute("velocity", new THREE.BufferAttribute(velocities, 3));
 
     const particleMaterial = new THREE.PointsMaterial({
-      color: '#2563eb',
+      color: "#2563eb",
       size: 0.1,
       transparent: true,
       opacity: 0.3,
@@ -328,8 +328,8 @@ export class ThreeScene {
 
     const geometry = particles.geometry as THREE.BufferGeometry;
 
-    const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute;
-    const velocityAttribute = geometry.getAttribute('velocity') as THREE.BufferAttribute;
+    const positionAttribute = geometry.getAttribute("position") as THREE.BufferAttribute;
+    const velocityAttribute = geometry.getAttribute("velocity") as THREE.BufferAttribute;
 
     const positions = positionAttribute.array as NonNullable<Float32Array>;
     const velocities = velocityAttribute.array as NonNullable<Float32Array>;
@@ -380,15 +380,15 @@ export class ThreeScene {
     if (this.mainMesh.material instanceof THREE.MeshPhysicalMaterial) {
       const material = this.mainMesh.material;
 
-      if (property === 'color' && typeof value === 'string') {
+      if (property === "color" && typeof value === "string") {
         material.color.set(value);
-      } else if (property !== 'color' && typeof value === 'number') {
+      } else if (property !== "color" && typeof value === "number") {
         material[property] = value;
       }
     }
   }
 
-  public morphMainMesh(shape: 'box' | 'sphere' | 'torus'): void {
+  public morphMainMesh(shape: "box" | "sphere" | "torus"): void {
     const oldMaterial = this.mainMesh.material as THREE.MeshPhysicalMaterial;
     const materialProps = {
       color: oldMaterial.color.getHex(),
@@ -432,19 +432,19 @@ export class ThreeScene {
   }
 
   public addPhysicsObject(
-    type: 'box' | 'sphere',
+    type: "box" | "sphere",
     position: { x: number; y: number; z: number }
   ): void {
     let geometry: THREE.BufferGeometry;
 
-    if (type === 'sphere') {
+    if (type === "sphere") {
       geometry = new THREE.SphereGeometry(0.5, 32, 32);
     } else {
       geometry = new THREE.BoxGeometry(1, 1, 1);
     }
 
     const material = new THREE.MeshPhysicalMaterial({
-      color: '#' + Math.floor(Math.random() * 16777215).toString(16),
+      color: "#" + Math.floor(Math.random() * 16777215).toString(16),
       metalness: 0.2,
       roughness: 0.1,
       clearcoat: 0.8,
@@ -502,7 +502,7 @@ export class ThreeScene {
     }
 
     this.clearPhysicsObjects();
-    window.removeEventListener('resize', this.handleResize);
+    window.removeEventListener("resize", this.handleResize);
     this.controls.dispose();
     this.renderer.dispose();
     this.container.removeChild(this.renderer.domElement);

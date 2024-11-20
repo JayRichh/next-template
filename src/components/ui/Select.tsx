@@ -1,8 +1,7 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { useEffect, useRef, useState } from "react";
 
-import { useEffect, useRef, useState } from 'react';
-
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface SelectOption {
   value: string;
@@ -28,7 +27,7 @@ export function Select({
   options,
   value,
   onChange,
-  placeholder = 'Select an option',
+  placeholder = "Select an option",
   searchable = false,
   clearable = false,
   disabled = false,
@@ -37,7 +36,7 @@ export function Select({
   error,
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -56,13 +55,13 @@ export function Select({
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   useEffect(() => {
     if (!isOpen) {
-      setSearchQuery('');
+      setSearchQuery("");
       setHighlightedIndex(0);
     }
   }, [isOpen]);
@@ -71,7 +70,7 @@ export function Select({
     if (disabled) return;
 
     switch (e.key) {
-      case 'Enter':
+      case "Enter":
         e.preventDefault();
         if (isOpen && filteredOptions[highlightedIndex]) {
           onChange?.(filteredOptions[highlightedIndex].value);
@@ -80,7 +79,7 @@ export function Select({
           setIsOpen(true);
         }
         break;
-      case 'ArrowDown':
+      case "ArrowDown":
         e.preventDefault();
         if (isOpen) {
           setHighlightedIndex((i) => (i < filteredOptions.length - 1 ? i + 1 : i));
@@ -88,13 +87,13 @@ export function Select({
           setIsOpen(true);
         }
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         if (isOpen) {
           setHighlightedIndex((i) => (i > 0 ? i - 1 : i));
         }
         break;
-      case 'Escape':
+      case "Escape":
         setIsOpen(false);
         break;
     }
@@ -105,27 +104,27 @@ export function Select({
       const highlightedElement = listRef.current.children[highlightedIndex] as HTMLElement;
       if (highlightedElement) {
         highlightedElement.scrollIntoView({
-          block: 'nearest',
-          behavior: 'smooth',
+          block: "nearest",
+          behavior: "smooth",
         });
       }
     }
   }, [highlightedIndex, isOpen]);
 
   return (
-    <div className={cn('relative', className)} ref={containerRef}>
+    <div className={cn("relative", className)} ref={containerRef}>
       {label && <label className="block text-sm font-medium text-foreground mb-2">{label}</label>}
 
       <div
         onClick={() => !disabled && setIsOpen(!isOpen)}
         className={cn(
-          'relative w-full px-4 py-2 rounded-lg',
-          'bg-background/50 backdrop-blur-sm',
-          'border-2 border-border/50',
-          'cursor-pointer select-none',
-          'focus:outline-none focus:ring-2 focus:ring-primary/50',
-          disabled && 'opacity-50 cursor-not-allowed',
-          error && 'border-red-500/50 focus:ring-red-500/50'
+          "relative w-full px-4 py-2 rounded-lg",
+          "bg-background/50 backdrop-blur-sm",
+          "border-2 border-border/50",
+          "cursor-pointer select-none",
+          "focus:outline-none focus:ring-2 focus:ring-primary/50",
+          disabled && "opacity-50 cursor-not-allowed",
+          error && "border-red-500/50 focus:ring-red-500/50"
         )}
         tabIndex={disabled ? -1 : 0}
         onKeyDown={handleKeyDown}
@@ -143,7 +142,7 @@ export function Select({
               autoFocus
             />
           ) : (
-            <span className={cn(selectedOption ? 'text-foreground' : 'text-foreground/50')}>
+            <span className={cn(selectedOption ? "text-foreground" : "text-foreground/50")}>
               {selectedOption ? (
                 <div className="flex items-center gap-2">
                   {selectedOption.icon}
@@ -160,7 +159,7 @@ export function Select({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onChange?.('');
+                  onChange?.("");
                 }}
                 className="text-foreground/50 hover:text-foreground"
               >
@@ -184,10 +183,10 @@ export function Select({
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
             className={cn(
-              'absolute z-50 w-full mt-2',
-              'bg-background/95 backdrop-blur-sm',
-              'border-2 border-border/50 rounded-lg shadow-lg',
-              'max-h-60 overflow-auto'
+              "absolute z-50 w-full mt-2",
+              "bg-background/95 backdrop-blur-sm",
+              "border-2 border-border/50 rounded-lg shadow-lg",
+              "max-h-60 overflow-auto"
             )}
             ref={listRef}
           >
@@ -202,10 +201,10 @@ export function Select({
                     setIsOpen(false);
                   }}
                   className={cn(
-                    'px-4 py-2 cursor-pointer',
-                    'transition-colors duration-200',
-                    index === highlightedIndex && 'bg-primary/10',
-                    option.value === value && 'text-primary'
+                    "px-4 py-2 cursor-pointer",
+                    "transition-colors duration-200",
+                    index === highlightedIndex && "bg-primary/10",
+                    option.value === value && "text-primary"
                   )}
                   onMouseEnter={() => setHighlightedIndex(index)}
                 >
@@ -230,32 +229,32 @@ export function Select({
 
 // Example usage:
 export function SelectDemo() {
-  const [country, setCountry] = useState('');
-  const [searchableValue, setSearchableValue] = useState('');
+  const [country, setCountry] = useState("");
+  const [searchableValue, setSearchableValue] = useState("");
 
   const countries = [
-    { value: 'us', label: 'United States', icon: '🇺🇸' },
-    { value: 'uk', label: 'United Kingdom', icon: '🇬🇧' },
-    { value: 'fr', label: 'France', icon: '🇫🇷' },
-    { value: 'de', label: 'Germany', icon: '🇩🇪' },
-    { value: 'jp', label: 'Japan', icon: '🇯🇵' },
+    { value: "us", label: "United States", icon: "🇺🇸" },
+    { value: "uk", label: "United Kingdom", icon: "🇬🇧" },
+    { value: "fr", label: "France", icon: "🇫🇷" },
+    { value: "de", label: "Germany", icon: "🇩🇪" },
+    { value: "jp", label: "Japan", icon: "🇯🇵" },
   ];
 
   const frameworks = [
     {
-      value: 'next',
-      label: 'Next.js',
-      description: 'React framework for production',
+      value: "next",
+      label: "Next.js",
+      description: "React framework for production",
     },
     {
-      value: 'react',
-      label: 'React',
-      description: 'JavaScript library for user interfaces',
+      value: "react",
+      label: "React",
+      description: "JavaScript library for user interfaces",
     },
     {
-      value: 'vue',
-      label: 'Vue',
-      description: 'Progressive JavaScript framework',
+      value: "vue",
+      label: "Vue",
+      description: "Progressive JavaScript framework",
     },
   ];
 

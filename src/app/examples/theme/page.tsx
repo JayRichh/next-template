@@ -1,13 +1,12 @@
-'use client';
+"use client";
 
-import { Moon, Sun } from 'lucide-react';
+import { useState } from "react";
 
-import { useState } from 'react';
-
-import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
-import { CodePreview } from '@/components/ui/CodePreview';
+import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { CodePreview } from "@/components/ui/CodePreview";
+import { Moon, Sun } from "lucide-react";
 
 const themeCode = `// app/globals.css
 @layer base {
@@ -141,7 +140,7 @@ function ThemeToggle() {
 
   const toggleTheme = () => {
     setIsDark(!isDark);
-    document.documentElement.classList.toggle('dark');
+    document.documentElement.classList.toggle("dark");
   };
 
   return (
@@ -150,7 +149,7 @@ function ThemeToggle() {
       size="sm"
       onClick={toggleTheme}
       className="w-10 h-10 p-0"
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
     >
       {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
     </Button>

@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 
-type TooltipPosition = 'top' | 'right' | 'bottom' | 'left';
+type TooltipPosition = "top" | "right" | "bottom" | "left";
 
 interface TooltipState {
   top: number;
@@ -20,19 +20,19 @@ export function useTooltip(position: TooltipPosition, delay: number) {
       let left = 0;
 
       switch (position) {
-        case 'top':
+        case "top":
           top = rect.top + window.scrollY;
           left = rect.left + rect.width / 2 + window.scrollX;
           break;
-        case 'right':
+        case "right":
           top = rect.top + rect.height / 2 + window.scrollY;
           left = rect.right + window.scrollX;
           break;
-        case 'bottom':
+        case "bottom":
           top = rect.bottom + window.scrollY;
           left = rect.left + rect.width / 2 + window.scrollX;
           break;
-        case 'left':
+        case "left":
           top = rect.top + rect.height / 2 + window.scrollY;
           left = rect.left + window.scrollX;
           break;
@@ -66,15 +66,15 @@ export function useTooltip(position: TooltipPosition, delay: number) {
       }
     };
 
-    window.addEventListener('scroll', handleScroll, true);
-    window.addEventListener('resize', updateTooltipPosition);
+    window.addEventListener("scroll", handleScroll, true);
+    window.addEventListener("resize", updateTooltipPosition);
 
     return () => {
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
-      window.removeEventListener('scroll', handleScroll, true);
-      window.removeEventListener('resize', updateTooltipPosition);
+      window.removeEventListener("scroll", handleScroll, true);
+      window.removeEventListener("resize", updateTooltipPosition);
     };
   }, [isVisible, updateTooltipPosition]);
 

@@ -1,10 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Slider } from '@/components/ui/Slider';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Slider } from "@/components/ui/Slider";
 
 export const sliderCode = `import { Slider } from '@/components/ui/Slider';
 
@@ -58,9 +57,9 @@ export function SliderExample() {
 }
 
 export const sliderMeta: ComponentExample = {
-  id: 'slider',
-  title: 'Slider',
-  description: 'Interactive range input control with customizable appearance and behavior.',
+  id: "slider",
+  title: "Slider",
+  description: "Interactive range input control with customizable appearance and behavior.",
   code: sliderCode,
   component: <SliderExample />,
 };

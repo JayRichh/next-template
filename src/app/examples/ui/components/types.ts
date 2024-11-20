@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export interface ComponentExample {
   /** Unique identifier for the example */
@@ -47,7 +47,7 @@ export interface ComponentCategory {
     /** Whether this is a core category */
     core?: boolean;
     /** Level of complexity */
-    complexity?: 'basic' | 'intermediate' | 'advanced';
+    complexity?: "basic" | "intermediate" | "advanced";
     /** Related categories */
     related?: string[];
   };
@@ -58,6 +58,6 @@ export interface ComponentCategory {
  */
 export function hasMetadata(
   example: ComponentExample
-): example is ComponentExample & { meta: NonNullable<ComponentExample['meta']> } {
+): example is ComponentExample & { meta: NonNullable<ComponentExample["meta"]> } {
   return example.meta !== undefined;
 }

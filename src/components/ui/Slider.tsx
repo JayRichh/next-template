@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
-import { cn } from '@/utils/cn';
+import { cn } from "@/utils/cn";
 
 interface SliderProps {
   min?: number;
@@ -60,8 +60,8 @@ export function Slider({
     e.preventDefault();
     isDragging.current = true;
     updateValue(e.clientX);
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleMouseUp);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -71,25 +71,25 @@ export function Slider({
 
   const handleMouseUp = () => {
     isDragging.current = false;
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
+    document.removeEventListener("mousemove", handleMouseMove);
+    document.removeEventListener("mouseup", handleMouseUp);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     let newValue = value;
     switch (e.key) {
-      case 'ArrowRight':
-      case 'ArrowUp':
+      case "ArrowRight":
+      case "ArrowUp":
         newValue = Math.min(value + step, max);
         break;
-      case 'ArrowLeft':
-      case 'ArrowDown':
+      case "ArrowLeft":
+      case "ArrowDown":
         newValue = Math.max(value - step, min);
         break;
-      case 'Home':
+      case "Home":
         newValue = min;
         break;
-      case 'End':
+      case "End":
         newValue = max;
         break;
       default:
@@ -104,7 +104,7 @@ export function Slider({
   const percentage = ((value - min) / (max - min)) * 100;
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       {(label || showValue) && (
         <div className="flex items-center justify-between">
           {label && <span className="text-sm font-medium text-foreground">{label}</span>}
@@ -120,8 +120,8 @@ export function Slider({
         ref={trackRef}
         onMouseDown={handleMouseDown}
         className={cn(
-          'relative h-6 flex items-center cursor-pointer',
-          'group touch-none select-none'
+          "relative h-6 flex items-center cursor-pointer",
+          "group touch-none select-none"
         )}
       >
         {/* Track background */}
@@ -142,19 +142,19 @@ export function Slider({
           aria-valuenow={value}
           onKeyDown={handleKeyDown}
           className={cn(
-            'absolute h-4 w-4 rounded-full bg-blue-600',
-            'border-2 border-white',
-            'shadow-[0_0_0_3px_rgba(37,99,235,0.1)]',
-            'transition-shadow',
-            'focus-visible:outline-none focus-visible:ring-2',
-            'focus-visible:ring-blue-600 focus-visible:ring-offset-2',
-            'hover:shadow-[0_0_0_5px_rgba(37,99,235,0.1)]',
-            'cursor-grab active:cursor-grabbing'
+            "absolute h-4 w-4 rounded-full bg-blue-600",
+            "border-2 border-white",
+            "shadow-[0_0_0_3px_rgba(37,99,235,0.1)]",
+            "transition-shadow",
+            "focus-visible:outline-none focus-visible:ring-2",
+            "focus-visible:ring-blue-600 focus-visible:ring-offset-2",
+            "hover:shadow-[0_0_0_5px_rgba(37,99,235,0.1)]",
+            "cursor-grab active:cursor-grabbing"
           )}
           style={{
             left: `${percentage}%`,
             transform: `translateX(-50%)`,
-            touchAction: 'none',
+            touchAction: "none",
           }}
         />
       </div>

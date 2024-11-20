@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from '@/components/ui/Button';
-import { Modal } from '@/components/ui/Modal';
-
-import { ComponentExample } from '../types';
+import { ComponentExample } from "../types";
+import { Button } from "@/components/ui/Button";
+import { Modal } from "@/components/ui/Modal";
 
 export const modalCode = `import { Modal } from '@/components/ui/Modal';
 import { Button } from '@/components/ui/Button';
@@ -45,9 +44,9 @@ export function ModalExample() {
 }
 
 export const modalMeta: ComponentExample = {
-  id: 'modal',
-  title: 'Modal Dialogs',
-  description: 'Overlay dialogs and popups',
+  id: "modal",
+  title: "Modal Dialogs",
+  description: "Overlay dialogs and popups",
   code: modalCode,
   component: <ModalExample />,
 };

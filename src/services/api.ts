@@ -1,6 +1,6 @@
-import { ApiError, BaseResponse } from '@/types';
+import { ApiError, BaseResponse } from "@/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "/api";
 
 // Generic type for request data
 interface RequestData {
@@ -29,7 +29,7 @@ class ApiService {
 
   private createHeaders(): Headers {
     const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+    headers.append("Content-Type", "application/json");
     // Add auth token if needed
     // const token = localStorage.getItem('token');
     // if (token) headers.append('Authorization', `Bearer ${token}`);
@@ -39,7 +39,7 @@ class ApiService {
   async get<T extends BaseResponse>(endpoint: string): Promise<T> {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'GET',
+        method: "GET",
         headers: this.createHeaders(),
       });
       return this.handleResponse<T>(response);
@@ -51,7 +51,7 @@ class ApiService {
   async post<T extends BaseResponse>(endpoint: string, data: RequestData): Promise<T> {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'POST',
+        method: "POST",
         headers: this.createHeaders(),
         body: JSON.stringify(data),
       });
@@ -64,7 +64,7 @@ class ApiService {
   async put<T extends BaseResponse>(endpoint: string, data: RequestData): Promise<T> {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: this.createHeaders(),
         body: JSON.stringify(data),
       });
@@ -77,7 +77,7 @@ class ApiService {
   async delete<T extends BaseResponse>(endpoint: string): Promise<T> {
     try {
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        method: 'DELETE',
+        method: "DELETE",
         headers: this.createHeaders(),
       });
       return this.handleResponse<T>(response);
@@ -96,7 +96,7 @@ class ApiService {
     }
     return {
       success: false,
-      error: 'An unexpected error occurred',
+      error: "An unexpected error occurred",
       code: 500,
     };
   }
