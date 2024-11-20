@@ -3,11 +3,11 @@
 import { useState } from "react";
 
 import { ComponentExample } from "../types";
-import { Button } from "@/components/ui/Button";
-import { Modal } from "@/components/ui/Modal";
+import { Button } from "~/components/ui/Button";
+import { Modal } from "~/components/ui/Modal";
 
-export const modalCode = `import { Modal } from '@/components/ui/Modal';
-import { Button } from '@/components/ui/Button';
+export const modalCode = `import { Modal } from '~/components/ui/Modal';
+import { Button } from '~/components/ui/Button';
 
 export function ModalExample() {
   const [isOpen, setIsOpen] = useState(false);

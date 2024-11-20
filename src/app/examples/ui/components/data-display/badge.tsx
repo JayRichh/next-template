@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Badge } from "@/components/ui/Badge";
+import { Badge } from "~/components/ui/Badge";
 
-export const badgeCode = `import { Badge } from '@/components/ui/Badge';
+export const badgeCode = `import { Badge } from '~/components/ui/Badge';
 
 export function BadgeExample() {
   return (

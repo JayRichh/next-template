@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Skeleton } from "@/components/ui/Skeleton";
+import { Skeleton } from "~/components/ui/Skeleton";
 
-export const skeletonCode = `import { Skeleton } from '@/components/ui/Skeleton';
+export const skeletonCode = `import { Skeleton } from '~/components/ui/Skeleton';
 
 export function SkeletonExample() {
   return (

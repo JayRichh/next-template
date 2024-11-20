@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 
 import { ComponentExample } from "../types";
-import { Progress } from "@/components/ui/Progress";
+import { Progress } from "~/components/ui/Progress";
 
-export const progressCode = `import { Progress } from '@/components/ui/Progress';
+export const progressCode = `import { Progress } from '~/components/ui/Progress';
 
 export function ProgressExample() {
   const [progress, setProgress] = useState(0);

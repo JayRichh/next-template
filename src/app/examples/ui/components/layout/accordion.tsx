@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Accordion } from "@/components/ui/Accordion";
+import { Accordion } from "~/components/ui/Accordion";
 
-export const accordionCode = `import { Accordion } from '@/components/ui/Accordion';
+export const accordionCode = `import { Accordion } from '~/components/ui/Accordion';
 
 export function AccordionExample() {
   const items = [

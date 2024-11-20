@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 
 import { PhysicsScene } from "../scenes/PhysicsScene";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/components/ui/Button";
 import { Box, CircleIcon, Trash } from "lucide-react";
 
 export function PhysicsExample() {

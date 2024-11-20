@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 
 import { InteractiveScene } from "../scenes/InteractiveScene";
-import { Slider } from "@/components/ui/Slider";
+import { Slider } from "~/components/ui/Slider";
 
 export function InteractiveExample() {
   const [scene, setScene] = useState<InteractiveScene | null>(null);

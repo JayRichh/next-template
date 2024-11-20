@@ -2,7 +2,7 @@
 
 import { HTMLAttributes, forwardRef } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 
 type TextVariant = "h1" | "h2" | "h3" | "h4" | "body-lg" | "body" | "body-sm" | "caption";
 type TextGradient = "none" | "blue" | "purple" | "orange" | "primary";

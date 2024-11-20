@@ -5,12 +5,12 @@ import { Suspense } from "react";
 import { useRouter } from "next/navigation";
 
 import { allExamples, componentCategories } from "./components";
-import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
-import { Card, CardContent } from "@/components/ui/Card";
-import { CodePreview } from "@/components/ui/CodePreview";
-import { TabGroup } from "@/components/ui/TabGroup";
-import { useActiveSection } from "@/hooks/useActiveSection";
-import { cn } from "@/utils/cn";
+import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
+import { Card, CardContent } from "~/components/ui/Card";
+import { CodePreview } from "~/components/ui/CodePreview";
+import { TabGroup } from "~/components/ui/TabGroup";
+import { useActiveSection } from "~/hooks/useActiveSection";
+import { cn } from "~/utils/cn";
 
 function UIExamplesContent() {
   const router = useRouter();

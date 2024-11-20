@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Spinner } from "@/components/ui/Spinner";
+import { Spinner } from "~/components/ui/Spinner";
 
-export const spinnerCode = `import { Spinner } from '@/components/ui/Spinner';
+export const spinnerCode = `import { Spinner } from '~/components/ui/Spinner';
 
 export function SpinnerExample() {
   return (

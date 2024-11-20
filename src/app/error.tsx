@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
-import { Container } from "@/components/ui/Container";
-import { GradientBackground } from "@/components/ui/GradientBackground";
-import { Text } from "@/components/ui/Text";
+import { Button } from "~/components/ui/Button";
+import { Container } from "~/components/ui/Container";
+import { GradientBackground } from "~/components/ui/GradientBackground";
+import { Text } from "~/components/ui/Text";
 
 export default function Error({
   error,

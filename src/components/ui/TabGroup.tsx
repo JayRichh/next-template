@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface Tab {

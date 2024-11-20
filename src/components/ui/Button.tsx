@@ -2,7 +2,7 @@
 
 import { forwardRef } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 import { type VariantProps, cva } from "class-variance-authority";
 import { Loader2 } from "lucide-react";
 

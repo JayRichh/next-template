@@ -4,9 +4,9 @@ import { Suspense } from "react";
 
 import Link from "next/link";
 
-import { ExampleContainer } from "@/components/ExampleSection";
-import { Card, CardContent } from "@/components/ui/Card";
-import { WaterText } from "@/components/ui/WaterText";
+import { ExampleContainer } from "~/components/ExampleSection";
+import { Card, CardContent } from "~/components/ui/Card";
+import { WaterText } from "~/components/ui/WaterText";
 
 interface Category {
   id: string;

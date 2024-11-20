@@ -3,9 +3,9 @@
 import { useState } from "react";
 
 import { ComponentExample } from "../types";
-import { Slider } from "@/components/ui/Slider";
+import { Slider } from "~/components/ui/Slider";
 
-export const sliderCode = `import { Slider } from '@/components/ui/Slider';
+export const sliderCode = `import { Slider } from '~/components/ui/Slider';
 
 export function SliderExample() {
   const [volume, setVolume] = useState(50);

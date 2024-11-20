@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Select } from "@/components/ui/Select";
+import { Select } from "~/components/ui/Select";
 
-export const selectCode = `import { Select } from '@/components/ui/Select';
+export const selectCode = `import { Select } from '~/components/ui/Select';
 
 export function SelectExample() {
   return (

@@ -2,7 +2,7 @@
 
 import { ReactNode, forwardRef } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 import { HTMLMotionProps, Variants, motion } from "framer-motion";
 
 const cardVariants: Variants = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Button } from "@/components/ui/Button";
+import { Button } from "~/components/ui/Button";
 import {
   ArrowRight,
   Bell,
@@ -17,7 +17,7 @@ import {
   Trash,
 } from "lucide-react";
 
-export const buttonCode = `import { Button } from '@/components/ui/Button';
+export const buttonCode = `import { Button } from '~/components/ui/Button';
 
 // Different variants
 <Button variant="default">Default</Button>

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 import "./globals.css";
-import { GradientBackground } from "@/components/ui/GradientBackground";
+import { GradientBackground } from "~/components/ui/GradientBackground";
 
 // Load Geist fonts
 const geistSans = localFont({

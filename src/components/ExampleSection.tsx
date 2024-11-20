@@ -2,9 +2,9 @@
 
 import { ReactNode, Suspense } from "react";
 
-import { Text } from "@/components/ui/Text";
-import { useActiveSection } from "@/hooks/useActiveSection";
-import { cn } from "@/utils/cn";
+import { Text } from "~/components/ui/Text";
+import { useActiveSection } from "~/hooks/useActiveSection";
+import { cn } from "~/utils/cn";
 
 interface ExampleSectionProps {
   id: string;

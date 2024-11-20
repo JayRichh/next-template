@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { Form } from "@/components/ui/Form";
+import { Form } from "~/components/ui/Form";
 
-export const formCode = `import { Form } from '@/components/ui/Form';
+export const formCode = `import { Form } from '~/components/ui/Form';
 
 export function FormExample() {
   return (

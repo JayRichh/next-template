@@ -1,9 +1,9 @@
 "use client";
 
 import { ComponentExample } from "../types";
-import { TabGroup } from "@/components/ui/TabGroup";
+import { TabGroup } from "~/components/ui/TabGroup";
 
-export const tabsCode = `import { TabGroup } from '@/components/ui/TabGroup';
+export const tabsCode = `import { TabGroup } from '~/components/ui/TabGroup';
 
 export function TabExample() {
   return (

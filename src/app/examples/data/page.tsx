@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent } from "@/components/ui/Card";
-import { CodePreview } from "@/components/ui/CodePreview";
-import { Form } from "@/components/ui/Form";
-import { Select } from "@/components/ui/Select";
+import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
+import { Button } from "~/components/ui/Button";
+import { Card, CardContent } from "~/components/ui/Card";
+import { CodePreview } from "~/components/ui/CodePreview";
+import { Form } from "~/components/ui/Form";
+import { Select } from "~/components/ui/Select";
 
 const hookCode = `// Custom hook for local storage
 import { useState, useEffect } from 'react';
@@ -101,7 +101,7 @@ export function FormExample() {
   );
 }`;
 
-const selectCode = `import { Select } from '@/components/ui/Select';
+const selectCode = `import { Select } from '~/components/ui/Select';
 import { useState } from 'react';
 
 export function DataSelectExample() {
@@ -131,7 +131,7 @@ export function DataSelectExample() {
 }`;
 
 const storageCode = `import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '~/components/ui/Button';
 
 export function LocalStorageExample() {
   const [count, setCount] = useState(0);

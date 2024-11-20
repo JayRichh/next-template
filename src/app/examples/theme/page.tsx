@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent } from "@/components/ui/Card";
-import { CodePreview } from "@/components/ui/CodePreview";
+import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
+import { Button } from "~/components/ui/Button";
+import { Card, CardContent } from "~/components/ui/Card";
+import { CodePreview } from "~/components/ui/CodePreview";
 import { Moon, Sun } from "lucide-react";
 
 const themeCode = `// app/globals.css
@@ -58,7 +58,7 @@ const themeCode = `// app/globals.css
 
 const toggleCode = `import { Moon, Sun } from 'lucide-react';
 import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
+import { Button } from '~/components/ui/Button';
 
 export function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);

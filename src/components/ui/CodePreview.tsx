@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 
 import dynamic from "next/dynamic";
 
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 // Dynamically import Monaco editor with no SSR

@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 
-import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
-import { Button } from "@/components/ui/Button";
-import { Card, CardContent } from "@/components/ui/Card";
-import { CodePreview } from "@/components/ui/CodePreview";
+import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
+import { Button } from "~/components/ui/Button";
+import { Card, CardContent } from "~/components/ui/Card";
+import { CodePreview } from "~/components/ui/CodePreview";
 
 const middlewareCode = `// middleware.ts
 import { NextResponse } from 'next/server';
@@ -109,7 +109,7 @@ interface Product {
 }
 
 // app/products/page.tsx
-import { db } from '@/lib/db';
+import { db } from '~/lib/db';
 import { Suspense } from 'react';
 
 // Server Component - runs on the server

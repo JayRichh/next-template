@@ -3,7 +3,7 @@
 import { useCallback, useState } from "react";
 
 import { MaterialScene } from "../scenes/MaterialScene";
-import { Slider } from "@/components/ui/Slider";
+import { Slider } from "~/components/ui/Slider";
 
 export function MaterialExample() {
   const [scene, setScene] = useState<MaterialScene | null>(null);

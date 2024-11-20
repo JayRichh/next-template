@@ -3,11 +3,11 @@
 import { useCallback, useState } from "react";
 
 import { ThreeScene } from "./ThreeScene";
-import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { Container } from "@/components/ui/Container";
-import { Slider } from "@/components/ui/Slider";
-import { Text } from "@/components/ui/Text";
+import { Button } from "~/components/ui/Button";
+import { Card } from "~/components/ui/Card";
+import { Container } from "~/components/ui/Container";
+import { Slider } from "~/components/ui/Slider";
+import { Text } from "~/components/ui/Text";
 import {
   Box,
   Camera,

@@ -8,11 +8,11 @@ import { InteractiveExample } from "./components/InteractiveExample";
 import { MaterialExample } from "./components/MaterialExample";
 import { MorphExample } from "./components/MorphExample";
 import { PhysicsExample } from "./components/PhysicsExample";
-import { ExampleContainer, ExampleSection } from "@/components/ExampleSection";
-import { Card, CardContent } from "@/components/ui/Card";
-import { CodePreview } from "@/components/ui/CodePreview";
-import { TabGroup } from "@/components/ui/TabGroup";
-import { useActiveSection } from "@/hooks/useActiveSection";
+import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
+import { Card, CardContent } from "~/components/ui/Card";
+import { CodePreview } from "~/components/ui/CodePreview";
+import { TabGroup } from "~/components/ui/TabGroup";
+import { useActiveSection } from "~/hooks/useActiveSection";
 
 // Code examples with proper formatting and indentation
 const materialCode = `import { useEffect, useRef } from 'react';

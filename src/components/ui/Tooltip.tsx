@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
+"use client";
 
-import { cn } from "@/utils/cn";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "~/utils/cn";
+import { motion } from "framer-motion";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 
@@ -15,35 +15,35 @@ interface TooltipProps {
 }
 
 const positionStyles: Record<TooltipPosition, string> = {
-  top: "-translate-x-1/2 -translate-y-full",
-  right: "-translate-y-1/2",
-  bottom: "-translate-x-1/2 translate-y-full",
-  left: "-translate-y-1/2 -translate-x-full",
+  top: "-translate-y-full -translate-x-1/2 -mt-2",
+  right: "translate-x-2 -translate-y-1/2",
+  bottom: "translate-y-2 -translate-x-1/2",
+  left: "-translate-x-[calc(100%+8px)] -translate-y-1/2",
 };
 
-const arrowStyles: Record<TooltipPosition, string> = {
-  top: "bottom-0 left-1/2 -translate-x-1/2 translate-y-full border-t-foreground/10",
-  right: "left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 border-r-foreground/10",
-  bottom: "top-0 left-1/2 -translate-x-1/2 -translate-y-full border-b-foreground/10",
-  left: "right-0 top-1/2 -translate-y-1/2 translate-x-1/2 border-l-foreground/10",
+const arrowPositions: Record<TooltipPosition, string> = {
+  top: "bottom-[-4px] left-1/2 -translate-x-1/2",
+  right: "left-[-4px] top-1/2 -translate-y-1/2",
+  bottom: "top-[-4px] left-1/2 -translate-x-1/2",
+  left: "right-[-4px] top-1/2 -translate-y-1/2",
 };
 
 export function Tooltip({
   content,
-  position = "right",
+  position = "top",
   delay = 200,
   children,
   className,
 }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout>();
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 });
 
   const showTooltip = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     timeoutRef.current = setTimeout(() => {
       setIsVisible(true);
-      updateTooltipPosition();
     }, delay);
   };
 
@@ -52,35 +52,6 @@ export function Tooltip({
       clearTimeout(timeoutRef.current);
     }
     setIsVisible(false);
-  };
-
-  const updateTooltipPosition = () => {
-    if (triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      let top = 0;
-      let left = 0;
-
-      switch (position) {
-        case "top":
-          top = rect.top + window.scrollY;
-          left = rect.left + rect.width / 2 + window.scrollX;
-          break;
-        case "right":
-          top = rect.top + rect.height / 2 + window.scrollY;
-          left = rect.right + window.scrollX;
-          break;
-        case "bottom":
-          top = rect.bottom + window.scrollY;
-          left = rect.left + rect.width / 2 + window.scrollX;
-          break;
-        case "left":
-          top = rect.top + rect.height / 2 + window.scrollY;
-          left = rect.left + window.scrollX;
-          break;
-      }
-
-      setTooltipPosition({ top, left });
-    }
   };
 
   useEffect(() => {
@@ -92,10 +63,8 @@ export function Tooltip({
   }, []);
 
   return (
-    <>
+    <div className="relative inline-flex group">
       <div
-        ref={triggerRef}
-        className="relative inline-flex"
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
         onFocus={showTooltip}
@@ -103,45 +72,44 @@ export function Tooltip({
       >
         {children}
       </div>
-      {isVisible &&
-        createPortal(
-          <AnimatePresence>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.15 }}
-              className={cn(
-                "fixed z-[9999] whitespace-nowrap",
-                positionStyles[position],
-                className
-              )}
-              style={{
-                top: `${tooltipPosition.top}px`,
-                left: `${tooltipPosition.left}px`,
-              }}
-            >
-              <div
-                className={cn(
-                  "relative",
-                  "bg-background/95 backdrop-blur-md",
-                  "border border-border/50 rounded-lg shadow-lg",
-                  "px-3 py-2 text-sm"
-                )}
-              >
-                {content}
-                <div
-                  className={cn(
-                    "absolute w-2 h-2 rotate-45",
-                    "border border-border/50 bg-background/95",
-                    arrowStyles[position]
-                  )}
-                />
-              </div>
-            </motion.div>
-          </AnimatePresence>,
-          document.body
+      <div
+        className={cn(
+          "absolute z-50 pointer-events-none",
+          position === "top" && "bottom-full left-1/2 -translate-x-1/2 -translate-y-2",
+          position === "right" && "left-full top-1/2 -translate-y-1/2 translate-x-2",
+          position === "bottom" && "top-full left-1/2 -translate-x-1/2 translate-y-2",
+          position === "left" && "right-full top-1/2 -translate-y-1/2 -translate-x-2"
         )}
-    </>
+      >
+        <motion.div
+          initial={false}
+          animate={{
+            opacity: isVisible ? 1 : 0,
+            scale: isVisible ? 1 : 0.96,
+          }}
+          transition={{ duration: 0.15 }}
+          className={cn("relative", className)}
+        >
+          <div
+            className={cn(
+              "relative",
+              "bg-gray-900 text-white dark:bg-white dark:text-gray-900",
+              "border border-border/50 rounded-lg shadow-lg",
+              "px-3 py-1.5 text-sm whitespace-nowrap"
+            )}
+          >
+            {content}
+            <div
+              className={cn(
+                "absolute w-2 h-2",
+                "border border-border/50",
+                "bg-gray-900 dark:bg-white rotate-45",
+                arrowPositions[position]
+              )}
+            />
+          </div>
+        </motion.div>
+      </div>
+    </div>
   );
 }

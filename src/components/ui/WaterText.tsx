@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef } from "react";
 
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 
 interface Point {
   x: number;

@@ -55,7 +55,7 @@ Visit `http://localhost:3000` to see your app.
 - ESLint with strict rules
 - Prettier for code formatting
 - Import sorting
-- Path aliases (@/ for src directory)
+- Path aliases (~/ for src directory)
 
 ### 🎯 Components & Examples
 

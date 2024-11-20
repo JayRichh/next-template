@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { Button } from "./Button";
-import { cn } from "@/utils/cn";
+import { cn } from "~/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 
 export type ToastType = "success" | "error" | "info" | "warning";

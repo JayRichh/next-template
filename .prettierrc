@@ -11,10 +11,10 @@
   "importOrder": [
     "^react",
     "^next",
-    "^@/components/(.*)$",
-    "^@/hooks/(.*)$",
-    "^@/utils/(.*)$",
-    "^@/(.*)$",
+    "^~/components/(.*)$",
+    "^~/hooks/(.*)$",
+    "^~/utils/(.*)$",
+    "^~/(.*)$",
     "^[./]"
   ],
   "importOrderSeparation": true,
