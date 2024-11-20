@@ -58,12 +58,19 @@ export class MorphScene {
 
     // Create cube morph target by cloning and modifying the sphere geometry
     const cubeGeometry = geometry.clone();
-    const positions = cubeGeometry.attributes.position.array;
+    const positionAttribute = cubeGeometry.getAttribute('position');
+
+    if (!positionAttribute) {
+      throw new Error('Position attribute is missing from geometry');
+    }
+
+    const positions = positionAttribute.array as Float32Array;
 
     for (let i = 0; i < positions.length; i += 3) {
-      const x = positions[i];
-      const y = positions[i + 1];
-      const z = positions[i + 2];
+      // Ensure we have valid numbers for the vertex coordinates
+      const x = positions[i] ?? 0;
+      const y = positions[i + 1] ?? 0;
+      const z = positions[i + 2] ?? 0;
 
       const cubeVertex = this.sphereToCube(x, y, z);
 
@@ -72,10 +79,10 @@ export class MorphScene {
       positions[i + 2] = cubeVertex.z;
     }
 
-    cubeGeometry.attributes.position.needsUpdate = true;
+    positionAttribute.needsUpdate = true;
 
     // Assign the morph target to the base geometry
-    geometry.morphAttributes.position = [cubeGeometry.attributes.position];
+    geometry.morphAttributes.position = [positionAttribute];
 
     // Clean up the cube geometry
     cubeGeometry.dispose();
@@ -158,7 +165,7 @@ export class MorphScene {
       for (let i = 0; i < this.mesh.morphTargetInfluences.length; i++) {
         const target = this.mesh.userData.targetInfluences?.[i] ?? 0;
         this.mesh.morphTargetInfluences[i] = THREE.MathUtils.lerp(
-          this.mesh.morphTargetInfluences[i],
+          this.mesh.morphTargetInfluences[i] ?? 0,
           target,
           delta * 3
         );

@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import Link from 'next/link';
 
 import { ExampleContainer } from '@/components/ExampleSection';
@@ -51,7 +53,7 @@ const categories: Category[] = [
   },
 ];
 
-export default function ExamplesPage() {
+function ExamplesContent() {
   return (
     <ExampleContainer
       category="overview"
@@ -105,5 +107,13 @@ export default function ExamplesPage() {
         </nav>
       </div>
     </ExampleContainer>
+  );
+}
+
+export default function ExamplesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ExamplesContent />
+    </Suspense>
   );
 }

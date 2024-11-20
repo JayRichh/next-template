@@ -2,6 +2,8 @@
 
 import { Box, Component, FileCode, FormInput, Home, Palette } from 'lucide-react';
 
+import { Suspense } from 'react';
+
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
@@ -79,90 +81,99 @@ const categories = [
   },
 ];
 
-export default function ExamplesLayout({ children }: { children: React.ReactNode }) {
+function Navigation() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const { section: activeSection, category: activeCategory } = useActiveSection();
 
   return (
+    <nav
+      className="fixed top-16 left-0 z-30 w-64 h-[calc(100vh-4rem)] border-r bg-background flex flex-col"
+      aria-label="Examples navigation"
+    >
+      {/* Header */}
+      <div className="flex h-14 items-center border-b px-4 flex-shrink-0">
+        <Link
+          href="/examples"
+          className="flex items-center space-x-2 hover:opacity-80"
+          aria-label="Examples home"
+        >
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg border bg-background">
+            <Component className="h-4 w-4" aria-hidden="true" />
+          </div>
+          <span className="font-bold">Examples</span>
+        </Link>
+      </div>
+
+      {/* Navigation */}
+      <div className="flex-1 overflow-y-auto p-2">
+        <ul className="space-y-1">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            const isActive = pathname.startsWith(category.href);
+
+            return (
+              <li key={category.id}>
+                <Link
+                  href={category.href}
+                  className={cn(
+                    'flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors duration-200',
+                    isActive ? 'bg-background-secondary' : 'hover:bg-background-secondary/50'
+                  )}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <Icon className="h-4 w-4" aria-hidden="true" />
+                  <span>{category.label}</span>
+                </Link>
+                {isActive && category.items && (
+                  <ul className="mt-1 ml-4 space-y-1 border-l pl-4">
+                    {category.items.map((item) => {
+                      const isItemActive =
+                        activeSection === item.id || (!activeSection && activeCategory === item.id);
+
+                      return (
+                        <li key={item.id}>
+                          <Link
+                            href={`${category.href}?section=${item.id}`}
+                            className={cn(
+                              'block rounded-lg px-3 py-2 transition-all duration-200',
+                              isItemActive
+                                ? 'bg-background-secondary text-primary font-medium'
+                                : 'hover:bg-background-secondary/25'
+                            )}
+                            aria-current={isItemActive ? 'true' : undefined}
+                          >
+                            {item.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </nav>
+  );
+}
+
+export default function ExamplesLayout({ children }: { children: React.ReactNode }) {
+  return (
     <div className="flex flex-1">
       {/* Sidebar */}
-      <nav
-        className="fixed top-16 left-0 z-30 w-64 h-[calc(100vh-4rem)] border-r bg-background flex flex-col"
-        aria-label="Examples navigation"
-      >
-        {/* Header */}
-        <div className="flex h-14 items-center border-b px-4 flex-shrink-0">
-          <Link
-            href="/examples"
-            className="flex items-center space-x-2 hover:opacity-80"
-            aria-label="Examples home"
-          >
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg border bg-background">
-              <Component className="h-4 w-4" aria-hidden="true" />
-            </div>
-            <span className="font-bold">Examples</span>
-          </Link>
-        </div>
-
-        {/* Navigation */}
-        <div className="flex-1 overflow-y-auto p-2">
-          <ul className="space-y-1">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              const isActive = pathname.startsWith(category.href);
-
-              return (
-                <li key={category.id}>
-                  <Link
-                    href={category.href}
-                    className={cn(
-                      'flex items-center space-x-2 rounded-lg px-3 py-2 transition-colors duration-200',
-                      isActive ? 'bg-background-secondary' : 'hover:bg-background-secondary/50'
-                    )}
-                    aria-current={isActive ? 'page' : undefined}
-                  >
-                    <Icon className="h-4 w-4" aria-hidden="true" />
-                    <span>{category.label}</span>
-                  </Link>
-                  {isActive && category.items && (
-                    <ul className="mt-1 ml-4 space-y-1 border-l pl-4">
-                      {category.items.map((item) => {
-                        const isItemActive =
-                          activeSection === item.id ||
-                          (!activeSection && activeCategory === item.id);
-
-                        return (
-                          <li key={item.id}>
-                            <Link
-                              href={`${category.href}?section=${item.id}`}
-                              className={cn(
-                                'block rounded-lg px-3 py-2 transition-all duration-200',
-                                isItemActive
-                                  ? 'bg-background-secondary text-primary font-medium'
-                                  : 'hover:bg-background-secondary/25'
-                              )}
-                              aria-current={isItemActive ? 'true' : undefined}
-                            >
-                              {item.label}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </nav>
+      <Suspense fallback={<div className="w-64" />}>
+        <Navigation />
+      </Suspense>
 
       {/* Main content */}
       <div className="flex-1 pl-64">
         <div className="sticky top-16 z-20 bg-background/80 backdrop-blur-sm border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
-            <Breadcrumb />
+            <Suspense fallback={<div className="h-6" />}>
+              <Breadcrumb />
+            </Suspense>
           </div>
         </div>
         <div className="flex-1">{children}</div>

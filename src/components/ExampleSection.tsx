@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 import { Text } from '@/components/ui/Text';
 
@@ -16,7 +16,7 @@ interface ExampleSectionProps {
   children: ReactNode;
 }
 
-export function ExampleSection({
+function ExampleSectionContent({
   id,
   category,
   title,
@@ -48,6 +48,14 @@ export function ExampleSection({
         <div className="mt-10">{children}</div>
       </div>
     </section>
+  );
+}
+
+export function ExampleSection(props: ExampleSectionProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ExampleSectionContent {...props} />
+    </Suspense>
   );
 }
 

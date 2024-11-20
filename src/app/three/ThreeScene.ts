@@ -7,7 +7,7 @@ interface PhysicsObject {
   velocity: THREE.Vector3;
   acceleration: THREE.Vector3;
   boundingBox: THREE.Box3;
-  isStatic?: boolean;
+  isStatic: boolean; // Made required
   update: (deltaTime: number) => void;
 }
 
@@ -138,12 +138,12 @@ export class ThreeScene {
       acceleration,
       boundingBox,
       isStatic,
-      update: function (deltaTime: number) {
-        if (!isStatic) {
-          velocity.add(acceleration.clone().multiplyScalar(deltaTime));
-          mesh.position.add(velocity.clone().multiplyScalar(deltaTime));
+      update: function (this: PhysicsObject, deltaTime: number) {
+        if (!this.isStatic) {
+          this.velocity.add(this.acceleration.clone().multiplyScalar(deltaTime));
+          this.mesh.position.add(this.velocity.clone().multiplyScalar(deltaTime));
         }
-        boundingBox.setFromObject(mesh);
+        this.boundingBox.setFromObject(this.mesh);
       },
     };
   }
@@ -272,20 +272,19 @@ export class ThreeScene {
       const normalVelocity = relativeVelocity.dot(normal);
 
       if (normalVelocity < 0) {
-        const restitution = 0.3; // Reduced restitution for more stable collisions
+        const restitution = 0.3;
         const j = -(1 + restitution) * normalVelocity;
         const impulse = normal.multiplyScalar(j);
 
         if (!obj1.isStatic) {
           obj1.velocity.add(impulse);
-          obj1.mesh.position.add(normal.clone().multiplyScalar(0.01)); // Small position correction
+          obj1.mesh.position.add(normal.clone().multiplyScalar(0.01));
         }
         if (!obj2.isStatic) {
           obj2.velocity.sub(impulse);
-          obj2.mesh.position.sub(normal.clone().multiplyScalar(0.01)); // Small position correction
+          obj2.mesh.position.sub(normal.clone().multiplyScalar(0.01));
         }
 
-        // Apply stronger friction
         if (!obj1.isStatic) obj1.velocity.multiplyScalar(0.95);
         if (!obj2.isStatic) obj2.velocity.multiplyScalar(0.95);
       }
@@ -301,14 +300,13 @@ export class ThreeScene {
     // Then check all collisions
     for (let i = 0; i < this.physicsObjects.length; i++) {
       for (let j = i + 1; j < this.physicsObjects.length; j++) {
-        this.handleCollision(this.physicsObjects[i], this.physicsObjects[j]);
+        this.handleCollision(this.physicsObjects[i]!, this.physicsObjects[j]!);
       }
     }
 
     // Apply position constraints
     for (const obj of this.physicsObjects) {
       if (!obj.isStatic) {
-        // Keep objects within bounds
         const pos = obj.mesh.position;
         if (Math.abs(pos.x) > 20) {
           pos.x = Math.sign(pos.x) * 20;
@@ -324,28 +322,35 @@ export class ThreeScene {
 
   private updateParticles(): void {
     const particles = this.scene.children.find(
-      (child) => child instanceof THREE.Points
-    ) as THREE.Points;
+      (child): child is THREE.Points => child instanceof THREE.Points
+    );
     if (!particles) return;
 
-    const positions = particles.geometry.attributes.position as THREE.BufferAttribute;
-    const velocities = particles.geometry.attributes.velocity as THREE.BufferAttribute;
+    const geometry = particles.geometry as THREE.BufferGeometry;
 
-    for (let i = 0; i < positions.count; i++) {
+    const positionAttribute = geometry.getAttribute('position') as THREE.BufferAttribute;
+    const velocityAttribute = geometry.getAttribute('velocity') as THREE.BufferAttribute;
+
+    const positions = positionAttribute.array as NonNullable<Float32Array>;
+    const velocities = velocityAttribute.array as NonNullable<Float32Array>;
+
+    for (let i = 0; i < positionAttribute.count; i++) {
       const i3 = i * 3;
-      positions.array[i3] += velocities.array[i3];
-      positions.array[i3 + 1] += velocities.array[i3 + 1];
-      positions.array[i3 + 2] += velocities.array[i3 + 2];
 
+      positions[i3]! += velocities[i3]!;
+      positions[i3 + 1]! += velocities[i3 + 1]!;
+      positions[i3 + 2]! += velocities[i3 + 2]!;
+
+      // Check bounds and reflect particles
       for (let j = 0; j < 3; j++) {
         const idx = i3 + j;
-        if (Math.abs(positions.array[idx]) > 10) {
-          positions.array[idx] *= -0.9;
+        if (Math.abs(positions[idx]!) > 10) {
+          positions[idx] = positions[idx]! * -0.9;
         }
       }
     }
 
-    positions.needsUpdate = true;
+    positionAttribute.needsUpdate = true;
   }
 
   private animate = (): void => {

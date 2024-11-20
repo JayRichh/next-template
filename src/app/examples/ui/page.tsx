@@ -1,6 +1,8 @@
 'use client';
 
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Suspense } from 'react';
+
+import { useRouter } from 'next/navigation';
 
 import { ExampleContainer, ExampleSection } from '@/components/ExampleSection';
 import { Card, CardContent } from '@/components/ui/Card';
@@ -13,7 +15,7 @@ import { cn } from '@/utils/cn';
 
 import { allExamples, componentCategories } from './components';
 
-export default function UIExamplesPage() {
+function UIExamplesContent() {
   const router = useRouter();
   const { section: activeSection, category: activeCategory } = useActiveSection();
 
@@ -54,11 +56,7 @@ export default function UIExamplesPage() {
   };
 
   return (
-    <ExampleContainer
-      category="ui"
-      title="UI Components"
-      description="Core UI components and interactive elements used throughout the application."
-    >
+    <>
       {/* Category Filter using TabGroup */}
       <div className="mb-16">
         <div className="max-w-7xl mx-auto px-6">
@@ -107,6 +105,20 @@ export default function UIExamplesPage() {
           </ExampleSection>
         ))}
       </div>
+    </>
+  );
+}
+
+export default function UIExamplesPage() {
+  return (
+    <ExampleContainer
+      category="ui"
+      title="UI Components"
+      description="Core UI components and interactive elements used throughout the application."
+    >
+      <Suspense fallback={<div>Loading...</div>}>
+        <UIExamplesContent />
+      </Suspense>
     </ExampleContainer>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 
@@ -439,7 +439,7 @@ const tabs = examples.map((example) => ({
   content: null,
 }));
 
-export default function ThreeExamplesPage() {
+function ThreeExamplesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { section: activeSection } = useActiveSection();
@@ -477,11 +477,7 @@ export default function ThreeExamplesPage() {
   };
 
   return (
-    <ExampleContainer
-      category="3d"
-      title="3D Graphics"
-      description="Interactive 3D examples demonstrating advanced graphics techniques."
-    >
+    <>
       {/* Tab Navigation */}
       <div className="sticky top-24 z-30 bg-background/80 backdrop-blur-sm border-b border-border/10">
         <div className="max-w-7xl mx-auto px-6 py-6">
@@ -522,6 +518,20 @@ export default function ThreeExamplesPage() {
           ))}
         </div>
       </div>
+    </>
+  );
+}
+
+export default function ThreeExamplesPage() {
+  return (
+    <ExampleContainer
+      category="3d"
+      title="3D Graphics"
+      description="Interactive 3D examples demonstrating advanced graphics techniques."
+    >
+      <Suspense fallback={<div>Loading...</div>}>
+        <ThreeExamplesContent />
+      </Suspense>
     </ExampleContainer>
   );
 }

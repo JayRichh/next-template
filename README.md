@@ -19,6 +19,7 @@ A modern, full-featured template for rapidly building web applications. Pre-conf
 ![image](https://github.com/user-attachments/assets/3acd0a7e-3415-4b07-a16d-e8522874879a)
 
 ![image](https://github.com/user-attachments/assets/eb1375a2-0654-4c88-bcfd-2460cdb01e56)
+
 - React Three Fiber 8
 - ESLint & Prettier for code quality
 
