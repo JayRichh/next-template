@@ -1,6 +1,8 @@
-# Next.js Template
+# Next.js Three.js Tailwind Template
 
-A modern, full-featured template for rapidly building web applications. Pre-configured with TypeScript, Three.js, Tailwind CSS, and more to eliminate boilerplate setup and get you coding faster.
+A modern, full-featured template for rapidly building web applications. Pre-configured with TypeScript, Three.js, Tailwind CSS, and more to eliminate boilerplate setup and get coding faster.
+
+![image](https://github.com/user-attachments/assets/44ed6c39-7c06-429f-a7d5-30ff9ae525e9)
 
 ## Tech Stack
 
@@ -10,6 +12,13 @@ A modern, full-featured template for rapidly building web applications. Pre-conf
 - Three.js 0.170.0
 - Tailwind CSS 3.4.1
 - Framer Motion 11
+- React Three Fiber (r3f) 8
+
+![image](https://github.com/user-attachments/assets/4e86010d-f88a-4e43-a388-ec54746f8fd0)
+
+![image](https://github.com/user-attachments/assets/3acd0a7e-3415-4b07-a16d-e8522874879a)
+
+![image](https://github.com/user-attachments/assets/eb1375a2-0654-4c88-bcfd-2460cdb01e56)
 - React Three Fiber 8
 - ESLint & Prettier for code quality
 
@@ -17,7 +26,7 @@ A modern, full-featured template for rapidly building web applications. Pre-conf
 
 ```bash
 # Clone the template
-git clone [your-repo-url]
+git clone https://github.com/JayRichh/next-template
 
 # Install dependencies
 npm install
