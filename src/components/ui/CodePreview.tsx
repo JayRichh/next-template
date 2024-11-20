@@ -69,8 +69,15 @@ const initializeMonaco = async () => {
   monacoInitialized = true;
 };
 
-const CodeHighlight = memo(({ code, language }: { code: string; language: string }) => {
+interface CodeHighlightProps {
+  code: string;
+  language: string;
+  maxHeight?: number;
+}
+
+const CodeHighlight = memo(({ code, language, maxHeight = 800 }: CodeHighlightProps) => {
   const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -81,9 +88,9 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
   const handleEditorDidMount = (editor: Monaco.editor.IStandaloneCodeEditor) => {
     editorRef.current = editor;
 
-    // Adjust editor height to content
+    // Adjust editor height to content with configurable max height
     const updateHeight = () => {
-      const contentHeight = Math.min(editor.getContentHeight(), 400);
+      const contentHeight = Math.min(editor.getContentHeight(), maxHeight);
       const container = editor.getContainerDomNode();
       container.style.height = `${contentHeight}px`;
       editor.layout();
@@ -91,6 +98,21 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
 
     editor.onDidContentSizeChange(updateHeight);
     updateHeight();
+
+    // Handle scroll events
+    editor.onDidScrollChange((e) => {
+      if (containerRef.current) {
+        const scrollTop = editor.getScrollTop();
+        const scrollHeight = editor.getScrollHeight();
+        const clientHeight = editor.getLayoutInfo().height;
+
+        // Enable parent scroll when at editor boundaries
+        containerRef.current.style.overflowY = 
+          (scrollTop <= 0 || scrollTop >= scrollHeight - clientHeight) 
+            ? 'visible' 
+            : 'hidden';
+      }
+    });
   };
 
   if (!mounted) {
@@ -102,7 +124,7 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
   }
 
   return (
-    <div className="relative w-full overflow-hidden rounded-md">
+    <div ref={containerRef} className="relative w-full overflow-hidden rounded-md">
       <Editor
         height="auto"
         defaultValue={code}
@@ -110,14 +132,18 @@ const CodeHighlight = memo(({ code, language }: { code: string; language: string
         theme="vs-dark"
         options={{
           readOnly: true,
-          minimap: { enabled: false },
+          minimap: { enabled: true },
           scrollBeyondLastLine: false,
           scrollbar: {
-            vertical: "hidden",
+            vertical: "visible",
             horizontal: "hidden",
+            useShadows: true,
+            verticalHasArrows: false,
+            horizontalHasArrows: false,
+            verticalScrollbarSize: 10,
           },
           overviewRulerLanes: 0,
-          fontSize: 13,
+          fontSize: 14,
           lineHeight: 20,
           padding: { top: 16, bottom: 16 },
           renderLineHighlight: "none",
@@ -149,6 +175,7 @@ interface CodePreviewProps {
   title?: string;
   preview?: React.ReactNode;
   className?: string;
+  maxHeight?: number;
 }
 
 export function CodePreview({
@@ -157,6 +184,7 @@ export function CodePreview({
   title,
   preview,
   className,
+  maxHeight,
 }: CodePreviewProps) {
   const [copied, setCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -194,17 +222,17 @@ export function CodePreview({
           </div>
         )}
         <div className="relative">
-          <CodeHighlight code={code} language={language} />
+          <CodeHighlight code={code} language={language} maxHeight={maxHeight} />
 
           {mounted && (
             <button
               onClick={handleCopy}
               className={cn(
-                "absolute top-2 right-2 z-10",
+                "absolute bottom-2 right-2 z-10",
                 "px-3 py-1.5 rounded-lg",
-                "text-xs font-medium",
+                "text-md font-medium",
                 "bg-white/10 hover:bg-white/20",
-                "text-white/60 hover:text-white",
+                "text-white hover:text-white",
                 "transition-colors duration-200",
                 "focus:outline-none focus:ring-2 focus:ring-white/20",
                 "border border-white/10",

@@ -6,21 +6,14 @@ import { cn } from "@/utils/cn";
 import { HTMLMotionProps, Variants, motion } from "framer-motion";
 
 const cardVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    y: 0,
     transition: {
       duration: 0.3,
       ease: "easeOut",
     },
-  },
-  hover: {
-    y: -5,
-    transition: {
-      duration: 0.2,
-    },
-  },
+  }
 };
 
 interface CardProps extends Omit<HTMLMotionProps<"div">, "children"> {
@@ -35,7 +28,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
   (
     {
       variant = "elevated",
-      interactive = true,
+      interactive = false,
       fullHeight = false,
       noPadding = false,
       className = "",
@@ -50,7 +43,6 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         variants={cardVariants}
         initial="hidden"
         animate="visible"
-        whileHover={interactive ? "hover" : undefined}
         className={cn(
           "rounded-lg",
           "flex flex-col",
@@ -61,7 +53,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
             "bg-background shadow-lg border border-border/50": variant === "elevated",
             "border-2 border-border": variant === "outlined",
             "bg-background-secondary": variant === "filled",
-            "cursor-pointer transition-transform": interactive,
+            "cursor-pointer": interactive,
           },
           className
         )}
