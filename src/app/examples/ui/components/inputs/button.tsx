@@ -1,7 +1,5 @@
 "use client";
 
-import { ComponentExample } from "../types";
-import { Button } from "~/components/ui/Button";
 import {
   ArrowRight,
   Bell,
@@ -16,6 +14,10 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
+
+import { Button } from "~/components/ui/Button";
+
+import { ComponentExample } from "../types";
 
 export const buttonCode = `import { Button } from '~/components/ui/Button';
 

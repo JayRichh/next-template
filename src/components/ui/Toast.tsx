@@ -1,8 +1,10 @@
+import { AnimatePresence, motion } from "framer-motion";
+
 import { useState } from "react";
 
-import { Button } from "./Button";
 import { cn } from "~/utils/cn";
-import { AnimatePresence, motion } from "framer-motion";
+
+import { Button } from "./Button";
 
 export type ToastType = "success" | "error" | "info" | "warning";
 

@@ -1,9 +1,10 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
+
 import { useEffect, useState } from "react";
 
 import { cn } from "~/utils/cn";
-import { AnimatePresence, motion } from "framer-motion";
 
 interface Tab {
   id: string;

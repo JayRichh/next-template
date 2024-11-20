@@ -1,13 +1,5 @@
 "use client";
 
-import { useCallback, useState } from "react";
-
-import { ThreeScene } from "./ThreeScene";
-import { Button } from "~/components/ui/Button";
-import { Card } from "~/components/ui/Card";
-import { Container } from "~/components/ui/Container";
-import { Slider } from "~/components/ui/Slider";
-import { Text } from "~/components/ui/Text";
 import {
   Box,
   Camera,
@@ -19,6 +11,16 @@ import {
   RotateCcw,
   Trash,
 } from "lucide-react";
+
+import { useCallback, useState } from "react";
+
+import { Button } from "~/components/ui/Button";
+import { Card } from "~/components/ui/Card";
+import { Container } from "~/components/ui/Container";
+import { Slider } from "~/components/ui/Slider";
+import { Text } from "~/components/ui/Text";
+
+import { ThreeScene } from "./ThreeScene";
 
 function ControlSection({
   title,
@@ -138,7 +140,7 @@ export default function ThreeDemoPage() {
   return (
     <Container className="min-h-[calc(100vh-4rem)] py-6">
       <div className="h-full space-y-6">
-        <div className="space-y-1">
+        <div className="space-y-1 ">
           <Text variant="h2" className="font-semibold">
             3D Graphics
           </Text>
@@ -282,7 +284,7 @@ export default function ThreeDemoPage() {
                     size="sm"
                     variant="secondary"
                     onClick={clearObjects}
-                    className="w-full text-error hover:text-error/90"
+                    className="w-full hover:text-error/90"
                   >
                     <Trash className="h-4 w-4 mr-2" />
                     Clear Objects

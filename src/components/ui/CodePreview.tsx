@@ -1,11 +1,12 @@
 "use client";
 
+import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
+
 import { memo, useEffect, useRef, useState } from "react";
 
 import dynamic from "next/dynamic";
 
 import { cn } from "~/utils/cn";
-import type * as Monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 // Dynamically import Monaco editor with no SSR
 const Editor = dynamic(() => import("@monaco-editor/react").then((mod) => mod.default), {
@@ -100,17 +101,15 @@ const CodeHighlight = memo(({ code, language, maxHeight = 800 }: CodeHighlightPr
     updateHeight();
 
     // Handle scroll events
-    editor.onDidScrollChange((e) => {
+    editor.onDidScrollChange((_e) => {
       if (containerRef.current) {
         const scrollTop = editor.getScrollTop();
         const scrollHeight = editor.getScrollHeight();
         const clientHeight = editor.getLayoutInfo().height;
 
         // Enable parent scroll when at editor boundaries
-        containerRef.current.style.overflowY = 
-          (scrollTop <= 0 || scrollTop >= scrollHeight - clientHeight) 
-            ? 'visible' 
-            : 'hidden';
+        containerRef.current.style.overflowY =
+          scrollTop <= 0 || scrollTop >= scrollHeight - clientHeight ? "visible" : "hidden";
       }
     });
   };

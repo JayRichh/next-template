@@ -1,12 +1,17 @@
 "use client";
 
 import { Box, Component, FileCode, FormInput, Home, Palette } from "lucide-react";
+
 import { Suspense } from "react";
+
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
-import { Breadcrumb } from "./components/Breadcrumb";
+import { usePathname } from "next/navigation";
+
 import { useActiveSection } from "~/hooks/useActiveSection";
+
 import { cn } from "~/utils/cn";
+
+import { Breadcrumb } from "./components/Breadcrumb";
 
 const categories = [
   {
@@ -78,25 +83,27 @@ const categories = [
 
 function Navigation() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { section: activeSection, category: activeCategory } = useActiveSection();
 
   return (
     <nav
-      className="fixed top-16 left-0 z-30 w-64 h-[calc(100vh-4rem)] border-r bg-background flex flex-col"
+      className="fixed inset-y-0 left-0 z-30 w-64 border-r bg-background flex flex-col"
       aria-label="Examples navigation"
     >
       {/* Header */}
-      <div className="flex h-14 items-center border-b px-4 flex-shrink-0">
+      <div className="flex h-16 items-center border-b px-4 flex-shrink-0">
         <Link
           href="/examples"
           className="flex items-center space-x-2 hover:opacity-80"
           aria-label="Examples home"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg border bg-background">
-            <Component className="h-4 w-4" aria-hidden="true" />
+          <div className="flex p-0 h-7 w-7 items-center justify-center rounded-lg border bg-background">
+            <Component className="h-8 w-8" aria-hidden="true" />
           </div>
-          <span className="font-bold">Examples</span>
+          <span className="font-bold text-xl mt-4 relative group">
+            <span className="relative z-10">Examples</span>
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-current transform origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+          </span>
         </Link>
       </div>
 
@@ -156,14 +163,14 @@ function Navigation() {
 
 export default function ExamplesLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-1">
+    <div className="flex">
       {/* Sidebar */}
       <Suspense fallback={<div className="w-64" />}>
         <Navigation />
       </Suspense>
 
       {/* Main content */}
-      <div className="flex-1 pl-64">
+      <div className="flex-1 pl-64 flex flex-col">
         <div className="sticky top-16 z-20 bg-background/80 backdrop-blur-sm border-b">
           <div className="max-w-7xl mx-auto px-4 py-3">
             <Suspense fallback={<div className="h-6" />}>

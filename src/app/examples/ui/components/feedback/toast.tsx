@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 
-import { ComponentExample } from "../types";
 import { Button } from "~/components/ui/Button";
 import { Toast } from "~/components/ui/Toast";
+
+import { ComponentExample } from "../types";
 
 export const toastCode = `import { Toast } from '~/components/ui/Toast';
 import { Button } from '~/components/ui/Button';

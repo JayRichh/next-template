@@ -1,13 +1,21 @@
 "use client";
 
-import { cn } from "~/utils/cn";
 import { motion } from "framer-motion";
+
+import { CSSProperties } from "react";
+
+import { cn } from "~/utils/cn";
 
 export interface GradientBackgroundProps {
   variant?: "default" | "radial" | "spotlight" | "mesh";
   interactive?: boolean;
   className?: string;
   children?: React.ReactNode;
+}
+
+interface CustomCSSProperties extends CSSProperties {
+  "--primary-color"?: string;
+  "--accent-color"?: string;
 }
 
 export const GradientBackground = ({
@@ -47,7 +55,7 @@ export const GradientBackground = ({
         style={
           {
             "--primary-color": "hsl(var(--primary))",
-          } as any
+          } as CustomCSSProperties
         }
       />
     ),
@@ -68,7 +76,7 @@ export const GradientBackground = ({
             {
               "--primary-color": "hsl(var(--primary))",
               "--accent-color": "hsl(var(--accent))",
-            } as any
+            } as CustomCSSProperties
           }
         />
       </motion.div>

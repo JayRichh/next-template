@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { cn } from "~/utils/cn";
 import { motion } from "framer-motion";
+
+import { useEffect, useRef, useState } from "react";
+
+import { cn } from "~/utils/cn";
 
 type TooltipPosition = "top" | "right" | "bottom" | "left";
 
@@ -13,13 +15,6 @@ interface TooltipProps {
   children: React.ReactNode;
   className?: string;
 }
-
-const positionStyles: Record<TooltipPosition, string> = {
-  top: "-translate-y-full -translate-x-1/2 -mt-2",
-  right: "translate-x-2 -translate-y-1/2",
-  bottom: "translate-y-2 -translate-x-1/2",
-  left: "-translate-x-[calc(100%+8px)] -translate-y-1/2",
-};
 
 const arrowPositions: Record<TooltipPosition, string> = {
   top: "bottom-[-4px] left-1/2 -translate-x-1/2",

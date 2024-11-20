@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import { useActiveSection } from "~/hooks/useActiveSection";
+
 import { cn } from "~/utils/cn";
 
 interface BreadcrumbProps {

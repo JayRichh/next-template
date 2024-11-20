@@ -1,10 +1,12 @@
 "use client";
 
+import { Box, CircleIcon, Trash } from "lucide-react";
+
 import { useCallback, useState } from "react";
 
-import { PhysicsScene } from "../scenes/PhysicsScene";
 import { Button } from "~/components/ui/Button";
-import { Box, CircleIcon, Trash } from "lucide-react";
+
+import { PhysicsScene } from "../scenes/PhysicsScene";
 
 export function PhysicsExample() {
   const [scene, setScene] = useState<PhysicsScene | null>(null);

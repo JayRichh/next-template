@@ -1,12 +1,13 @@
 "use client";
 
+import { Moon, Sun } from "lucide-react";
+
 import { useState } from "react";
 
 import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
 import { Button } from "~/components/ui/Button";
 import { Card, CardContent } from "~/components/ui/Card";
 import { CodePreview } from "~/components/ui/CodePreview";
-import { Moon, Sun } from "lucide-react";
 
 const themeCode = `// app/globals.css
 @layer base {
@@ -185,7 +186,7 @@ function GradientExamples() {
 export default function ThemePage() {
   return (
     <ExampleContainer
-      category="theme"
+      _category="theme"
       title="Theming"
       description="Examples of theme customization, dark mode, and color system."
     >

@@ -1,7 +1,8 @@
 "use client";
 
-import { ComponentExample } from "../types";
 import { Badge } from "~/components/ui/Badge";
+
+import { ComponentExample } from "../types";
 
 export const badgeCode = `import { Badge } from '~/components/ui/Badge';
 

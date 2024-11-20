@@ -4,15 +4,17 @@ import { Suspense, useEffect } from "react";
 
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { InteractiveExample } from "./components/InteractiveExample";
-import { MaterialExample } from "./components/MaterialExample";
-import { MorphExample } from "./components/MorphExample";
-import { PhysicsExample } from "./components/PhysicsExample";
 import { ExampleContainer, ExampleSection } from "~/components/ExampleSection";
 import { Card, CardContent } from "~/components/ui/Card";
 import { CodePreview } from "~/components/ui/CodePreview";
 import { TabGroup } from "~/components/ui/TabGroup";
+
 import { useActiveSection } from "~/hooks/useActiveSection";
+
+import { InteractiveExample } from "./components/InteractiveExample";
+import { MaterialExample } from "./components/MaterialExample";
+import { MorphExample } from "./components/MorphExample";
+import { PhysicsExample } from "./components/PhysicsExample";
 
 // Code examples with proper formatting and indentation
 const materialCode = `import { useEffect, useRef } from 'react';
@@ -523,7 +525,7 @@ function ThreeExamplesContent() {
 export default function ThreeExamplesPage() {
   return (
     <ExampleContainer
-      category="3d"
+      _category="3d"
       title="3D Graphics"
       description="Interactive 3D examples demonstrating advanced graphics techniques."
     >

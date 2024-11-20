@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-import { ComponentExample } from "../types";
 import { Progress } from "~/components/ui/Progress";
+
+import { ComponentExample } from "../types";
 
 export const progressCode = `import { Progress } from '~/components/ui/Progress';
 

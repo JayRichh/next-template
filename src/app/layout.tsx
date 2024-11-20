@@ -1,18 +1,26 @@
+import { Suspense } from "react";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 
-import "./globals.css";
+import { Navigation } from "~/components/Navigation";
 import { GradientBackground } from "~/components/ui/GradientBackground";
+import { Spinner } from "~/components/ui/Spinner";
 
-// Load Geist fonts
+import "./globals.css";
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
+  preload: true,
+  display: "swap",
 });
 
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
+  preload: true,
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -20,11 +28,21 @@ export const metadata: Metadata = {
   description: "Minimal Next.js template with TypeScript, Tailwind, and Framer Motion",
 };
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/examples", label: "Examples" },
-  { href: "/three", label: "3D Demo" },
-];
+function NavigationLoading() {
+  return (
+    <div className="h-16 border-b border-border/50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+      <Spinner size="sm" variant="primary" />
+    </div>
+  );
+}
+
+function MainContentLoading() {
+  return (
+    <div className="flex-1 flex items-center justify-center min-h-[50vh]">
+      <Spinner size="lg" variant="primary" />
+    </div>
+  );
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -40,40 +58,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         {/* Navigation */}
-        <nav className="fixed top-0 w-full z-50">
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-md border-b border-border/50" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between h-16">
-              {/* Left side - Navigation links */}
-              <div className="flex items-center space-x-8">
-                {navLinks.map(({ href, label }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    className="text-base font-medium text-foreground hover:text-primary transition-colors duration-200"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-
-              {/* Right side - Additional actions */}
-              <div className="flex items-center space-x-4">
-                <a
-                  href="https://github.com/jayrichh/next-template"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-base font-medium text-foreground hover:text-primary transition-colors duration-200"
-                >
-                  GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <Suspense fallback={<NavigationLoading />}>
+          <Navigation />
+        </Suspense>
 
         {/* Main content */}
-        <div className="pt-16 flex-1 flex flex-col relative z-10">{children}</div>
+        <div className="pt-16 flex-1 flex flex-col relative z-10">
+          <Suspense fallback={<MainContentLoading />}>{children}</Suspense>
+        </div>
 
         {/* Footer */}
         <footer className="relative z-10 bg-background/80 backdrop-blur-sm border-t border-border/50">

@@ -1,7 +1,8 @@
 "use client";
 
-import { ComponentExample } from "../types";
 import { Spinner } from "~/components/ui/Spinner";
+
+import { ComponentExample } from "../types";
 
 export const spinnerCode = `import { Spinner } from '~/components/ui/Spinner';
 

@@ -150,7 +150,7 @@ export function WaterText({
             </span>
           ))}
           {wordIndex < text.split(" ").length - 1 && (
-            <span className="inline-block" style={{ width: "0.3em" }}></span>
+            <span className="inline-block" style={{ width: "0.3em" }} />
           )}
         </span>
       ))}

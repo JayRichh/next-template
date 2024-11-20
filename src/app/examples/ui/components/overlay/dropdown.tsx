@@ -1,8 +1,9 @@
 "use client";
 
-import { ComponentExample } from "../types";
 import { Button } from "~/components/ui/Button";
 import { Dropdown } from "~/components/ui/Dropdown";
+
+import { ComponentExample } from "../types";
 
 export const dropdownCode = `import { Dropdown } from '~/components/ui/Dropdown';
 import { Button } from '~/components/ui/Button';

@@ -1,12 +1,12 @@
 "use client";
 
-import { useCallback, useState } from "react";
-
 import {
   AnimationControls,
   Target,
   useAnimationControls as useFramerControls,
 } from "framer-motion";
+
+import { useCallback, useState } from "react";
 
 interface AnimationState {
   isAnimating: boolean;

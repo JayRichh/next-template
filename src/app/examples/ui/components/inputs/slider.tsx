@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 
-import { ComponentExample } from "../types";
 import { Slider } from "~/components/ui/Slider";
+
+import { ComponentExample } from "../types";
 
 export const sliderCode = `import { Slider } from '~/components/ui/Slider';
 

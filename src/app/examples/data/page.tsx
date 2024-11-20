@@ -225,7 +225,7 @@ function LocalStorageExample() {
 export default function DataExamplesPage() {
   return (
     <ExampleContainer
-      category="data"
+      _category="data"
       title="Data & Forms"
       description="Examples of form handling, data management, and state persistence."
     >

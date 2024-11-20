@@ -1,9 +1,10 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import { useEffect, useState } from "react";
 
 import { cn } from "~/utils/cn";
-import { motion } from "framer-motion";
 
 interface ProgressProps {
   value: number;

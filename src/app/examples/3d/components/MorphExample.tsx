@@ -2,8 +2,9 @@
 
 import { useCallback, useState } from "react";
 
-import { MorphScene } from "../scenes/MorphScene";
 import { Button } from "~/components/ui/Button";
+
+import { MorphScene } from "../scenes/MorphScene";
 
 const shapes = [
   { id: "sphere", label: "Sphere" },

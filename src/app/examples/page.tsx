@@ -56,7 +56,7 @@ const categories: Category[] = [
 function ExamplesContent() {
   return (
     <ExampleContainer
-      category="overview"
+      _category="overview"
       title="Examples Overview"
       description="Browse through our collection of examples showcasing various features and components."
     >

@@ -1,10 +1,29 @@
 "use client";
 
-import { ReactNode, Suspense } from "react";
+import { ReactNode, Suspense, memo, useMemo } from "react";
 
+import { Skeleton } from "~/components/ui/Skeleton";
+import { Spinner } from "~/components/ui/Spinner";
 import { Text } from "~/components/ui/Text";
+
 import { useActiveSection } from "~/hooks/useActiveSection";
+
 import { cn } from "~/utils/cn";
+
+function LoadingContent() {
+  return (
+    <div className="space-y-8">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
+        <div className="overflow-hidden xl:sticky xl:top-48 xl:self-start rounded-xl border-2 border-border/50">
+          <Skeleton variant="rectangular" height={400} animation="wave" />
+        </div>
+        <div className="min-h-[400px] rounded-xl border-2 border-border/50 flex items-center justify-center">
+          <Spinner size="lg" variant="primary" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 interface ExampleSectionProps {
   id: string;
@@ -14,7 +33,7 @@ interface ExampleSectionProps {
   children: ReactNode;
 }
 
-function ExampleSectionContent({
+const ExampleSectionContent = memo(function ExampleSectionContent({
   id,
   category,
   title,
@@ -22,7 +41,11 @@ function ExampleSectionContent({
   children,
 }: ExampleSectionProps) {
   const { section: activeSection, category: activeCategory } = useActiveSection();
-  const isActive = activeSection === id || (!activeSection && activeCategory === category);
+
+  const isActive = useMemo(
+    () => activeSection === id || (!activeSection && activeCategory === category),
+    [activeSection, activeCategory, id, category]
+  );
 
   return (
     <section
@@ -43,29 +66,27 @@ function ExampleSectionContent({
             {description}
           </Text>
         </div>
-        <div className="mt-10">{children}</div>
+        <div className="mt-10">
+          <Suspense fallback={<LoadingContent />}>{children}</Suspense>
+        </div>
       </div>
     </section>
   );
-}
+});
 
 export function ExampleSection(props: ExampleSectionProps) {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ExampleSectionContent {...props} />
-    </Suspense>
-  );
+  return <ExampleSectionContent {...props} />;
 }
 
 interface ExampleContainerProps {
-  category: string;
+  _category: string;
   title: string;
   description: string;
   children: ReactNode;
 }
 
-export function ExampleContainer({
-  category,
+export const ExampleContainer = memo(function ExampleContainer({
+  _category,
   title,
   description,
   children,
@@ -82,8 +103,17 @@ export function ExampleContainer({
           </Text>
         </div>
       </div>
-
-      <div className="flex-1 pb-12">{children}</div>
+      <div className="flex-1 pb-12">
+        <Suspense
+          fallback={
+            <div className="animate-in fade-in duration-300">
+              <LoadingContent />
+            </div>
+          }
+        >
+          {children}
+        </Suspense>
+      </div>
     </div>
   );
-}
+});

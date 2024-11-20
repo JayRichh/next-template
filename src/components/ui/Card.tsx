@@ -1,9 +1,10 @@
 "use client";
 
+import { HTMLMotionProps, Variants, motion } from "framer-motion";
+
 import { ReactNode, forwardRef } from "react";
 
 import { cn } from "~/utils/cn";
-import { HTMLMotionProps, Variants, motion } from "framer-motion";
 
 const cardVariants: Variants = {
   hidden: { opacity: 0 },
@@ -13,7 +14,7 @@ const cardVariants: Variants = {
       duration: 0.3,
       ease: "easeOut",
     },
-  }
+  },
 };
 
 interface CardProps extends Omit<HTMLMotionProps<"div">, "children"> {

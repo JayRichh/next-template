@@ -47,6 +47,7 @@ src/
 ## Features
 
 ### UI Components
+
 - Form elements with validation (react-hook-form + zod)
 - Data display (Badge, Card, Tooltip)
 - Layout (Accordion, Modal, Tabs)
@@ -54,6 +55,7 @@ src/
 - Effects (Gradient backgrounds, animations)
 
 ### Three.js Integration
+
 - Scene management with React Three Fiber
 - Physics integration (Rapier3D)
 - Material showcases
@@ -61,6 +63,7 @@ src/
 - Morph animations
 
 ### Development Tools
+
 - TypeScript configuration
 - ESLint with strict rules
 - Prettier with import sorting
@@ -72,6 +75,7 @@ src/
 ## Configuration
 
 ### Next.js
+
 - Configured for Three.js integration
 - App Router setup
 - API routes enabled
@@ -79,6 +83,7 @@ src/
 - Webpack optimizations for canvas
 
 ### Tailwind CSS
+
 - Custom color schemes with HSL variables
 - Dark mode support
 - Geist font integration
@@ -87,6 +92,7 @@ src/
 - Container queries
 
 ### TypeScript
+
 - Strict type checking
 - Path aliases configured
 - Type definitions for Three.js

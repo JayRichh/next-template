@@ -239,7 +239,7 @@ function ServerComponentExample() {
 export default function NextjsExamplesPage() {
   return (
     <ExampleContainer
-      category="nextjs"
+      _category="nextjs"
       title="Next.js Features"
       description="Examples of Next.js API routes, server components, and routing features."
     >

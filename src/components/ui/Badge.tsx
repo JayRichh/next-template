@@ -1,9 +1,10 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import * as React from "react";
 
 import { cn } from "~/utils/cn";
-import { motion } from "framer-motion";
 
 type BadgeVariant = "default" | "outline" | "solid" | "secondary";
 type BadgeColor = "primary" | "success" | "warning" | "error" | "info";

@@ -2,8 +2,9 @@
 
 import { useCallback, useState } from "react";
 
-import { InteractiveScene } from "../scenes/InteractiveScene";
 import { Slider } from "~/components/ui/Slider";
+
+import { InteractiveScene } from "../scenes/InteractiveScene";
 
 export function InteractiveExample() {
   const [scene, setScene] = useState<InteractiveScene | null>(null);
