@@ -1,6 +1,8 @@
 # Next.js Three.js Tailwind Template
 
 A modern, full-featured template for rapidly building web applications. Pre-configured with TypeScript, Three.js, Tailwind CSS, and more to eliminate boilerplate setup and get coding faster.
+
+
 ![image](https://github.com/user-attachments/assets/e912b63c-4ff3-497c-b90a-24c6766cb0e4)
 ![image](https://github.com/user-attachments/assets/717960fe-6811-4621-9f3b-e9201c2f840a)
 
