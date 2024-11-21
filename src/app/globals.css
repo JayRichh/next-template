@@ -36,81 +36,81 @@ code[class*="language-"] {
 
 @layer base {
   :root {
-    /* Base colors with refined neutrals */
+    /* Base colors with refined neutrals - Enhanced contrast */
     --background: 35 30% 98%; /* Warm white */
-    --background-secondary: 35 25% 95%; /* Soft warm gray */
-    --foreground: 35 25% 15%; /* Deep warm gray */
-    --foreground-secondary: 35 15% 35%; /* Medium warm gray */
-    --border: 35 20% 90%; /* Light warm gray */
-    --border-secondary: 35 20% 85%; /* Medium warm gray */
+    --background-secondary: 35 25% 92%; /* Darker soft warm gray for better contrast */
+    --foreground: 35 25% 10%; /* Even darker warm gray for maximum contrast */
+    --foreground-secondary: 35 15% 25%; /* Darker medium warm gray */
+    --border: 35 20% 75%; /* Higher contrast border */
+    --border-secondary: 35 20% 70%; /* Higher contrast secondary border */
 
-    /* Brand colors - warm terra */
-    --brand: 28 47% 64%;
+    /* Brand colors - warm terra with increased contrast */
+    --brand: 28 60% 45%;
 
-    /* Primary colors - warm brown */
-    --primary: 28 55% 55%;
+    /* Primary colors - high contrast warm brown */
+    --primary: 28 75% 35%;
     --primary-foreground: 35 30% 98%;
 
-    /* Accent colors - soft purple */
-    --accent: 250 45% 65%;
+    /* Accent colors - high contrast soft purple */
+    --accent: 250 65% 45%;
     --accent-foreground: 35 30% 98%;
 
-    /* Secondary colors - muted terra */
-    --secondary: 28 35% 60%;
+    /* Secondary colors - high contrast muted terra */
+    --secondary: 28 55% 40%;
     --secondary-foreground: 35 30% 98%;
 
-    /* Success colors - muted sage */
-    --success: 145 35% 45%;
+    /* Success colors - high contrast muted sage */
+    --success: 145 55% 35%;
     --success-foreground: 35 30% 98%;
 
-    /* Warning colors - warm amber */
-    --warning: 35 85% 65%;
-    --warning-foreground: 35 25% 15%;
+    /* Warning colors - high contrast warm amber */
+    --warning: 35 90% 45%;
+    --warning-foreground: 35 25% 10%;
 
-    /* Error colors - muted coral */
-    --error: 0 55% 55%;
+    /* Error colors - high contrast muted coral */
+    --error: 0 75% 40%;
     --error-foreground: 35 30% 98%;
 
-    /* Surface colors */
+    /* Surface colors with increased contrast */
     --surface: 35 30% 98%;
-    --surface-foreground: 35 25% 15%;
+    --surface-foreground: 35 25% 10%;
 
     /* Border radius */
     --radius: 0.75rem;
   }
 
   .dark {
-    /* Dark mode with deep warm tones */
-    --background: 28 25% 12%;
-    --background-secondary: 28 25% 15%;
-    --foreground: 35 15% 95%;
-    --foreground-secondary: 35 15% 75%;
-    --border: 28 20% 20%;
-    --border-secondary: 28 20% 25%;
+    /* Dark mode with enhanced contrast */
+    --background: 28 25% 8%;
+    --background-secondary: 28 25% 12%;
+    --foreground: 35 15% 98%;
+    --foreground-secondary: 35 15% 90%;
+    --border: 28 20% 30%;
+    --border-secondary: 28 20% 35%;
 
-    --brand: 28 47% 64%;
+    --brand: 28 60% 70%;
 
-    /* Adjusted dark mode colors */
-    --primary: 28 45% 65%;
-    --primary-foreground: 28 25% 12%;
+    /* Dark mode colors with enhanced contrast */
+    --primary: 28 65% 75%;
+    --primary-foreground: 28 25% 8%;
 
-    --accent: 250 35% 65%;
-    --accent-foreground: 28 25% 12%;
+    --accent: 250 55% 75%;
+    --accent-foreground: 28 25% 8%;
 
-    --secondary: 28 35% 60%;
-    --secondary-foreground: 28 25% 12%;
+    --secondary: 28 55% 70%;
+    --secondary-foreground: 28 25% 8%;
 
-    --success: 145 35% 50%;
-    --success-foreground: 28 25% 12%;
+    --success: 145 55% 60%;
+    --success-foreground: 28 25% 8%;
 
-    --warning: 35 75% 60%;
-    --warning-foreground: 28 25% 12%;
+    --warning: 35 90% 70%;
+    --warning-foreground: 28 25% 8%;
 
-    --error: 0 45% 60%;
-    --error-foreground: 28 25% 12%;
+    --error: 0 65% 70%;
+    --error-foreground: 28 25% 8%;
 
-    --surface: 28 25% 12%;
-    --surface-foreground: 35 15% 95%;
+    --surface: 28 25% 8%;
+    --surface-foreground: 35 15% 98%;
   }
 }
 
@@ -139,17 +139,17 @@ code[class*="language-"] {
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply rounded-full bg-foreground/15 transition-colors hover:bg-foreground/25;
+    @apply rounded-full bg-foreground/25 transition-colors hover:bg-foreground/35;
   }
 }
 
 @layer utilities {
   .glass {
-    @apply border border-border/30 bg-background/85 shadow-lg backdrop-blur-md backdrop-saturate-150;
+    @apply border border-border/50 bg-background/95 shadow-lg backdrop-blur-md backdrop-saturate-150;
   }
 
   .glass-hover {
-    @apply transition-all duration-200 hover:border-border/50 hover:bg-background/90 hover:shadow-xl;
+    @apply transition-all duration-200 hover:border-border/70 hover:bg-background/98 hover:shadow-xl;
   }
 
   .text-balance {
@@ -177,8 +177,8 @@ code[class*="language-"] {
     background-image: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(212, 163, 115, 0.08) 20%,
-      rgba(212, 163, 115, 0.12) 60%,
+      rgba(212, 163, 115, 0.15) 20%,
+      rgba(212, 163, 115, 0.20) 60%,
       transparent 100%
     );
     animation: shimmer 2s infinite;
@@ -215,25 +215,25 @@ code[class*="language-"] {
   }
 
   .input-range::-webkit-slider-thumb {
-    @apply h-4 w-4 appearance-none rounded-full bg-primary/85;
-    @apply hover:bg-primary/95 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
+    @apply h-4 w-4 appearance-none rounded-full bg-primary;
+    @apply hover:bg-primary/90 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
   }
 
   .input-range::-moz-range-thumb {
-    @apply h-4 w-4 appearance-none rounded-full border-0 bg-primary/85;
-    @apply hover:bg-primary/95 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
+    @apply h-4 w-4 appearance-none rounded-full border-0 bg-primary;
+    @apply hover:bg-primary/90 focus:ring-2 focus:ring-primary/50 focus:ring-offset-2;
   }
 
   .btn-primary {
-    @apply bg-primary/90 text-primary-foreground hover:bg-primary;
+    @apply bg-primary text-primary-foreground hover:bg-primary/95;
   }
 
   .btn-secondary {
-    @apply bg-background-secondary/80 text-foreground hover:bg-background-secondary;
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/95;
   }
 
   .btn-ghost {
-    @apply text-foreground hover:bg-background-secondary/60;
+    @apply text-foreground hover:bg-background-secondary/80;
   }
 }
 
@@ -249,11 +249,11 @@ code[class*="language-"] {
 .progress-striped {
   background-image: linear-gradient(
     45deg,
-    rgba(212, 163, 115, 0.15) 25%,
+    rgba(212, 163, 115, 0.25) 25%,
     transparent 25%,
     transparent 50%,
-    rgba(212, 163, 115, 0.15) 50%,
-    rgba(212, 163, 115, 0.15) 75%,
+    rgba(212, 163, 115, 0.25) 50%,
+    rgba(212, 163, 115, 0.25) 75%,
     transparent 75%,
     transparent
   );
